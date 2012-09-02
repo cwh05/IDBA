@@ -1,4 +1,4 @@
-IDBA
+Super secret project
 ====
 
-Repository for the implementation database application assignment.
+Repository for the secret project.
