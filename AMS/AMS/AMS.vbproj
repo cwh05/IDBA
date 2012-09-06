@@ -156,5 +156,11 @@
     <Resource Include="Resources\Images\organization.png" />
     <Resource Include="Resources\Images\package.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\programIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\loginDisplay.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

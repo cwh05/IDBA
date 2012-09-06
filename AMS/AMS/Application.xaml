@@ -3,6 +3,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     StartupUri="LoginWindow.xaml">
     <Application.Resources>
+        <!-- curve textbox -->
+        <ControlTemplate TargetType="{x:Type TextBox}" x:Key="TxtBoxDisplay">
+            <Border CornerRadius="6" BorderThickness="{TemplateBinding BorderThickness}" 
+                    BorderBrush="#CCCCCC">
+                <ScrollViewer x:Name="PART_ContentHost" />
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate TargetType="{x:Type PasswordBox}" x:Key="PasswordTxtBoxDisplay">
+            <Border CornerRadius="6" BorderThickness="{TemplateBinding BorderThickness}" 
+                    BorderBrush="#CCCCCC">
+                <ScrollViewer x:Name="PART_ContentHost" />
+            </Border>
+        </ControlTemplate>
+        
         
     </Application.Resources>
 </Application>
