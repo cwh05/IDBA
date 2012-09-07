@@ -4,15 +4,9 @@ Class LoginWindow : Inherits MetroWindow
 
     Private Sub btnLogin_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnLogin.Click
         'validate input textboxes
-        If txtUsername.Text.Length = 0 And txtPassword.Password.Length = 0 Then
-            errorMsg.Visibility = Windows.Visibility.Visible
-            txtUsername.Focus()
+        Dim adminWindow As New AdminWindow()
+        adminWindow.Visibility = Windows.Visibility.Visible
 
-        Else
-            'connect to database
-
-
-        End If
     End Sub
 
     Private Sub btnCancel_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnCancel.Click
