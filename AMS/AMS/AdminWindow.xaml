@@ -2,7 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    Title="Administrator" Height="500" Width="800">
+    Title="Administrator" Height="500" Width="700">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,9 +20,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
             <RowDefinition Height="55"></RowDefinition>
             <RowDefinition Height="55"></RowDefinition>
             <RowDefinition Height="55"></RowDefinition>
@@ -79,10 +83,11 @@
         <Label Grid.Column="1" Grid.Row="3" 
                HorizontalAlignment="Left" VerticalAlignment="Center" 
                FontSize="24">assign pm</Label>
-        <TabControl Name="tabContent" Grid.Column="2" Grid.RowSpan="4" Height="500">
+        <TabControl Name="tabContent" Grid.Column="2" Grid.RowSpan="8">
             <TabItem>
                 <Grid Name="gridDepartment" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -137,8 +142,12 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -152,36 +161,52 @@
                        Foreground="Red">new account</Label>
                     <Label Grid.Column="0" Grid.Row="1" 
                        HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontWeight="Bold">NAME</Label>
+                       FontWeight="Bold">USERNAME</Label>
                     <TextBox Name="txtAccountName" 
-                         Grid.Column="1" Grid.Row="1"
+                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
                          Width="250" Margin="20,5,0,5">
                     </TextBox>
                     <Label Grid.Column="0" Grid.Row="2" 
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold">PASSWORD</Label>
-                    <TextBox Name="txtPassword" 
-                         Grid.Column="1" Grid.Row="2"
+                    <PasswordBox Name="txtPassword" PasswordChar="*"
+                         Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
                          Width="250" Margin="20,5,0,5">
-                    </TextBox>
+                    </PasswordBox>
                     <Label Grid.Column="0" Grid.Row="3"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontWeight="Bold">EMAIL ADDRESS</Label>
-                    <TextBox Name="txtEmail" 
-                         Grid.Column="1" Grid.Row="3"
+                       FontWeight="Bold">FIRSTNAME</Label>
+                    <TextBox Name="txtFristname" 
+                         Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"
                          Width="250" Margin="20,5,0,5">
                     </TextBox>
                     <Label Grid.Column="0" Grid.Row="4"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                       FontWeight="Bold">LASTNAME</Label>
+                    <TextBox Name="txtLastname" 
+                         Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2"
+                         Width="250" Margin="20,5,0,5">
+                    </TextBox>
+                    <Label Grid.Column="0" Grid.Row="5"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       FontWeight="Bold">EMAIL ADDRESS</Label>
+                    <TextBox Name="txtEmail" 
+                         Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2"
+                         Width="250" Margin="20,5,0,5">
+                    </TextBox>
+                    <Label Grid.Column="0" Grid.Row="6"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold">ROLE</Label>
                     <ComboBox Name="combobox" 
-                         Grid.Column="1" Grid.Row="4"
+                         Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2"
                          Width="250" Margin="20,5,0,5">
                         <ComboBoxItem Content="Administrator" />
                         <ComboBoxItem Content="Program Manager" />
                         <ComboBoxItem Content="Staff" />
                         <ComboBoxItem Content="Student" />
                     </ComboBox>
+                    <Button Grid.Column="1" Grid.Row="7" Margin="20,50,0,0">save</Button>
+                    <Button Grid.Column="2" Grid.Row="7" Margin="0,50,0,0">cancel</Button>
                 </Grid>
             </TabItem>
         </TabControl>
