@@ -72,6 +72,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ProgramWindow.xaml.vb">
+      <DependentUpon>ProgramWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="AdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -91,6 +94,10 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ProgramWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Import Include="System.Linq" />
@@ -161,6 +168,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\loginDisplay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\worker.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -2,14 +2,13 @@
 
 Class LoginWindow : Inherits MetroWindow
 
-    Private Sub btnLogin_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnLogin.Click
+    Private Sub btnLogin_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         'validate input textboxes
         Dim adminWindow As New AdminWindow()
         adminWindow.Visibility = Windows.Visibility.Visible
-
     End Sub
 
-    Private Sub btnCancel_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnCancel.Click
+    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         Me.Close()
     End Sub
 

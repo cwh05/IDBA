@@ -31,24 +31,26 @@ Title="Academic Management System" Height="230" Width="490" ResizeMode="NoResize
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Margin="15"
- Source="Resources/Images/rmit.png" HorizontalAlignment="Left" VerticalAlignment="Center"></Image>
+               Source="Resources/Images/rmit.png" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Center"></Image>
         <Label Name="lbUsername"  Grid.Row="1" Grid.Column="1" Content="Username"></Label>
         <TextBox Name="txtUsername" 
-	Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" 
-	Width="250" Margin="5" 
-	HorizontalAlignment="Left" 
-	VerticalAlignment="Top" 
-	Controls:TextboxHelper.Watermark="someone@example.com"
-	Controls:TextboxHelper.ClearTextButton="True"></TextBox>
+	        Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" 
+	        Width="250" Margin="5" 
+	        HorizontalAlignment="Left" 
+	        VerticalAlignment="Top" 
+	        Controls:TextboxHelper.Watermark="someone@example.com"
+	        Controls:TextboxHelper.ClearTextButton="True"></TextBox>
         <Label Name="lbPassword" Grid.Row="3" Grid.Column="1">Password</Label>
         <TextBox Name="txtPassword" 
-	Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" 
-	Width="250" Margin="5" 
-	HorizontalAlignment="Left" 
-	VerticalAlignment="Top"
-	Controls:TextboxHelper.Watermark="Password"
-	Controls:TextboxHelper.ClearTextButton="True"></TextBox>
+	        Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" 
+	        Width="250" Margin="5" 
+	        HorizontalAlignment="Left" 
+	        VerticalAlignment="Top"
+	        Controls:TextboxHelper.Watermark="Password"
+	        Controls:TextboxHelper.ClearTextButton="True"></TextBox>
         <Button Name="btnLogin" Grid.Row="5" Grid.Column="1" Margin="10" Click="btnLogin_Click">login</Button>
-        <Button Name="btnCancel" Grid.Row="5" Grid.Column="2" Margin="10">cancel</Button>
+        <Button Name="btnCancel" Grid.Row="5" Grid.Column="2" Margin="10" Click="btnCancel_Click" >cancel</Button>
     </Grid>
 </Controls:MetroWindow>
