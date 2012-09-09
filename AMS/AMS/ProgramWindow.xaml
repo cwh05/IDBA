@@ -2,14 +2,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    Title="Program Manager" Height="Auto" Width="Auto">
+    Title="Program Manager" Height="Auto" Width="Auto" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Red.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
@@ -36,7 +36,7 @@
                 Grid.Column="0" Grid.Row="0" Width="55" Height="55" 
                 HorizontalAlignment="Center" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnProgramInfo_Click">
+                Click="btnMenu_Click">
             <Image Source="Resources/Images/package.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
@@ -49,7 +49,7 @@
                 Grid.Column="0" Grid.Row="1" Width="55" Height="55"
                 HorizontalAlignment="Left" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnAssignCourse_Click">
+                Click="btnMenu_Click">
             <Image Source="Resources/Images/worker.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
@@ -62,7 +62,7 @@
                 Grid.Column="0" Grid.Row="2" Width="55" Height="55"
                 HorizontalAlignment="Left" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnViewProgramEnrolment_Click">
+                Click="btnMenu_Click">
             <Image Source="Resources/Images/group.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
@@ -75,7 +75,7 @@
                 Grid.Column="0" Grid.Row="3" Width="55" Height="55"
                 HorizontalAlignment="Left" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnViewCourseEnrolment_Click">
+                Click="btnMenu_Click">
             <Image Source="Resources/Images/group.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 

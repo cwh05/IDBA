@@ -36,7 +36,7 @@
                 Grid.Column="0" Grid.Row="0" Width="55" Height="55" 
                 HorizontalAlignment="Center" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnCreateDepartment_Click">
+                Click="btnMenu_Click">
             <Image Source="Resources/Images/organization.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
@@ -49,7 +49,7 @@
                 Grid.Column="0" Grid.Row="1" Width="55" Height="55"
                 HorizontalAlignment="Left" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnCreateProgram_Click">
+                Click="btnMenu_Click">
             <Image Source="Resources/Images/package.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
@@ -62,7 +62,7 @@
                 Grid.Column="0" Grid.Row="2" Width="55" Height="55"
                 HorizontalAlignment="Left" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnCreateAccount_Click">
+                Click="btnMenu_Click">
             <Image Source="Resources/Images/add_user.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
