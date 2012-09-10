@@ -148,6 +148,12 @@ CREATE TABLE dbo.StudentCourse
    CONSTRAINT fk_Course FOREIGN KEY(CourseID) REFERENCES Course(CourseID)
 );
 
+CREATE TABLE dbo.EmployeeDepartment
+(
+   DepartmentID INT NOT NULL FOREIGN KEY REFERENCES Department(DepartmentID),
+   EmployeeID INT NOT NULL FOREIGN KEY REFERENCES Employee(EmployeeID) ON DELETE CASCADE
+);
+
 /*
 -- Table for storing average score in a particular course
 CREATE TABLE dbo.CourseScore
@@ -607,6 +613,11 @@ AS
          RAISERROR('Failed to update',16,1)
       END CATCH
    END
+GO
+
+CREATE PROCEDURE GetAllCourse
+AS
+   SELECT * FROM Course
 GO
 
 
