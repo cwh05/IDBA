@@ -104,6 +104,7 @@ CREATE TABLE dbo.Course
    CourseID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
    CourseName NVARCHAR(200) NOT NULL,
    CourseCode NVARCHAR(60) NOT NULL,
+   CourseDescription NVARCHAR(MAX) NULL,
    StaffID INT NULL,
    CreatedDate SMALLDATETIME NOT NULL,
    ModifiedDate SMALLDATETIME NOT NULL    -- ModifiedDate = CreatedDate for the first time
