@@ -103,7 +103,7 @@ CREATE TABLE dbo.Course
 (
    CourseID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
    CourseName NVARCHAR(200) NOT NULL,
-   CourseCode NVARCHAR(60) NOT NULL,
+   CourseCode NVARCHAR(60) NOT NULL UNIQUE,
    CourseDescription NVARCHAR(MAX) NULL,
    StaffID INT NULL,
    CreatedDate SMALLDATETIME NOT NULL,
@@ -576,48 +576,41 @@ CREATE PROCEDURE UpdateStudentProfile
    @CountryCode NVARCHAR(5),
    @ContactNumber NVARCHAR(15),
    @Email NVARCHAR(255),
+   @StudentID INT
+AS
+   BEGIN
+      UPDATE Student SET StudentFirstName = @FirstName, StudentLastName = @LastName,
+         Gender = @Gender, DateOfBirth = @DOB, Address1 = @Address1,
+         Address2 = @Address2, City = @City, PostCode = @PostCode,
+         StateProvince = @StateProvince, CountryCode = @CountryCode,
+         ContactNumber = @ContactNumber, Email = @Email
+         WHERE StudentID = @StudentID
+   END
+GO
+
+CREATE PROCEDURE UpdateUserPassword
    @StudentUsername NVARCHAR(100),
    @OldPassword NVARCHAR(255),
    @NewPassword NVARCHAR(255)
 AS
-   DECLARE @aid INT
-
    BEGIN
-      SET @aid = (SELECT AccountID FROM Account WHERE LoginUsername = @StudentUsername)
+      UPDATE Account SET LoginPassword = @NewPassword
+         WHERE LoginUsername = @StudentUsername AND LoginPassword = @OldPassword
 
-      BEGIN TRY
-         BEGIN TRANSACTION T1
-
-         UPDATE Student SET StudentFirstName = @FirstName, StudentLastName = @LastName,
-               Gender = @Gender, DateOfBirth = @DOB, Address1 = @Address1,
-               Address2 = @Address2, City = @City, PostCode = @PostCode,
-               StateProvince = @StateProvince, CountryCode = @CountryCode,
-               ContactNumber = @ContactNumber, Email = @Email
-               WHERE AccountID = @aid
-
-         -- update account password
-         IF @NewPassword IS NOT NULL
-            BEGIN
-               UPDATE Account SET LoginPassword = @NewPassword
-                  WHERE AccountID = @aid AND LoginPassword = @OldPassword
-
-               IF @@ROWCOUNT = 0
-                  RAISERROR('Fail to update new password', 16,1)
-            END
-
-         COMMIT TRANSACTION T1
-      END TRY
-      BEGIN CATCH
-         -- rollback if exception occurs
-         ROLLBACK TRANSACTION T1
-         RAISERROR('Failed to update',16,1)
-      END CATCH
+      IF @@ROWCOUNT = 0
+         RAISERROR('Incorrect old password', 16,1)
    END
 GO
 
 CREATE PROCEDURE GetAllCourse
 AS
    SELECT * FROM Course
+GO
+
+CREATE PROCEDURE GetStudentEnrollment
+   @studentID INT
+AS
+   SELECT * FROM Enrollment WHERE StudentID = @studentID ORDER BY CourseID
 GO
 
 
@@ -631,6 +624,13 @@ GO
 SET NOCOUNT ON
 USE AMS_DATABASE;
 GO
+
+IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'EmployeeDepartment'))
+BEGIN
+   DROP TABLE dbo.EmployeeDepartment
+   PRINT 'Table EmployeeDepartment deleted.'
+END
+
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'StudentCourse'))
 BEGIN
@@ -761,6 +761,32 @@ BEGIN
    PRINT 'Stored procedure UpdateStudentProfile deleted.'
 END
 GO
+
+IF (OBJECT_ID('UpdateUserPassword') IS NOT NULL)
+BEGIN
+   DROP PROCEDURE UpdateUserPassword
+   PRINT 'Stored procedure UpdateUserPassword deleted.'
+END
+GO
+
+IF (OBJECT_ID('GetAllCourse') IS NOT NULL)
+BEGIN
+   DROP PROCEDURE GetAllCourse
+   PRINT 'Stored procedure GetAllCourse deleted.'
+END
+GO
+
+IF (OBJECT_ID('GetStudentEnrollment') IS NOT NULL)
+BEGIN
+   DROP PROCEDURE GetStudentEnrollment
+   PRINT 'Stored procedure GetStudentEnrollment deleted.'
+END
+GO
+
+
+
+
+
 
 
 USE master
