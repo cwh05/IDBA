@@ -74,7 +74,8 @@
         <Button Name="btnAssignPM"
                 Grid.Column="0" Grid.Row="3" Width="55" Height="55"
                 HorizontalAlignment="Left" 
-                Style="{DynamicResource MetroCircleButtonStyle}">
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Click="btnMenu_Click">
             <Image Source="Resources/Images/manager.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
@@ -83,6 +84,7 @@
         <Label Grid.Column="1" Grid.Row="3" 
                HorizontalAlignment="Left" VerticalAlignment="Center" 
                FontSize="24">assign pm</Label>
+        
         <TabControl Name="tabContent" Grid.Column="2" Grid.RowSpan="8">
             <TabItem>
                 <Grid Name="gridDepartment" Margin="20,-35,20,0">
@@ -97,7 +99,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
                        Margin="0,0,0,20"
                        FontWeight="Normal" 
                        FontSize="45"
@@ -106,9 +108,11 @@
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold">NAME</Label>
                     <TextBox Name="txtDepartmentName" 
-                         Grid.Column="1" Grid.Row="1"
+                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
                          Width="250" Margin="20,0,0,0">
                     </TextBox>
+                    <Button Grid.Column="1" Grid.Row="3" Margin="20,20,0,0" Click="btnSaveDepartment">save</Button>
+                    <Button Grid.Column="2" Grid.Row="3" Margin="0,20,0,0">cancel</Button>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -116,8 +120,11 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -132,9 +139,18 @@
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold">NAME</Label>
                     <TextBox Name="txtProgramName" 
-                         Grid.Column="1" Grid.Row="1"
-                         Width="250" Margin="20,0,0,0">
+                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
+                         Width="250" Margin="20,5,0,5">
                     </TextBox>
+                    <Label Grid.Column="0" Grid.Row="2" 
+                       HorizontalAlignment="Left" VerticalAlignment="Top"
+                       FontWeight="Bold">DESCRIPTION</Label>
+                    <TextBox Name="txtProgramDescription" 
+                         Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"
+                         Width="250" Height="150" Margin="20,5,0,5">
+                    </TextBox>
+                    <Button Grid.Column="1" Grid.Row="5" Margin="20,20,0,0">save</Button>
+                    <Button Grid.Column="2" Grid.Row="5" Margin="0,20,0,0">cancel</Button>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -169,7 +185,7 @@
                     <Label Grid.Column="0" Grid.Row="2" 
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold">PASSWORD</Label>
-                    <PasswordBox Name="txtPassword" PasswordChar="*"
+                    <PasswordBox Name="txtPassword"
                          Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
                          Width="250" Margin="20,5,0,5">
                     </PasswordBox>
@@ -205,8 +221,57 @@
                         <ComboBoxItem Content="Staff" />
                         <ComboBoxItem Content="Student" />
                     </ComboBox>
-                    <Button Grid.Column="1" Grid.Row="7" Margin="20,50,0,0">save</Button>
-                    <Button Grid.Column="2" Grid.Row="7" Margin="0,50,0,0">cancel</Button>
+                    <Button Grid.Column="1" Grid.Row="7" Margin="20,20,0,0">save</Button>
+                    <Button Grid.Column="2" Grid.Row="7" Margin="0,20,0,0">cancel</Button>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <Grid Name="gridAssignPM" Margin="20,-35,20,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                       Margin="0,0,0,20"
+                       FontWeight="Normal" 
+                       FontSize="45"
+                       Foreground="Red">assgin pm</Label>
+                    <Label Grid.Column="0" Grid.Row="1" 
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       FontWeight="Bold">STAFF</Label>
+                    <ComboBox Name="comboboxStaff" 
+                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
+                         Width="250" Margin="20,5,0,5">
+                        <ComboBoxItem Content="Someone 0" />
+                        <ComboBoxItem Content="Someone 1" />
+                    </ComboBox>
+                    <!--<Image Source="Resources/Images/worker.png" 
+                           Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                           Margin="20,5,0,5"></Image>-->
+                    <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       FontWeight="Bold" Margin="100,5,0,5" Opacity="0.4">ASSIGN TO</Label>
+                    <Label Grid.Column="0" Grid.Row="3" 
+                       HorizontalAlignment="Left" VerticalAlignment="Top"
+                       FontWeight="Bold">PROGRAM</Label>
+                    <ComboBox Name="comboboxProgram" 
+                         Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3"
+                         Width="250" Margin="20,5,0,5">
+                        <ComboBoxItem Content="Computer Science" />
+                        <ComboBoxItem Content="Information Technology" />
+                        <ComboBoxItem Content="Software Engineering" />
+                    </ComboBox>
+                    <Button Grid.Column="1" Grid.Row="5" Margin="20,20,0,0">save</Button>
+                    <Button Grid.Column="2" Grid.Row="5" Margin="0,20,0,0">cancel</Button>
                 </Grid>
             </TabItem>
         </TabControl>

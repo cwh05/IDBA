@@ -40,16 +40,14 @@ Title="Academic Management System" Height="230" Width="490" ResizeMode="NoResize
 	        Width="250" Margin="5" 
 	        HorizontalAlignment="Left" 
 	        VerticalAlignment="Top" 
-	        Controls:TextboxHelper.Watermark="someone@example.com"
-	        Controls:TextboxHelper.ClearTextButton="True"></TextBox>
+	        Controls:TextboxHelper.Watermark="someone@example.com"></TextBox>
         <Label Name="lbPassword" Grid.Row="3" Grid.Column="1">Password</Label>
-        <TextBox Name="txtPassword" 
+        <PasswordBox Name="txtPassword" 
 	        Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" 
 	        Width="250" Margin="5" 
 	        HorizontalAlignment="Left" 
 	        VerticalAlignment="Top"
-	        Controls:TextboxHelper.Watermark="Password"
-	        Controls:TextboxHelper.ClearTextButton="True"></TextBox>
+	        Controls:TextboxHelper.Watermark="Password"></PasswordBox>
         <Button Name="btnLogin" Grid.Row="5" Grid.Column="1" Margin="10" Click="btnLogin_Click">login</Button>
         <Button Name="btnCancel" Grid.Row="5" Grid.Column="2" Margin="10" Click="btnCancel_Click" >cancel</Button>
     </Grid>

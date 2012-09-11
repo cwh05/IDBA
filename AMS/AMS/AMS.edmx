@@ -1,0 +1,942 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Model.Store.Account" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Country" EntityType="Model.Store.Country" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Course" EntityType="Model.Store.Course" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Department" EntityType="Model.Store.Department" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Employee" EntityType="Model.Store.Employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EmployeeDepartment" EntityType="Model.Store.EmployeeDepartment" store:Type="Tables" store:Schema="dbo" store:Name="EmployeeDepartment">
+            <DefiningQuery>SELECT 
+      [EmployeeDepartment].[DepartmentID] AS [DepartmentID], 
+      [EmployeeDepartment].[EmployeeID] AS [EmployeeID]
+      FROM [dbo].[EmployeeDepartment] AS [EmployeeDepartment]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EmployeeRole" EntityType="Model.Store.EmployeeRole" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Program" EntityType="Model.Store.Program" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RoleCategory" EntityType="Model.Store.RoleCategory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Student" EntityType="Model.Store.Student" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="StudentCourse" EntityType="Model.Store.StudentCourse" store:Type="Tables" store:Schema="dbo" store:Name="StudentCourse">
+            <DefiningQuery>SELECT 
+      [StudentCourse].[StudentID] AS [StudentID], 
+      [StudentCourse].[CourseID] AS [CourseID], 
+      [StudentCourse].[Marks] AS [Marks], 
+      [StudentCourse].[CreatedDate] AS [CreatedDate]
+      FROM [dbo].[StudentCourse] AS [StudentCourse]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sysdiagrams" EntityType="Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Enrollment" EntityType="Model.Store.Enrollment" store:Type="Views" store:Schema="dbo" store:Name="Enrollment">
+            <DefiningQuery>SELECT 
+      [Enrollment].[StudentID] AS [StudentID], 
+      [Enrollment].[StudentFirstName] AS [StudentFirstName], 
+      [Enrollment].[StudentLastName] AS [StudentLastName], 
+      [Enrollment].[Email] AS [Email], 
+      [Enrollment].[CourseID] AS [CourseID], 
+      [Enrollment].[CourseName] AS [CourseName], 
+      [Enrollment].[CourseCode] AS [CourseCode], 
+      [Enrollment].[Marks] AS [Marks]
+      FROM [dbo].[Enrollment] AS [Enrollment]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__EmployeeD__Depar__2D27B809" Association="Model.Store.FK__EmployeeD__Depar__2D27B809">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="EmployeeDepartment" EntitySet="EmployeeDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeD__Emplo__2E1BDC42" Association="Model.Store.FK__EmployeeD__Emplo__2E1BDC42">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeDepartment" EntitySet="EmployeeDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Course" Association="Model.Store.fk_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="StudentCourse" EntitySet="StudentCourse" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employee" Association="Model.Store.fk_employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Program" EntitySet="Program" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmployeeAccount" Association="Model.Store.fk_EmployeeAccount">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EmployeeCountry" Association="Model.Store.fk_EmployeeCountry">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RoleCategory" Association="Model.Store.fk_RoleCategory">
+            <End Role="RoleCategory" EntitySet="RoleCategory" />
+            <End Role="EmployeeRole" EntitySet="EmployeeRole" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Staff" Association="Model.Store.fk_Staff">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Student" Association="Model.Store.fk_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentCourse" EntitySet="StudentCourse" />
+          </AssociationSet>
+          <AssociationSet Name="fk_StudentAccount" Association="Model.Store.fk_StudentAccount">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="fk_StudentCountry" Association="Model.Store.fk_StudentCountry">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LoginUsername" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="LoginPassword" Type="nvarchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryCode" />
+          </Key>
+          <Property Name="CountryCode" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="CountryTitle" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="CourseCode" Type="nvarchar" Nullable="false" MaxLength="60" />
+          <Property Name="CourseDescription" Type="nvarchar(max)" />
+          <Property Name="StaffID" Type="int" />
+          <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeFirstName" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="EmployeeLastName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Gender" Type="bit" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="PostCode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="StateProvince" Type="nvarchar" Nullable="false" MaxLength="80" />
+          <Property Name="CountryCode" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="ContactNumber" Type="nvarchar" Nullable="false" MaxLength="15" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="AccountID" Type="int" />
+          <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AMS_DATABASE.dbo.EmployeeDepartment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="EmployeeDepartment">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeRole">
+          <Key>
+            <PropertyRef Name="EmployeeRoleID" />
+          </Key>
+          <Property Name="EmployeeRoleID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="ProgramDescription" Type="nvarchar(max)" />
+          <Property Name="ManagerID" Type="int" />
+          <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleCategory">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="tinyint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleTitle" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StudentFirstName" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="StudentLastName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Gender" Type="bit" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="PostCode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="StateProvince" Type="nvarchar" Nullable="false" MaxLength="80" />
+          <Property Name="CountryCode" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="ContactNumber" Type="nvarchar" Nullable="false" MaxLength="15" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="AccountID" Type="int" />
+          <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AMS_DATABASE.dbo.StudentCourse' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="StudentCourse">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CreatedDate" />
+          </Key>
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="Marks" Type="float" />
+          <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AMS_DATABASE.dbo.Enrollment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="StudentFirstName" />
+            <PropertyRef Name="StudentLastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CourseName" />
+            <PropertyRef Name="CourseCode" />
+          </Key>
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="StudentFirstName" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="StudentLastName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="CourseCode" Type="nvarchar" Nullable="false" MaxLength="60" />
+          <Property Name="Marks" Type="float" />
+        </EntityType>
+        <Association Name="FK__EmployeeD__Depar__2D27B809">
+          <End Role="Department" Type="Model.Store.Department" Multiplicity="1" />
+          <End Role="EmployeeDepartment" Type="Model.Store.EmployeeDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="EmployeeDepartment">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeD__Emplo__2E1BDC42">
+          <End Role="Employee" Type="Model.Store.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeDepartment" Type="Model.Store.EmployeeDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EmployeeDepartment">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Course">
+          <End Role="Course" Type="Model.Store.Course" Multiplicity="1" />
+          <End Role="StudentCourse" Type="Model.Store.StudentCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="StudentCourse">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employee">
+          <End Role="Employee" Type="Model.Store.Employee" Multiplicity="0..1" />
+          <End Role="Program" Type="Model.Store.Program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Program">
+              <PropertyRef Name="ManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmployeeAccount">
+          <End Role="Account" Type="Model.Store.Account" Multiplicity="0..1" />
+          <End Role="Employee" Type="Model.Store.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EmployeeCountry">
+          <End Role="Country" Type="Model.Store.Country" Multiplicity="1" />
+          <End Role="Employee" Type="Model.Store.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RoleCategory">
+          <End Role="RoleCategory" Type="Model.Store.RoleCategory" Multiplicity="1" />
+          <End Role="EmployeeRole" Type="Model.Store.EmployeeRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleCategory">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="EmployeeRole">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Staff">
+          <End Role="Employee" Type="Model.Store.Employee" Multiplicity="0..1" />
+          <End Role="Course" Type="Model.Store.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="StaffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Student">
+          <End Role="Student" Type="Model.Store.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudentCourse" Type="Model.Store.StudentCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="StudentCourse">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_StudentAccount">
+          <End Role="Account" Type="Model.Store.Account" Multiplicity="0..1" />
+          <End Role="Student" Type="Model.Store.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_StudentCountry">
+          <End Role="Country" Type="Model.Store.Country" Multiplicity="1" />
+          <End Role="Student" Type="Model.Store.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetAllCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetUserPersonalDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentUsername" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="LoginVerification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="AMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Countries" EntityType="Model.Country" />
+          <EntitySet Name="Courses" EntityType="Model.Course" />
+          <EntitySet Name="Departments" EntityType="Model.Department" />
+          <EntitySet Name="Employees" EntityType="Model.Employee" />
+          <EntitySet Name="EmployeeRoles" EntityType="Model.EmployeeRole" />
+          <EntitySet Name="Programs" EntityType="Model.Program" />
+          <EntitySet Name="RoleCategories" EntityType="Model.RoleCategory" />
+          <EntitySet Name="Students" EntityType="Model.Student" />
+          <EntitySet Name="StudentCourses" EntityType="Model.StudentCourse" />
+          <EntitySet Name="sysdiagrams" EntityType="Model.sysdiagram" />
+          <EntitySet Name="Enrollments" EntityType="Model.Enrollment" />
+          <AssociationSet Name="fk_EmployeeCountry" Association="Model.fk_EmployeeCountry">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="fk_StudentCountry" Association="Model.fk_StudentCountry">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Course" Association="Model.fk_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="StudentCourse" EntitySet="StudentCourses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Staff" Association="Model.fk_Staff">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employee" Association="Model.fk_employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Program" EntitySet="Programs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RoleCategory" Association="Model.fk_RoleCategory">
+            <End Role="RoleCategory" EntitySet="RoleCategories" />
+            <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Student" Association="Model.fk_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="StudentCourse" EntitySet="StudentCourses" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeDepartment" Association="Model.EmployeeDepartment">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <EntitySet Name="Accounts" EntityType="Model.Account" />
+          <AssociationSet Name="fk_EmployeeAccount" Association="Model.fk_EmployeeAccount">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="fk_StudentAccount" Association="Model.fk_StudentAccount">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryCode" />
+          </Key>
+          <Property Name="CountryCode" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="false" />
+          <Property Name="CountryTitle" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Employees" Relationship="Model.fk_EmployeeCountry" FromRole="Country" ToRole="Employee" />
+          <NavigationProperty Name="Students" Relationship="Model.fk_StudentCountry" FromRole="Country" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="CourseCode" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
+          <Property Name="CourseDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="StaffID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="StudentCourses" Relationship="Model.fk_Course" FromRole="Course" ToRole="StudentCourse" />
+          <NavigationProperty Name="Employee" Relationship="Model.fk_Staff" FromRole="Course" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Model.EmployeeDepartment" FromRole="Department" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeFirstName" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+          <Property Name="EmployeeLastName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" />
+          <Property Name="Address1" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="PostCode" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="StateProvince" Type="String" Nullable="false" MaxLength="80" Unicode="true" FixedLength="false" />
+          <Property Name="CountryCode" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="false" />
+          <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="15" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="AccountID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Model.fk_EmployeeCountry" FromRole="Employee" ToRole="Country" />
+          <NavigationProperty Name="Courses" Relationship="Model.fk_Staff" FromRole="Employee" ToRole="Course" />
+          <NavigationProperty Name="Programs" Relationship="Model.fk_employee" FromRole="Employee" ToRole="Program" />
+          <NavigationProperty Name="Departments" Relationship="Model.EmployeeDepartment" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="Account" Relationship="Model.fk_EmployeeAccount" FromRole="Employee" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="EmployeeRole">
+          <Key>
+            <PropertyRef Name="EmployeeRoleID" />
+          </Key>
+          <Property Name="EmployeeRoleID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="RoleCategory" Relationship="Model.fk_RoleCategory" FromRole="EmployeeRole" ToRole="RoleCategory" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ProgramDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ManagerID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Model.fk_employee" FromRole="Program" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="RoleCategory">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleTitle" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="EmployeeRoles" Relationship="Model.fk_RoleCategory" FromRole="RoleCategory" ToRole="EmployeeRole" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentFirstName" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+          <Property Name="StudentLastName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" />
+          <Property Name="Address1" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="PostCode" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="StateProvince" Type="String" Nullable="false" MaxLength="80" Unicode="true" FixedLength="false" />
+          <Property Name="CountryCode" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="false" />
+          <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="15" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="AccountID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Model.fk_StudentCountry" FromRole="Student" ToRole="Country" />
+          <NavigationProperty Name="StudentCourses" Relationship="Model.fk_Student" FromRole="Student" ToRole="StudentCourse" />
+          <NavigationProperty Name="Account" Relationship="Model.fk_StudentAccount" FromRole="Student" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="StudentCourse">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CreatedDate" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="Marks" Type="Double" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="Model.fk_Course" FromRole="StudentCourse" ToRole="Course" />
+          <NavigationProperty Name="Student" Relationship="Model.fk_Student" FromRole="StudentCourse" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="StudentFirstName" />
+            <PropertyRef Name="StudentLastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CourseName" />
+            <PropertyRef Name="CourseCode" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="StudentFirstName" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+          <Property Name="StudentLastName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="CourseCode" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
+          <Property Name="Marks" Type="Double" />
+        </EntityType>
+        <Association Name="fk_EmployeeCountry">
+          <End Role="Country" Type="Model.Country" Multiplicity="1" />
+          <End Role="Employee" Type="Model.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_StudentCountry">
+          <End Role="Country" Type="Model.Country" Multiplicity="1" />
+          <End Role="Student" Type="Model.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Course">
+          <End Role="Course" Type="Model.Course" Multiplicity="1" />
+          <End Role="StudentCourse" Type="Model.StudentCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="StudentCourse">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Staff">
+          <End Role="Employee" Type="Model.Employee" Multiplicity="0..1" />
+          <End Role="Course" Type="Model.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="StaffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employee">
+          <End Role="Employee" Type="Model.Employee" Multiplicity="0..1" />
+          <End Role="Program" Type="Model.Program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Program">
+              <PropertyRef Name="ManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RoleCategory">
+          <End Role="RoleCategory" Type="Model.RoleCategory" Multiplicity="1" />
+          <End Role="EmployeeRole" Type="Model.EmployeeRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleCategory">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="EmployeeRole">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Student">
+          <End Role="Student" Type="Model.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudentCourse" Type="Model.StudentCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="StudentCourse">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmployeeDepartment">
+          <End Role="Department" Type="Model.Department" Multiplicity="*" />
+          <End Role="Employee" Type="Model.Employee" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Type="Int32" Name="AccountID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="LoginUsername" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoginPassword" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="Model.fk_EmployeeAccount" FromRole="Account" ToRole="Employee" />
+          <NavigationProperty Name="Students" Relationship="Model.fk_StudentAccount" FromRole="Account" ToRole="Student" />
+        </EntityType>
+        <Association Name="fk_EmployeeAccount">
+          <End Type="Model.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="Model.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_StudentAccount">
+          <End Type="Model.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="Model.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="AMSEntities">
+          <EntitySetMapping Name="Countries"><EntityTypeMapping TypeName="Model.Country"><MappingFragment StoreEntitySet="Country">
+            <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+            <ScalarProperty Name="CountryTitle" ColumnName="CountryTitle" />
+          </MappingFragment></EntityTypeMapping>
+            </EntitySetMapping>
+          <EntitySetMapping Name="Courses"><EntityTypeMapping TypeName="Model.Course"><MappingFragment StoreEntitySet="Course">
+            <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+            <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+            <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+            <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+            <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+            <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Departments"><EntityTypeMapping TypeName="Model.Department"><MappingFragment StoreEntitySet="Department">
+            <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+            <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+            <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Employees"><EntityTypeMapping TypeName="Model.Employee"><MappingFragment StoreEntitySet="Employee">
+            <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+            <ScalarProperty Name="EmployeeFirstName" ColumnName="EmployeeFirstName" />
+            <ScalarProperty Name="EmployeeLastName" ColumnName="EmployeeLastName" />
+            <ScalarProperty Name="Gender" ColumnName="Gender" />
+            <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+            <ScalarProperty Name="Address1" ColumnName="Address1" />
+            <ScalarProperty Name="Address2" ColumnName="Address2" />
+            <ScalarProperty Name="City" ColumnName="City" />
+            <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+            <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+            <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+            <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+            <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="EmployeeRoles"><EntityTypeMapping TypeName="Model.EmployeeRole"><MappingFragment StoreEntitySet="EmployeeRole">
+            <ScalarProperty Name="EmployeeRoleID" ColumnName="EmployeeRoleID" />
+            <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Programs"><EntityTypeMapping TypeName="Model.Program"><MappingFragment StoreEntitySet="Program">
+            <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+            <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
+            <ScalarProperty Name="ProgramDescription" ColumnName="ProgramDescription" />
+            <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+            <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="RoleCategories"><EntityTypeMapping TypeName="Model.RoleCategory"><MappingFragment StoreEntitySet="RoleCategory">
+            <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+            <ScalarProperty Name="RoleTitle" ColumnName="RoleTitle" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Students"><EntityTypeMapping TypeName="Model.Student"><MappingFragment StoreEntitySet="Student">
+            <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+            <ScalarProperty Name="StudentFirstName" ColumnName="StudentFirstName" />
+            <ScalarProperty Name="StudentLastName" ColumnName="StudentLastName" />
+            <ScalarProperty Name="Gender" ColumnName="Gender" />
+            <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+            <ScalarProperty Name="Address1" ColumnName="Address1" />
+            <ScalarProperty Name="Address2" ColumnName="Address2" />
+            <ScalarProperty Name="City" ColumnName="City" />
+            <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+            <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+            <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+            <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+            <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="StudentCourses"><EntityTypeMapping TypeName="Model.StudentCourse"><MappingFragment StoreEntitySet="StudentCourse">
+            <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+            <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+            <ScalarProperty Name="Marks" ColumnName="Marks" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="Model.sysdiagram"><MappingFragment StoreEntitySet="sysdiagrams">
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+            <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+            <ScalarProperty Name="version" ColumnName="version" />
+            <ScalarProperty Name="definition" ColumnName="definition" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Enrollments"><EntityTypeMapping TypeName="Model.Enrollment"><MappingFragment StoreEntitySet="Enrollment">
+            <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+            <ScalarProperty Name="StudentFirstName" ColumnName="StudentFirstName" />
+            <ScalarProperty Name="StudentLastName" ColumnName="StudentLastName" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+            <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+            <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+            <ScalarProperty Name="Marks" ColumnName="Marks" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="EmployeeDepartment" TypeName="Model.EmployeeDepartment" StoreEntitySet="EmployeeDepartment">
+            <EndProperty Name="Department">
+              <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+            </EndProperty>
+            <EndProperty Name="Employee">
+              <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="Model.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="LoginPassword" ColumnName="LoginPassword" />
+                <ScalarProperty Name="LoginUsername" ColumnName="LoginUsername" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="AMS">
+        <EntityTypeShape EntityType="Model.Country" Width="1.5" PointX="0.75" PointY="2.75" Height="1.7879850260416657" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Course" Width="1.5" PointX="5.25" PointY="1.125" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Department" Width="1.5" PointX="0.75" PointY="9.25" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Employee" Width="1.5" PointX="3" PointY="4.5" Height="5.057109375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EmployeeRole" Width="1.5" PointX="10" PointY="1" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Program" Width="1.5" PointX="5.25" PointY="10.625" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RoleCategory" Width="1.5" PointX="7.75" PointY="0.875" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Student" Width="1.5" PointX="6" PointY="4.75" Height="4.6725065104166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.StudentCourse" Width="1.5" PointX="8.25" PointY="4.125" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="8.75" PointY="7.75" Height="1.9802864583333353" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Enrollment" Width="1.5" PointX="10.75" PointY="3.75" Height="2.5571907552083317" IsExpanded="true" />
+        <AssociationConnector Association="Model.fk_EmployeeCountry" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="3.437370546875" />
+          <ConnectorPoint PointX="3.75" PointY="3.437370546875" />
+          <ConnectorPoint PointX="3.75" PointY="4.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.fk_StudentCountry" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.18724609375" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="4.1872460937499989" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="4.18724609375" />
+          <ConnectorPoint PointX="5.510416666666667" PointY="4.1872460937499989" />
+          <ConnectorPoint PointX="5.677083333333333" PointY="4.18724609375" />
+          <ConnectorPoint PointX="7.15625" PointY="4.18724609375" />
+          <ConnectorPoint PointX="7.15625" PointY="4.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.fk_Course" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="3.2999886067708335" />
+          <ConnectorPoint PointX="9.53125" PointY="3.2999886067708335" />
+          <ConnectorPoint PointX="9.53125" PointY="4.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.fk_Staff" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="4.59375" />
+          <ConnectorPoint PointX="5.59375" PointY="4.59375" />
+          <ConnectorPoint PointX="5.59375" PointY="3.8744921874999996" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.fk_employee" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.92187375" PointY="9.557109375" />
+          <ConnectorPoint PointX="3.92187375" PointY="11.807444661458334" />
+          <ConnectorPoint PointX="5.25" PointY="11.807444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.fk_RoleCategory" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.25" PointY="1.7978417968749998" />
+          <ConnectorPoint PointX="10" PointY="1.7978417968749998" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.fk_Student" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="5.5237939453125" />
+          <ConnectorPoint PointX="8.25" PointY="5.5237939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.EmployeeDepartment" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="9.4035546875" />
+          <ConnectorPoint PointX="3" PointY="9.4035546875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.Account" Width="1.5" PointX="7.375" PointY="10.875" Height="1.9802864583333388" />
+        <AssociationConnector Association="Model.fk_EmployeeAccount" >
+          <ConnectorPoint PointX="7.375" PointY="11.865143229166669" />
+          <ConnectorPoint PointX="7" PointY="11.865143229166669" />
+          <ConnectorPoint PointX="7" PointY="10.375" />
+          <ConnectorPoint PointX="4.0052070833333335" PointY="10.375" />
+          <ConnectorPoint PointX="3.8385404166666666" PointY="10.375" />
+          <ConnectorPoint PointX="3.4296848750000004" PointY="10.375" />
+          <ConnectorPoint PointX="3.4296848750000004" PointY="9.557109375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.fk_StudentAccount" >
+          <ConnectorPoint PointX="7.8750025" PointY="10.875" />
+          <ConnectorPoint PointX="7.8750025" PointY="7.0237939453125" />
+          <ConnectorPoint PointX="7.5" PointY="7.0237939453125" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
