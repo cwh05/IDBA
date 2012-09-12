@@ -464,6 +464,30 @@
             <End Role="Department" EntitySet="Departments" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
+          <FunctionImport Name="GetAllCountry" ReturnType="Collection(Model.GetAllCountry_Result)" />
+          <FunctionImport Name="GetUserPersonalDetail" ReturnType="Collection(Model.GetUserPersonalDetail_Result)">
+            <Parameter Name="StudentUsername" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateStudentProfile">
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="Boolean" />
+            <Parameter Name="DOB" Mode="In" Type="DateTime" />
+            <Parameter Name="Address1" Mode="In" Type="String" />
+            <Parameter Name="Address2" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="PostCode" Mode="In" Type="String" />
+            <Parameter Name="StateProvince" Mode="In" Type="String" />
+            <Parameter Name="CountryCode" Mode="In" Type="String" />
+            <Parameter Name="ContactNumber" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="StudentID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateUserPassword">
+            <Parameter Name="StudentUsername" Mode="In" Type="String" />
+            <Parameter Name="OldPassword" Mode="In" Type="String" />
+            <Parameter Name="NewPassword" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -730,6 +754,24 @@
           <End Type="Model.Department" Role="Department" Multiplicity="*" />
           <End Type="Model.Employee" Role="Employee" Multiplicity="*" />
         </Association>
+        <ComplexType Name="GetUserPersonalDetail_Result">
+          <Property Type="String" Name="StudentFirstName" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="StudentLastName" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="Gender" Nullable="false" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="false" />
+          <Property Type="String" Name="Address1" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="PostCode" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="StateProvince" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="ContactNumber" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="CountryCode" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="GetAllCountry_Result">
+          <Property Type="String" Name="CountryCode" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="CountryTitle" Nullable="false" MaxLength="100" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -744,6 +786,15 @@
                 <ScalarProperty Name="LoginUsername" ColumnName="LoginUsername" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
               </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Model.Account">
+              <ModificationFunctionMapping>
+                <UpdateFunction FunctionName="Model.Store.UpdateUserPassword" >
+                  <ScalarProperty Name="LoginPassword" ParameterName="NewPassword" Version="Current" />
+                  <ScalarProperty Name="LoginPassword" ParameterName="OldPassword" Version="Current" />
+                  <ScalarProperty Name="LoginUsername" ParameterName="StudentUsername" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Countries">
@@ -848,6 +899,25 @@
                 <ScalarProperty Name="StudentID" ColumnName="StudentID" />
               </MappingFragment>
             </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Model.Student">
+              <ModificationFunctionMapping>
+                <UpdateFunction FunctionName="Model.Store.UpdateStudentProfile">
+                  <ScalarProperty Name="DateOfBirth" ParameterName="DOB" Version="Current" />
+                  <ScalarProperty Name="StudentLastName" ParameterName="LastName" Version="Current" />
+                  <ScalarProperty Name="StudentFirstName" ParameterName="FirstName" Version="Current" />
+                  <ScalarProperty Name="StudentID" ParameterName="StudentID" Version="Current" />
+                  <ScalarProperty Name="Email" ParameterName="Email" Version="Current" />
+                  <ScalarProperty Name="ContactNumber" ParameterName="ContactNumber" Version="Current" />
+                  <ScalarProperty Name="CountryCode" ParameterName="CountryCode" Version="Current" />
+                  <ScalarProperty Name="StateProvince" ParameterName="StateProvince" Version="Current" />
+                  <ScalarProperty Name="PostCode" ParameterName="PostCode" Version="Current" />
+                  <ScalarProperty Name="City" ParameterName="City" Version="Current" />
+                  <ScalarProperty Name="Address2" ParameterName="Address2" Version="Current" />
+                  <ScalarProperty Name="Address1" ParameterName="Address1" Version="Current" />
+                  <ScalarProperty Name="Gender" ParameterName="Gender" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StudentCourses">
             <EntityTypeMapping TypeName="Model.StudentCourse">
@@ -881,6 +951,34 @@
               <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCountry" FunctionName="Model.Store.GetAllCountry">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetAllCountry_Result">
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryTitle" ColumnName="CountryTitle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUserPersonalDetail" FunctionName="Model.Store.GetUserPersonalDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetUserPersonalDetail_Result">
+                <ScalarProperty Name="StudentFirstName" ColumnName="StudentFirstName" />
+                <ScalarProperty Name="StudentLastName" ColumnName="StudentLastName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateStudentProfile" FunctionName="Model.Store.UpdateStudentProfile" />
+          <FunctionImportMapping FunctionImportName="UpdateUserPassword" FunctionName="Model.Store.UpdateUserPassword" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -23,6 +23,8 @@ Class LoginWindow : Inherits MetroWindow
 
                 '    ElseIf forwardTo = 2 Then
                 '        'Program Manager
+                '        Dim window As New ProgramWindow
+                '        window.Show()
 
                 '    ElseIf forwardTo = 3 Then
                 '        'Staff
@@ -38,10 +40,16 @@ Class LoginWindow : Inherits MetroWindow
                 '    Me.Close()
                 'End If
 
+                '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
                 Dim window As New AdminWindow
                 window.Show()
-                'window = New StudentWindow(txtUsername.Text)
-                'window.Show()
+                Dim window1 = New ProgramWindow()
+                window1.Show()
+                Dim window3 = New StudentWindow(txtUsername.Text)
+                window3.Show()
+                Me.Finalize()
+                Me.Close()
+                '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
 
             Catch ex As Exception
                 FailToLogin()
