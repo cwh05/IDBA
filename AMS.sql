@@ -540,7 +540,7 @@ AS
                SET @RS = 0; --Invalid username/password
          END
       ELSE
-         RAISERROR('Invalid username/password',16,1)
+         SET @RS = 0; --Invalid username/password
       SELECT "Result" = @RS
    END
 GO
