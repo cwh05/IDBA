@@ -66,7 +66,7 @@
                     VerticalAlignment="Top" Width="441" Grid.RowSpan="5" BorderThickness="0" >
             <TabItem IsHitTestVisible="False"/>
             <TabItem IsHitTestVisible="False">
-                <Grid Margin="0,-16,0,0" Width="420" Height="450">
+                <Grid Margin="0,-16,0,0" Width="420" Height="auto" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="80"/>
@@ -76,30 +76,31 @@
                         <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
 
-                    <ListBox Name="listboxControl"  Width="420" Height="452" HorizontalAlignment="Left" Grid.ColumnSpan="2" VerticalContentAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding}" Grid.RowSpan="2">
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0" />
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-
-                                <!--<StackPanel Grid.Column="1">
-                                <StackPanel Orientation="Horizontal" >
-                                    <TextBlock Text="{Binding CourseCode}" />
-                                    <Label Content=": " />
-                                    <TextBlock Text="{Binding CourseName}" />
-                                </StackPanel>
-                                <TextBlock Text="{Binding CourseDescription}" />
-                            </StackPanel>-->
-
-
-                            </Grid>
-                        </DataTemplate>
+                    <ListBox Name="listboxControl" Width="420" Height="452" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0"
+                             VerticalContentAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0" />
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                
+                                    <StackPanel Grid.Column="1">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBlock Text="{Binding CourseCode}" FontSize="13" />
+                                            <TextBlock Text=": " FontSize="13" />
+                                            <TextBlock Text="{Binding CourseName}" FontSize="13" />
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding CourseDescription}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                     <Button Name="btnEnrol" Grid.Row="1" Grid.Column="1" Content="Enrol" HorizontalAlignment="Right"
-                            Height="28" Padding="0" Width="70" Click="btnEnrol_Click"/>
+                            Height="30" Padding="0" Width="70" Click="btnEnrol_Click"/>
                 </Grid>
 
                 <!--<DataGrid AutoGenerateColumns="False" Name="courseDataGrid" CanUserReorderColumns="False" Margin="0,-16,0,0" 

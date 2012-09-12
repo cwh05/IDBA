@@ -1,5 +1,6 @@
 ﻿Imports MahApps.Metro.Controls
 Imports System.Data.Objects
+Imports System.Data
 
 
 Public Class StudentWindow
@@ -19,13 +20,19 @@ Public Class StudentWindow
         'select empty tab
         StudentTabControl.SelectedIndex = 0
 
-        'access to entity model to retrieve all Country data
-        countryCombo.ItemsSource = controller.GetAllCountry()
-
     End Sub
 
     Private Sub btnEnrolCourse_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnEnrolCourse.Click
         StudentTabControl.SelectedIndex = 1
+
+        Try
+            listboxControl.ItemsSource = controller.GetAllCourse()
+        Catch ex As Exception
+            MsgBox(ex.Message) '''''''''''''''''''''''''''''''''''''''''''''
+        End Try
+
+
+
 
         'If dt Is Nothing = False Then
         '    dt.Clear()
@@ -93,6 +100,9 @@ Public Class StudentWindow
     Private Sub btnUpdateProfile_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnUpdateProfile.Click
         'forward to profile tab
         StudentTabControl.SelectedIndex = 4
+
+        'access to entity model to retrieve all Country data
+        countryCombo.ItemsSource = controller.GetAllCountry() '''''''''''''''''''''
 
         'display edit button & disable all textboxes
         btnEdit.Visibility = Windows.Visibility.Visible

@@ -111,6 +111,7 @@
           <Property Name="StaffID" Type="int" />
           <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="CourseDescription" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -466,7 +467,7 @@
           </AssociationSet>
           <FunctionImport Name="GetAllCountry" ReturnType="Collection(Model.GetAllCountry_Result)" />
           <FunctionImport Name="GetUserPersonalDetail" ReturnType="Collection(Model.GetUserPersonalDetail_Result)">
-            <Parameter Name="StudentUsername" Mode="In" Type="String" />
+          <Parameter Name="StudentUsername" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="UpdateStudentProfile">
             <Parameter Name="FirstName" Mode="In" Type="String" />
@@ -488,6 +489,7 @@
             <Parameter Name="OldPassword" Mode="In" Type="String" />
             <Parameter Name="NewPassword" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetAllCourse" ReturnType="Collection(Model.GetAllCourse_Result)" />
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -520,6 +522,7 @@
           <Property Type="DateTime" Name="ModifiedDate" Nullable="false" />
           <NavigationProperty Name="StudentCourses" Relationship="Model.fk_Course" FromRole="Course" ToRole="StudentCourse" />
           <NavigationProperty Name="Employee" Relationship="Model.fk_Staff" FromRole="Course" ToRole="Employee" />
+          <Property Type="String" Name="CourseDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -772,6 +775,15 @@
           <Property Type="String" Name="CountryCode" Nullable="false" MaxLength="5" />
           <Property Type="String" Name="CountryTitle" Nullable="false" MaxLength="100" />
         </ComplexType>
+        <ComplexType Name="GetAllCourse_Result">
+          <Property Type="Int32" Name="CourseID" Nullable="false" />
+          <Property Type="String" Name="CourseName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CourseCode" Nullable="false" MaxLength="60" />
+          <Property Type="Int32" Name="StaffID" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="16" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="16" />
+          <Property Type="String" Name="CourseDescription" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -808,6 +820,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="Model.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="StaffID" ColumnName="StaffID" />
@@ -979,6 +992,19 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="UpdateStudentProfile" FunctionName="Model.Store.UpdateStudentProfile" />
           <FunctionImportMapping FunctionImportName="UpdateUserPassword" FunctionName="Model.Store.UpdateUserPassword" />
+          <FunctionImportMapping FunctionImportName="GetAllCourse" FunctionName="Model.Store.GetAllCourse">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetAllCourse_Result">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
