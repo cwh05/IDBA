@@ -235,4 +235,7 @@ Public Class StudentWindow
 
 
 
+    Private Sub btnEnrol_Click(sender As System.Object, e As System.Windows.RoutedEventArgs)
+
+    End Sub
 End Class

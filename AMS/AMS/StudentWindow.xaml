@@ -65,8 +65,43 @@
         <TabControl Grid.Column="2" Height="525" HorizontalAlignment="Left" Name="StudentTabControl" 
                     VerticalAlignment="Top" Width="441" Grid.RowSpan="5" BorderThickness="0" >
             <TabItem IsHitTestVisible="False"/>
-
             <TabItem IsHitTestVisible="False">
+                <Grid Margin="0,-16,0,0" Width="420" Height="450">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <ListBox Name="listboxControl"  Width="420" Height="452" HorizontalAlignment="Left" Grid.ColumnSpan="2" VerticalContentAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding}" Grid.RowSpan="2">
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0" />
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <!--<StackPanel Grid.Column="1">
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock Text="{Binding CourseCode}" />
+                                    <Label Content=": " />
+                                    <TextBlock Text="{Binding CourseName}" />
+                                </StackPanel>
+                                <TextBlock Text="{Binding CourseDescription}" />
+                            </StackPanel>-->
+
+
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox>
+                    <Button Name="btnEnrol" Grid.Row="1" Grid.Column="1" Content="Enrol" HorizontalAlignment="Right"
+                            Height="28" Padding="0" Width="70" Click="btnEnrol_Click"/>
+                </Grid>
+
                 <!--<DataGrid AutoGenerateColumns="False" Name="courseDataGrid" CanUserReorderColumns="False" Margin="0,-16,0,0" 
                           IsReadOnly="True" SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" RowHeaderWidth="0"
                           Height="500" VerticalAlignment="Top">
@@ -95,7 +130,7 @@
                         </Style>
                     </DataGrid.RowStyle>
                 </DataGrid>-->
-
+            
 
             </TabItem>
 
