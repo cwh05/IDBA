@@ -165,9 +165,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\rmit.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Images\add_user.png" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +182,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\worker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\programIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\loginDisplay.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

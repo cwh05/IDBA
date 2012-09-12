@@ -16,8 +16,10 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("e6fac70d-fbd0-4fc6-b035-d77fa5b51a68")>
+<Assembly: EdmSchemaAttribute("d98500ad-c585-4a85-8ccb-2d7d39a00f52")>
 #Region "EDM Relationship Metadata"
+<Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
+<Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeCountry", "Country", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Country), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentCountry", "Country", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Country), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_Course", "Course", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Course), "StudentCourse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(StudentCourse), True)>
@@ -26,8 +28,6 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("Model", "fk_RoleCategory", "RoleCategory", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(RoleCategory), "EmployeeRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(EmployeeRole), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_Student", "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Student), "StudentCourse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(StudentCourse), True)>
 <Assembly: EdmRelationshipAttribute("Model", "EmployeeDepartment", "Department", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Department), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee))>
-<Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
-<Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
 
 #End Region
 
@@ -78,6 +78,20 @@ Public Partial Class AMSEntities
     #End Region
 
     #Region "ObjectSet Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    Public ReadOnly Property Accounts() As ObjectSet(Of Account)
+        Get
+            If (_Accounts Is Nothing) Then
+                _Accounts = MyBase.CreateObjectSet(Of Account)("Accounts")
+            End If
+            Return _Accounts
+        End Get
+    End Property
+
+    Private _Accounts As ObjectSet(Of Account)
 
     ''' <summary>
     ''' No Metadata Documentation available.
@@ -208,20 +222,6 @@ Public Partial Class AMSEntities
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    Public ReadOnly Property sysdiagrams() As ObjectSet(Of sysdiagram)
-        Get
-            If (_sysdiagrams Is Nothing) Then
-                _sysdiagrams = MyBase.CreateObjectSet(Of sysdiagram)("sysdiagrams")
-            End If
-            Return _sysdiagrams
-        End Get
-    End Property
-
-    Private _sysdiagrams As ObjectSet(Of sysdiagram)
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
     Public ReadOnly Property Enrollments() As ObjectSet(Of Enrollment)
         Get
             If (_Enrollments Is Nothing) Then
@@ -233,22 +233,15 @@ Public Partial Class AMSEntities
 
     Private _Enrollments As ObjectSet(Of Enrollment)
 
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    Public ReadOnly Property Accounts() As ObjectSet(Of Account)
-        Get
-            If (_Accounts Is Nothing) Then
-                _Accounts = MyBase.CreateObjectSet(Of Account)("Accounts")
-            End If
-            Return _Accounts
-        End Get
-    End Property
-
-    Private _Accounts As ObjectSet(Of Account)
-
     #End Region
     #Region "AddTo Methods"
+
+    ''' <summary>
+    ''' Deprecated Method for adding a new object to the Accounts EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+    ''' </summary>
+    Public Sub AddToAccounts(ByVal account As Account)
+        MyBase.AddObject("Accounts", account)
+    End Sub
 
     ''' <summary>
     ''' Deprecated Method for adding a new object to the Countries EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
@@ -314,25 +307,38 @@ Public Partial Class AMSEntities
     End Sub
 
     ''' <summary>
-    ''' Deprecated Method for adding a new object to the sysdiagrams EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
-    ''' </summary>
-    Public Sub AddTosysdiagrams(ByVal sysdiagram As sysdiagram)
-        MyBase.AddObject("sysdiagrams", sysdiagram)
-    End Sub
-
-    ''' <summary>
     ''' Deprecated Method for adding a new object to the Enrollments EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
     ''' </summary>
     Public Sub AddToEnrollments(ByVal enrollment As Enrollment)
         MyBase.AddObject("Enrollments", enrollment)
     End Sub
 
+    #End Region
+    #Region "Function Imports"
+
     ''' <summary>
-    ''' Deprecated Method for adding a new object to the Accounts EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+    ''' No Metadata Documentation available.
     ''' </summary>
-    Public Sub AddToAccounts(ByVal account As Account)
-        MyBase.AddObject("Accounts", account)
-    End Sub
+    ''' <param name="username">No Metadata Documentation available.</param>
+    ''' <param name="password">No Metadata Documentation available.</param>
+    Public Function LoginVerification(username As Global.System.String, password As Global.System.String) As ObjectResult(Of Nullable(Of Global.System.Byte))
+        Dim usernameParameter As ObjectParameter
+        If (username IsNot Nothing)
+            usernameParameter = New ObjectParameter("username", username)
+        Else
+            usernameParameter = New ObjectParameter("username", GetType(Global.System.String))
+        End If
+
+        Dim passwordParameter As ObjectParameter
+        If (password IsNot Nothing)
+            passwordParameter = New ObjectParameter("password", password)
+        Else
+            passwordParameter = New ObjectParameter("password", GetType(Global.System.String))
+        End If
+
+        Return MyBase.ExecuteFunction(Of Nullable(Of Global.System.Byte))("LoginVerification", usernameParameter, passwordParameter)
+
+    End Function
 
     #End Region
 End Class
@@ -711,31 +717,6 @@ Public Partial Class Course
     End Sub
 
     Private Partial Sub OnCourseCodeChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
-    <DataMemberAttribute()>
-    Public Property CourseDescription() As Global.System.String
-        Get
-            Return _CourseDescription
-        End Get
-        Set
-            OnCourseDescriptionChanging(value)
-            ReportPropertyChanging("CourseDescription")
-            _CourseDescription = StructuralObject.SetValidValue(value, true)
-            ReportPropertyChanged("CourseDescription")
-            OnCourseDescriptionChanged()
-        End Set
-    End Property
-
-    Private _CourseDescription As Global.System.String
-    Private Partial Sub OnCourseDescriptionChanging(value As Global.System.String)
-    End Sub
-
-    Private Partial Sub OnCourseDescriptionChanged()
     End Sub
 
     ''' <summary>
@@ -1483,6 +1464,37 @@ Public Partial Class Employee
     <XmlIgnoreAttribute()>
     <SoapIgnoreAttribute()>
     <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("Model", "fk_EmployeeAccount", "Account")>
+    Public Property Account() As Account
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_EmployeeAccount", "Account").Value
+        End Get
+        Set
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_EmployeeAccount", "Account").Value = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <BrowsableAttribute(False)>
+    <DataMemberAttribute()>
+    Public Property AccountReference() As EntityReference(Of Account)
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_EmployeeAccount", "Account")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Account)("Model.fk_EmployeeAccount", "Account", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
     <EdmRelationshipNavigationPropertyAttribute("Model", "fk_EmployeeCountry", "Country")>
     Public Property Country() As Country
         Get
@@ -1558,37 +1570,6 @@ Public Partial Class Employee
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Department)("Model.EmployeeDepartment", "Department", value)
-            End If
-        End Set
-    End Property
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <XmlIgnoreAttribute()>
-    <SoapIgnoreAttribute()>
-    <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("Model", "fk_EmployeeAccount", "Account")>
-    Public Property Account() As Account
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_EmployeeAccount", "Account").Value
-        End Get
-        Set
-            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_EmployeeAccount", "Account").Value = value
-        End Set
-    End Property
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <BrowsableAttribute(False)>
-    <DataMemberAttribute()>
-    Public Property AccountReference() As EntityReference(Of Account)
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_EmployeeAccount", "Account")
-        End Get
-        Set
-            If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Account)("Model.fk_EmployeeAccount", "Account", value)
             End If
         End Set
     End Property
@@ -2768,6 +2749,37 @@ Public Partial Class Student
     <XmlIgnoreAttribute()>
     <SoapIgnoreAttribute()>
     <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("Model", "fk_StudentAccount", "Account")>
+    Public Property Account() As Account
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_StudentAccount", "Account").Value
+        End Get
+        Set
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_StudentAccount", "Account").Value = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <BrowsableAttribute(False)>
+    <DataMemberAttribute()>
+    Public Property AccountReference() As EntityReference(Of Account)
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_StudentAccount", "Account")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Account)("Model.fk_StudentAccount", "Account", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
     <EdmRelationshipNavigationPropertyAttribute("Model", "fk_StudentCountry", "Country")>
     Public Property Country() As Country
         Get
@@ -2807,37 +2819,6 @@ Public Partial Class Student
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of StudentCourse)("Model.fk_Student", "StudentCourse", value)
-            End If
-        End Set
-    End Property
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <XmlIgnoreAttribute()>
-    <SoapIgnoreAttribute()>
-    <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("Model", "fk_StudentAccount", "Account")>
-    Public Property Account() As Account
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_StudentAccount", "Account").Value
-        End Get
-        Set
-            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_StudentAccount", "Account").Value = value
-        End Set
-    End Property
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <BrowsableAttribute(False)>
-    <DataMemberAttribute()>
-    Public Property AccountReference() As EntityReference(Of Account)
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Account)("Model.fk_StudentAccount", "Account")
-        End Get
-        Set
-            If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Account)("Model.fk_StudentAccount", "Account", value)
             End If
         End Set
     End Property
@@ -3042,163 +3023,6 @@ Public Partial Class StudentCourse
             End If
         End Set
     End Property
-
-    #End Region
-End Class
-
-''' <summary>
-''' No Metadata Documentation available.
-''' </summary>
-<EdmEntityTypeAttribute(NamespaceName:="Model", Name:="sysdiagram")>
-<Serializable()>
-<DataContractAttribute(IsReference:=True)>
-Public Partial Class sysdiagram
-    Inherits EntityObject
-    #Region "Factory Method"
-
-    ''' <summary>
-    ''' Create a new sysdiagram object.
-    ''' </summary>
-    ''' <param name="name">Initial value of the name property.</param>
-    ''' <param name="principal_id">Initial value of the principal_id property.</param>
-    ''' <param name="diagram_id">Initial value of the diagram_id property.</param>
-    Public Shared Function Createsysdiagram(name As Global.System.String, principal_id As Global.System.Int32, diagram_id As Global.System.Int32) As sysdiagram
-        Dim sysdiagram as sysdiagram = New sysdiagram
-        sysdiagram.name = name
-        sysdiagram.principal_id = principal_id
-        sysdiagram.diagram_id = diagram_id
-        Return sysdiagram
-    End Function
-
-    #End Region
-    #Region "Primitive Properties"
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property name() As Global.System.String
-        Get
-            Return _name
-        End Get
-        Set
-            OnnameChanging(value)
-            ReportPropertyChanging("name")
-            _name = StructuralObject.SetValidValue(value, false)
-            ReportPropertyChanged("name")
-            OnnameChanged()
-        End Set
-    End Property
-
-    Private _name As Global.System.String
-    Private Partial Sub OnnameChanging(value As Global.System.String)
-    End Sub
-
-    Private Partial Sub OnnameChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property principal_id() As Global.System.Int32
-        Get
-            Return _principal_id
-        End Get
-        Set
-            Onprincipal_idChanging(value)
-            ReportPropertyChanging("principal_id")
-            _principal_id = StructuralObject.SetValidValue(value)
-            ReportPropertyChanged("principal_id")
-            Onprincipal_idChanged()
-        End Set
-    End Property
-
-    Private _principal_id As Global.System.Int32
-    Private Partial Sub Onprincipal_idChanging(value As Global.System.Int32)
-    End Sub
-
-    Private Partial Sub Onprincipal_idChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property diagram_id() As Global.System.Int32
-        Get
-            Return _diagram_id
-        End Get
-        Set
-            If (_diagram_id <> Value) Then
-                Ondiagram_idChanging(value)
-                ReportPropertyChanging("diagram_id")
-                _diagram_id = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("diagram_id")
-                Ondiagram_idChanged()
-            End If
-        End Set
-    End Property
-
-    Private _diagram_id As Global.System.Int32
-    Private Partial Sub Ondiagram_idChanging(value As Global.System.Int32)
-    End Sub
-
-    Private Partial Sub Ondiagram_idChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
-    <DataMemberAttribute()>
-    Public Property version() As Nullable(Of Global.System.Int32)
-        Get
-            Return _version
-        End Get
-        Set
-            OnversionChanging(value)
-            ReportPropertyChanging("version")
-            _version = StructuralObject.SetValidValue(value)
-            ReportPropertyChanged("version")
-            OnversionChanged()
-        End Set
-    End Property
-
-    Private _version As Nullable(Of Global.System.Int32)
-    Private Partial Sub OnversionChanging(value As Nullable(Of Global.System.Int32))
-    End Sub
-
-    Private Partial Sub OnversionChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
-    <DataMemberAttribute()>
-    Public Property definition() As Global.System.Byte()
-        Get
-                Return StructuralObject.GetValidValue(_definition)
-        End Get
-        Set
-            OndefinitionChanging(value)
-            ReportPropertyChanging("definition")
-            _definition = StructuralObject.SetValidValue(value, true)
-            ReportPropertyChanged("definition")
-            OndefinitionChanged()
-        End Set
-    End Property
-
-    Private _definition As Global.System.Byte()
-    Private Partial Sub OndefinitionChanging(value As Global.System.Byte())
-    End Sub
-
-    Private Partial Sub OndefinitionChanged()
-    End Sub
 
     #End Region
 End Class

@@ -1,23 +1,80 @@
 ﻿Imports MahApps.Metro.Controls
 
 Class LoginWindow : Inherits MetroWindow
+    Private controller As LoginWindowContoller = New LoginWindowContoller()
 
-    Dim loginWindowController As LoginWindowContoller = New LoginWindowContoller()
-
-    Private Sub btnLogin_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+    Private Sub btnLogin_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnLogin.Click
         'validate input textboxes
-        If (loginWindowController.UserVerification(txtUsername.Text, txtPassword.Password)) Then
-            Dim adminWindow As New AdminWindow()
-            adminWindow.Visibility = Windows.Visibility.Visible
-            Me.Close()
+        If txtUsername.Text.Length = 0 And txtPassword.Password.Length = 0 Then
+            FailToLogin()
+
+        Else
+            Try
+                Dim forwardTo As Byte = controller.UserVerification(txtUsername.Text, txtPassword.Password)
+
+                ''forward to corresponding page
+                'If forwardTo = 0 Then
+                '    FailToLogin()
+                'Else
+                '    If forwardTo = 1 Then
+                '        'Administrator
+                '        Dim window As New AdminWindow
+                '        window.Show()
+
+                '    ElseIf forwardTo = 2 Then
+                '        'Program Manager
+
+                '    ElseIf forwardTo = 3 Then
+                '        'Staff
+
+                '    ElseIf forwardTo = 4 Then
+                '        'Student
+                '        'Dim window As New StudentWindow(txtUsername.Text)
+                '        'window.Show()
+
+                '    End If
+
+                '    Me.Finalize()
+                '    Me.Close()
+                'End If
+
+                Dim window As New AdminWindow
+                window.Show()
+                'window = New StudentWindow(txtUsername.Text)
+                'window.Show()
+
+            Catch ex As Exception
+                FailToLogin()
+            End Try
         End If
+
     End Sub
 
-    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+    Private Sub btnCancel_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
     Private Sub MetroWindow_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
+        txtUsername.Focus()
+    End Sub
+
+
+    ''' <summary>
+    ''' This function clears 2 textboxes' content 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub RestoreDefault()
+        txtUsername.Text = String.Empty
+        txtPassword.Password = String.Empty
+    End Sub
+
+    ''' <summary>
+    ''' This function displays error message and sets focus on textbox
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub FailToLogin()
+        RestoreDefault()
+        errorMsg.Visibility = Windows.Visibility.Visible
         txtUsername.Focus()
     End Sub
 End Class
