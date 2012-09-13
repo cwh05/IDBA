@@ -207,12 +207,16 @@ PRINT 'View created...'
 GO
 
 -- Trigger: Student enrols 1 course
-CREATE TRIGGER InsertStudentCourse ON Enrollment
-   INSTEAD OF INSERT
+CREATE TRIGGER InsertDeleteStudentCourse ON Enrollment
+   INSTEAD OF INSERT, DELETE
 AS
    BEGIN
-      INSERT INTO StudentCourse(StudentID, CourseID)
-         SELECT StudentID, CourseID FROM INSERTED
+      IF EXISTS(SELECT * FROM DELETED)
+         DELETE FROM StudentCourse WHERE StudentID = (SELECT StudentID FROM DELETED) 
+            AND CourseID = (SELECT CourseID FROM DELETED)
+      ELSE
+         INSERT INTO StudentCourse(StudentID, CourseID)
+            SELECT StudentID, CourseID FROM INSERTED
    END
 GO
 
@@ -619,6 +623,11 @@ AS
    INSERT INTO Enrollment(StudentID, CourseID) VALUES(@STUDENTID, @COURSEID)
 GO
 
+CREATE PROCEDURE RemoveStudentCourse
+   @STUDENTID INT, @COURSEID INT
+AS
+   delete Enrollment where StudentID=@STUDENTID and CourseID=@COURSEID
+GO
 
 
 
@@ -721,10 +730,10 @@ BEGIN
 END
 GO
 
-IF (OBJECT_ID('InsertStudentCourse') IS NOT NULL)
+IF (OBJECT_ID('InsertDeleteStudentCourse') IS NOT NULL)
 BEGIN
-   DROP TRIGGER InsertStudentCourse
-   PRINT 'Trigger InsertStudentCourse deleted.'
+   DROP TRIGGER InsertDeleteStudentCourse
+   PRINT 'Trigger InsertDeleteStudentCourse deleted.'
 END
 GO
 
@@ -798,6 +807,12 @@ BEGIN
 END
 GO
 
+IF (OBJECT_ID('RemoveStudentCourse') IS NOT NULL)
+BEGIN
+   DROP PROCEDURE RemoveStudentCourse
+   PRINT 'Stored procedure RemoveStudentCourse deleted.'
+END
+GO
 
 
 

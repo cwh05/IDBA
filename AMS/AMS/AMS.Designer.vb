@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("4448c872-1399-49cd-a3b3-da63fefa3c19")>
+<Assembly: EdmSchemaAttribute("c48883fb-62bb-4a71-bb34-7629aa56a001")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -529,6 +529,54 @@ Public Partial Class AMSEntities
         End If
 
         Return MyBase.ExecuteFunction(Of GetStudentEnrollment_Result)("GetStudentEnrollment", studentIDParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="sTUDENTID">No Metadata Documentation available.</param>
+    ''' <param name="cOURSEID">No Metadata Documentation available.</param>
+    Public Function EnrolStudentCourse(sTUDENTID As Nullable(Of Global.System.Int32), cOURSEID As Nullable(Of Global.System.Int32)) As Integer
+        Dim sTUDENTIDParameter As ObjectParameter
+        If (sTUDENTID.HasValue)
+            sTUDENTIDParameter = New ObjectParameter("STUDENTID", sTUDENTID)
+        Else
+            sTUDENTIDParameter = New ObjectParameter("STUDENTID", GetType(Global.System.Int32))
+        End If
+
+        Dim cOURSEIDParameter As ObjectParameter
+        If (cOURSEID.HasValue)
+            cOURSEIDParameter = New ObjectParameter("COURSEID", cOURSEID)
+        Else
+            cOURSEIDParameter = New ObjectParameter("COURSEID", GetType(Global.System.Int32))
+        End If
+
+        Return MyBase.ExecuteFunction("EnrolStudentCourse", sTUDENTIDParameter, cOURSEIDParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="sTUDENTID">No Metadata Documentation available.</param>
+    ''' <param name="cOURSEID">No Metadata Documentation available.</param>
+    Public Function RemoveStudentCourse(sTUDENTID As Nullable(Of Global.System.Int32), cOURSEID As Nullable(Of Global.System.Int32)) As Integer
+        Dim sTUDENTIDParameter As ObjectParameter
+        If (sTUDENTID.HasValue)
+            sTUDENTIDParameter = New ObjectParameter("STUDENTID", sTUDENTID)
+        Else
+            sTUDENTIDParameter = New ObjectParameter("STUDENTID", GetType(Global.System.Int32))
+        End If
+
+        Dim cOURSEIDParameter As ObjectParameter
+        If (cOURSEID.HasValue)
+            cOURSEIDParameter = New ObjectParameter("COURSEID", cOURSEID)
+        Else
+            cOURSEIDParameter = New ObjectParameter("COURSEID", GetType(Global.System.Int32))
+        End If
+
+        Return MyBase.ExecuteFunction("RemoveStudentCourse", sTUDENTIDParameter, cOURSEIDParameter)
 
     End Function
 

@@ -9,6 +9,7 @@ Public Class StudentWindow
     Private ReadOnly StudentUsername As String
     Private enrollCourseIDList As List(Of UInteger) = New List(Of UInteger)
     Private courseList As List(Of Course)
+    Private enrollCourseList As List(Of Enrollment) = New List(Of Enrollment)
 
 
     Public Sub New(ByRef username As String)
@@ -49,13 +50,23 @@ Public Class StudentWindow
 
     Private Sub btnRemoveCourse_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnRemoveCourse.Click
         StudentTabControl.SelectedIndex = 2
+        enrollCourseList.Clear()
 
+        'bind source item
+        For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
+            enrollCourseList.Add(i)
+        Next
+
+        removeListBoxControl.ItemsSource = enrollCourseList
+        btnRemove.IsEnabled = False
 
     End Sub
 
     Private Sub btnViewAssessedCourse_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnViewAssessedCourse.Click
         StudentTabControl.SelectedIndex = 3
 
+        enrollCourseIDList.Clear()
+        courseList.Clear()
 
     End Sub
 
@@ -64,7 +75,7 @@ Public Class StudentWindow
         StudentTabControl.SelectedIndex = 4
 
         'access to entity model to retrieve all Country data
-        countryCombo.ItemsSource = controller.GetAllCountry() '''''''''''''''''''''
+        countryCombo.ItemsSource = controller.GetAllCountry()
 
         'display edit button & disable all textboxes
         btnEdit.Visibility = Windows.Visibility.Visible
@@ -208,22 +219,39 @@ Public Class StudentWindow
             'display confirmation window
             If MessageBox.Show("Are you sure you want to enrol this course ? " _
                            + vbCrLf + courseList(listboxControl.SelectedIndex).CourseCode.ToString + ": " _
-                           + courseList(listboxControl.SelectedIndex).CourseName.ToString, "System",
+                           + courseList(listboxControl.SelectedIndex).CourseName.ToString, "AMS",
                         MessageBoxButton.YesNo, MessageBoxImage.Question) = MessageBoxResult.Yes Then
 
-                'enrol student course
+                Try
+                    'enrol student course
+                    If controller.EnrolStudentCourse(CUInt(StudentUsername.Substring(1)), CUInt(listboxControl.SelectedValue)) Then
+                        MessageBox.Show("Enrolled course successfully.", "AMS",
+                            MessageBoxButton.OK, MessageBoxImage.Information)
 
+                        'disable enrol button
+                        btnEnrol.IsEnabled = False
+                        btnEnrol.Content = "Enrolled"
 
-                'disable enrol button
-                btnEnrol.IsEnabled = False
-                btnEnrol.Content = "Enrolled"
+                        enrollCourseIDList.Clear()
 
-                enrollCourseIDList.Clear()
+                        'retrieve student enrollment courses ID
+                        For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
+                            enrollCourseIDList.Add(i.CourseID)
+                        Next
+                    Else
+                        MessageBox.Show("Enrolled course unsuccessfully." _
+                           + vbCrLf + courseList(listboxControl.SelectedIndex).CourseCode.ToString + ": " _
+                           + courseList(listboxControl.SelectedIndex).CourseName.ToString, "AMS",
+                        MessageBoxButton.OK, MessageBoxImage.Error)
 
-                'retrieve student enrollment courses ID
-                For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
-                    enrollCourseIDList.Add(i.CourseID)
-                Next
+                    End If
+                Catch ex As Exception
+                    MessageBox.Show("Enrolled course unsuccessfully." _
+                           + vbCrLf + courseList(listboxControl.SelectedIndex).CourseCode.ToString + ": " _
+                           + courseList(listboxControl.SelectedIndex).CourseName.ToString, "AMS",
+                        MessageBoxButton.OK, MessageBoxImage.Error)
+                End Try
+
             End If
         End If
     End Sub
@@ -245,4 +273,51 @@ Public Class StudentWindow
     End Sub
 
 
+    Private Sub btnRemove_Click(sender As System.Object, e As System.Windows.RoutedEventArgs)
+        If removeListBoxControl.SelectedIndex >= 0 Then
+            'display confirmation window
+            If MessageBox.Show("Are you sure you want to remove this course ? " _
+                           + vbCrLf + enrollCourseList(removeListBoxControl.SelectedIndex).CourseCode.ToString + ": " _
+                           + enrollCourseList(removeListBoxControl.SelectedIndex).CourseName.ToString, "AMS",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) = MessageBoxResult.Yes Then
+
+                Try
+                    'remove student course
+                    If controller.RemoveStudentCourse(CUInt(StudentUsername.Substring(1)), CUInt(removeListBoxControl.SelectedValue)) Then
+                        MessageBox.Show("Removed course successfully.", "AMS",
+                            MessageBoxButton.OK, MessageBoxImage.Information)
+
+                        enrollCourseList.Clear()
+
+                        'retrieve student enrollment courses ID
+                        For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
+                            enrollCourseList.Add(i)
+                        Next
+
+                        'bind control with new source
+                        removeListBoxControl.ItemsSource = enrollCourseList
+                        removeListBoxControl.Items.Refresh()
+
+                    Else
+                        MessageBox.Show("Removed course unsuccessfully." _
+                           + vbCrLf + enrollCourseList(removeListBoxControl.SelectedIndex).CourseCode.ToString + ": " _
+                           + enrollCourseList(removeListBoxControl.SelectedIndex).CourseName.ToString, "AMS",
+                           MessageBoxButton.OK, MessageBoxImage.Error)
+
+                    End If
+                Catch ex As Exception
+                    MessageBox.Show("Removed course unsuccessfully." _
+                           + vbCrLf + enrollCourseList(removeListBoxControl.SelectedIndex).CourseCode.ToString + ": " _
+                           + enrollCourseList(removeListBoxControl.SelectedIndex).CourseName.ToString, "AMS",
+                        MessageBoxButton.OK, MessageBoxImage.Error)
+                End Try
+            End If
+        End If
+    End Sub
+
+    Private Sub removeListBoxControl_SelectionChanged(sender As System.Object, e As System.Windows.Controls.SelectionChangedEventArgs) Handles removeListBoxControl.SelectionChanged
+        'enable remove button
+        btnRemove.IsEnabled = True
+        btnRemove.Content = "Remove"
+    End Sub
 End Class

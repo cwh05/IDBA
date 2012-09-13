@@ -66,7 +66,7 @@
                     VerticalAlignment="Top" Width="441" Grid.RowSpan="5" BorderThickness="0" FocusVisualStyle="{x:Null}">
             <TabItem IsHitTestVisible="False" />
             <TabItem IsHitTestVisible="False" >
-                <Grid Margin="0,0,0,0" Width="420" Height="490" VerticalAlignment="Top" IsHitTestVisible="False">
+                <Grid Margin="0,0,0,0" Width="420" Height="490" VerticalAlignment="Top" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="80"/>
@@ -83,13 +83,10 @@
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0" />
                                         <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                 
-                                    <StackPanel Grid.Column="1">
-                                        
+                                    <StackPanel Grid.Column="0">
                                         <StackPanel Orientation="Horizontal" >
                                             <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green"/>
                                             <TextBlock Text=": " FontSize="13" />
@@ -107,8 +104,46 @@
             </TabItem>
 
             <TabItem IsHitTestVisible="False">
-                <Grid Margin="0,0,0,0">
+                <Grid Margin="0,0,0,0" Width="420" Height="490" VerticalAlignment="Top" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
 
+                    <ListBox Name="removeListBoxControl" Width="420" Height="450" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0"
+                             VerticalContentAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding}" 
+                             SelectedValuePath="CourseID" ItemContainerStyle="{StaticResource lbi}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="400"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0">
+                                        <StackPanel Margin="1,0,0,3">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Course Code: " />
+                                                <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
+                                                           TextWrapping="Wrap" Width="320"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Course Name: " />
+                                                <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
+                                                           TextWrapping="Wrap" Width="320"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button Name="btnRemove" Grid.Row="1" Grid.Column="1" Content="Remove" HorizontalAlignment="Right"
+                            Height="38" Padding="0" Width="80" Click="btnRemove_Click" />
                 </Grid>
             </TabItem>
 

@@ -224,4 +224,47 @@ Public Class StudentWindowController
         Return Nothing
     End Function
 
+    ''' <summary>
+    ''' This function enrols a course for student
+    ''' </summary>
+    ''' <param name="StudentID">A student ID</param>
+    ''' <param name="CourseID">A course ID</param>
+    ''' <returns>True if it enrols successfully or false if it fails</returns>
+    ''' <remarks></remarks>
+    Public Function EnrolStudentCourse(ByRef StudentID As Int32, ByRef CourseID As Int32) As Boolean
+        Try
+            'update to particular entity table
+            db.EnrolStudentCourse(StudentID, CourseID)
+            db.SaveChanges()
+
+            Return True
+
+        Catch ex As Exception
+        End Try
+
+        Return False
+    End Function
+
+    ''' <summary>
+    ''' This function removes an enrolled course for student
+    ''' </summary>
+    ''' <param name="StudentID">A student ID</param>
+    ''' <param name="CourseID">A course ID</param>
+    ''' <returns>True if it removes a course successfully or false if it fails to remove</returns>
+    ''' <remarks></remarks>
+    Public Function RemoveStudentCourse(ByRef StudentID As Int32, ByRef CourseID As Int32) As Boolean
+        Try
+            'delete course from view entity
+            db.RemoveStudentCourse(StudentID, CourseID)
+            db.SaveChanges()
+
+            Return True
+
+        Catch ex As Exception
+        End Try
+
+        Return False
+    End Function
+
+
 End Class
