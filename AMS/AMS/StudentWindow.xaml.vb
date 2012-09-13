@@ -1,11 +1,14 @@
 ﻿Imports MahApps.Metro.Controls
 Imports System.Data.Objects
 Imports System.Data
+Imports System.Collections.Generic
 
 
 Public Class StudentWindow
     Private controller As StudentWindowController = New StudentWindowController
     Private ReadOnly StudentUsername As String
+    Private enrollCourseIDList As List(Of UInteger) = New List(Of UInteger)
+    'Private ls As listCompare = New listCompare()
 
 
     Public Sub New(ByRef username As String)
@@ -27,6 +30,14 @@ Public Class StudentWindow
 
         Try
             listboxControl.ItemsSource = controller.GetAllCourse()
+            enrollCourseIDList.Clear()
+
+            'retrieve student enrollment courses ID
+            For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
+                enrollCourseIDList.Add(i.CourseID)
+            Next
+
+
         Catch ex As Exception
             MsgBox(ex.Message) '''''''''''''''''''''''''''''''''''''''''''''
         End Try
@@ -241,11 +252,30 @@ Public Class StudentWindow
         txtConfirmPassword.IsEnabled = allow
     End Sub
 
-
-
-
-
     Private Sub btnEnrol_Click(sender As System.Object, e As System.Windows.RoutedEventArgs)
+        btnEnrol.IsEnabled = False
+        btnEnrol.Content = "Enrolled"
+
+
+        ''refresh once user has enrolled into a course
+        'enrollmentList.Clear()
+        'enrollmentList = controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
+
 
     End Sub
+
+    Private Sub listboxControl_SelectionChanged(sender As System.Object, e As System.Windows.Controls.SelectionChangedEventArgs) Handles listboxControl.SelectionChanged
+        Try
+            If enrollCourseIDList.BinarySearch(CUInt(listboxControl.SelectedValue)) >= 0 Then
+                btnEnrol.IsEnabled = False
+            Else
+                btnEnrol.IsEnabled = True
+            End If
+
+        Catch ex As Exception
+            btnEnrol.IsEnabled = True
+        End Try
+    End Sub
+
+
 End Class

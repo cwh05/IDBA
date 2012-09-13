@@ -192,4 +192,36 @@ Public Class StudentWindowController
         Return Nothing
     End Function
 
+    ''' <summary>
+    ''' This function retrieves a student enrollment records
+    ''' </summary>
+    ''' <param name="studentID">A student ID</param>
+    ''' <returns>A list of enrollment courses</returns>
+    ''' <remarks></remarks>
+    Public Function GetStudentEnrollment(ByRef studentID As Int32) As List(Of Enrollment)
+        Try
+            Dim enrollmentList As New List(Of Enrollment)
+            For Each i In db.GetStudentEnrollment(studentID)
+                Dim enrollment As New Enrollment
+
+                'assign values to enrollment object
+                enrollment.StudentID = i.StudentID
+                enrollment.StudentFirstName = i.StudentFirstName
+                enrollment.StudentLastName = i.StudentLastName
+                enrollment.Email = i.Email
+                enrollment.CourseID = i.CourseID
+                enrollment.CourseName = i.CourseName
+                enrollment.CourseCode = i.CourseCode
+                enrollment.Marks = i.Marks
+
+                enrollmentList.Add(enrollment)
+            Next
+            Return enrollmentList
+
+        Catch ex As Exception
+        End Try
+
+        Return Nothing
+    End Function
+
 End Class

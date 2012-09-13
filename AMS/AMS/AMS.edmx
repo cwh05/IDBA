@@ -490,6 +490,9 @@
             <Parameter Name="NewPassword" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllCourse" ReturnType="Collection(Model.GetAllCourse_Result)" />
+          <FunctionImport Name="GetStudentEnrollment" ReturnType="Collection(Model.GetStudentEnrollment_Result)">
+            <Parameter Name="studentID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -784,6 +787,16 @@
           <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="16" />
           <Property Type="String" Name="CourseDescription" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="GetStudentEnrollment_Result">
+          <Property Type="Int32" Name="StudentID" Nullable="false" />
+          <Property Type="String" Name="StudentFirstName" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="StudentLastName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="CourseID" Nullable="false" />
+          <Property Type="String" Name="CourseName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CourseCode" Nullable="false" MaxLength="60" />
+          <Property Type="Double" Name="Marks" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1002,6 +1015,20 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetStudentEnrollment" FunctionName="Model.Store.GetStudentEnrollment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetStudentEnrollment_Result">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentFirstName" ColumnName="StudentFirstName" />
+                <ScalarProperty Name="StudentLastName" ColumnName="StudentLastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="Marks" ColumnName="Marks" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

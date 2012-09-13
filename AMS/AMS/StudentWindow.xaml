@@ -66,18 +66,19 @@
                     VerticalAlignment="Top" Width="441" Grid.RowSpan="5" BorderThickness="0" >
             <TabItem IsHitTestVisible="False"/>
             <TabItem IsHitTestVisible="False">
-                <Grid Margin="0,-16,0,0" Width="420" Height="auto" VerticalAlignment="Top">
+                <Grid Margin="0,-16,0,0" Width="420" Height="490" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="80"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
 
-                    <ListBox Name="listboxControl" Width="420" Height="452" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0"
-                             VerticalContentAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding}">
+                    <ListBox Name="listboxControl" Width="420" Height="450" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0"
+                             VerticalContentAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding}" 
+                             SelectedValuePath="CourseID" ItemContainerStyle="{StaticResource lbi}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -88,51 +89,21 @@
                                     </Grid.ColumnDefinitions>
                                 
                                     <StackPanel Grid.Column="1">
+                                        
                                         <StackPanel Orientation="Horizontal" >
-                                            <TextBlock Text="{Binding CourseCode}" FontSize="13" />
+                                            <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green"/>
                                             <TextBlock Text=": " FontSize="13" />
-                                            <TextBlock Text="{Binding CourseName}" FontSize="13" />
+                                            <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" />
                                         </StackPanel>
-                                        <TextBlock Text="{Binding CourseDescription}" />
+                                        <TextBlock Text="{Binding CourseDescription}" Padding="0,0,0,10" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <Button Name="btnEnrol" Grid.Row="1" Grid.Column="1" Content="Enrol" HorizontalAlignment="Right"
-                            Height="30" Padding="0" Width="70" Click="btnEnrol_Click"/>
+                            Height="38" Padding="0" Width="80" Click="btnEnrol_Click"/>
                 </Grid>
-
-                <!--<DataGrid AutoGenerateColumns="False" Name="courseDataGrid" CanUserReorderColumns="False" Margin="0,-16,0,0" 
-                          IsReadOnly="True" SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" RowHeaderWidth="0"
-                          Height="500" VerticalAlignment="Top">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Course ID" Binding="{Binding CourseID}" Visibility="Hidden" />
-                        <DataGridTextColumn Header="Course Code" Binding="{Binding CourseCode}" />
-                        <DataGridTextColumn Header="Course Title" Binding="{Binding CourseName}" />
-                        <DataGridTextColumn Header="Description" Binding="{Binding CourseDescription}" Width="205" />
-                        <DataGridTemplateColumn Header="Enrol"  Width="75" >
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Name="btnEnrol" Content="Enrol" CommandParameter="{Binding CourseID}" 
-                                            Height="28" Padding="0" Width="70" Click="btnEnrol_Click"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                    <DataGrid.RowStyle>
-                        <Style TargetType="{x:Type DataGridRow}">
-                            <Style.Triggers>
-                                <DataTrigger>
-                                    <Setter Property="IsEnabled" Value="False" />
-                                </DataTrigger>
-                                
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.RowStyle>
-                </DataGrid>-->
-            
-
             </TabItem>
 
             <TabItem IsHitTestVisible="False">
