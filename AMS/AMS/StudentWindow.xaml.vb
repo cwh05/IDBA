@@ -33,6 +33,8 @@ Public Class StudentWindow
             'retrieve all courses record
             courseList = controller.GetAllCourse()
             listboxControl.ItemsSource = courseList
+
+            listboxControl.Items.Refresh()
             enrollCourseIDList.Clear()
 
             'retrieve student enrollment courses ID
@@ -52,12 +54,15 @@ Public Class StudentWindow
         StudentTabControl.SelectedIndex = 2
         enrollCourseList.Clear()
 
-        'bind source item
+        'get all course enrollment data
         For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
             enrollCourseList.Add(i)
         Next
 
+        'bind source item
         removeListBoxControl.ItemsSource = enrollCourseList
+        removeListBoxControl.Items.Refresh()
+
         btnRemove.IsEnabled = False
 
     End Sub
