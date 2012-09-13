@@ -555,8 +555,8 @@ CREATE PROCEDURE GetUserPersonalDetail
 AS
    SELECT s.StudentFirstName, s.StudentLastName, s.Gender, s.DateOfBirth,
       s.Address1, s.Address2, s.City, s.PostCode, s.StateProvince,
-      s.ContactNumber, s.Email, c.CountryCode,
-      a.LoginUsername
+      s.ContactNumber, s.Email, c.CountryCode
+      --,a.LoginUsername
       FROM Student s
       INNER JOIN Account a ON s.AccountID = a.AccountID
       INNER JOIN Country c ON s.CountryCode = c.CountryCode
@@ -612,6 +612,14 @@ CREATE PROCEDURE GetStudentEnrollment
 AS
    SELECT * FROM Enrollment WHERE StudentID = @studentID ORDER BY CourseID
 GO
+
+CREATE PROCEDURE EnrolStudentCourse
+   @STUDENTID INT, @COURSEID INT
+AS
+   INSERT INTO Enrollment(StudentID, CourseID) VALUES(@STUDENTID, @COURSEID)
+GO
+
+
 
 
 
@@ -782,6 +790,14 @@ BEGIN
    PRINT 'Stored procedure GetStudentEnrollment deleted.'
 END
 GO
+
+IF (OBJECT_ID('EnrolStudentCourse') IS NOT NULL)
+BEGIN
+   DROP PROCEDURE EnrolStudentCourse
+   PRINT 'Stored procedure EnrolStudentCourse deleted.'
+END
+GO
+
 
 
 
