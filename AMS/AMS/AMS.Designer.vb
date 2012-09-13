@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("c48883fb-62bb-4a71-bb34-7629aa56a001")>
+<Assembly: EdmSchemaAttribute("6ccc77a9-acba-4053-90ba-bc66a2a1c68a")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -28,6 +28,8 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("Model", "fk_RoleCategory", "RoleCategory", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(RoleCategory), "EmployeeRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(EmployeeRole), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_Student", "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Student), "StudentCourse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(StudentCourse), True)>
 <Assembly: EdmRelationshipAttribute("Model", "EmployeeDepartment", "Department", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Department), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee))>
+<Assembly: EdmRelationshipAttribute("Model", "fk_StudentProgram", "Program", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Program), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
+<Assembly: EdmRelationshipAttribute("Model", "ProgramCourse", "Course", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Course), "Program", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Program))>
 
 #End Region
 
@@ -580,6 +582,22 @@ Public Partial Class AMSEntities
 
     End Function
 
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="sTUDENTID">No Metadata Documentation available.</param>
+    Public Function GetAllCourseOfProgram(sTUDENTID As Nullable(Of Global.System.Int32)) As ObjectResult(Of GetAllCourseOfProgram_Result)
+        Dim sTUDENTIDParameter As ObjectParameter
+        If (sTUDENTID.HasValue)
+            sTUDENTIDParameter = New ObjectParameter("STUDENTID", sTUDENTID)
+        Else
+            sTUDENTIDParameter = New ObjectParameter("STUDENTID", GetType(Global.System.Int32))
+        End If
+
+        Return MyBase.ExecuteFunction(Of GetAllCourseOfProgram_Result)("GetAllCourseOfProgram", sTUDENTIDParameter)
+
+    End Function
+
     #End Region
 End Class
 
@@ -1107,6 +1125,24 @@ Public Partial Class Course
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Employee)("Model.fk_Staff", "Employee", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("Model", "ProgramCourse", "Program")>
+     Public Property Programs() As EntityCollection(Of Program)
+        Get
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Program)("Model.ProgramCourse", "Program")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Program)("Model.ProgramCourse", "Program", value)
             End If
         End Set
     End Property
@@ -2423,6 +2459,42 @@ Public Partial Class Program
         End Set
     End Property
 
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("Model", "fk_StudentProgram", "Student")>
+     Public Property Students() As EntityCollection(Of Student)
+        Get
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Student)("Model.fk_StudentProgram", "Student")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Student)("Model.fk_StudentProgram", "Student", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("Model", "ProgramCourse", "Course")>
+     Public Property Courses() As EntityCollection(Of Course)
+        Get
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Course)("Model.ProgramCourse", "Course")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Course)("Model.ProgramCourse", "Course", value)
+            End If
+        End Set
+    End Property
+
     #End Region
 End Class
 
@@ -3005,6 +3077,31 @@ Public Partial Class Student
     Private Partial Sub OnModifiedDateChanged()
     End Sub
 
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
+    <DataMemberAttribute()>
+    Public Property ProgramID() As Nullable(Of Global.System.Int32)
+        Get
+            Return _ProgramID
+        End Get
+        Set
+            OnProgramIDChanging(value)
+            ReportPropertyChanging("ProgramID")
+            _ProgramID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("ProgramID")
+            OnProgramIDChanged()
+        End Set
+    End Property
+
+    Private _ProgramID As Nullable(Of Global.System.Int32)
+    Private Partial Sub OnProgramIDChanging(value As Nullable(Of Global.System.Int32))
+    End Sub
+
+    Private Partial Sub OnProgramIDChanged()
+    End Sub
+
     #End Region
     #Region "Navigation Properties"
 
@@ -3084,6 +3181,37 @@ Public Partial Class Student
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of StudentCourse)("Model.fk_Student", "StudentCourse", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("Model", "fk_StudentProgram", "Program")>
+    Public Property Program() As Program
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Program)("Model.fk_StudentProgram", "Program").Value
+        End Get
+        Set
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Program)("Model.fk_StudentProgram", "Program").Value = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <BrowsableAttribute(False)>
+    <DataMemberAttribute()>
+    Public Property ProgramReference() As EntityReference(Of Program)
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Program)("Model.fk_StudentProgram", "Program")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Program)("Model.fk_StudentProgram", "Program", value)
             End If
         End Set
     End Property
@@ -3577,6 +3705,215 @@ Public Partial Class GetAllCourse_Result
     End Sub
 
     Private Partial Sub OnCourseDescriptionChanged()
+    End Sub
+
+    #End Region
+End Class
+
+''' <summary>
+''' No Metadata Documentation available.
+''' </summary>
+<EdmComplexTypeAttribute(NamespaceName:="Model", Name:="GetAllCourseOfProgram_Result")>
+<DataContractAttribute(IsReference:=True)>
+<Serializable()>
+Public Partial Class GetAllCourseOfProgram_Result
+    Inherits ComplexObject
+    #Region "Factory Method"
+
+    ''' <summary>
+    ''' Create a new GetAllCourseOfProgram_Result object.
+    ''' </summary>
+    ''' <param name="courseID">Initial value of the CourseID property.</param>
+    ''' <param name="courseName">Initial value of the CourseName property.</param>
+    ''' <param name="courseCode">Initial value of the CourseCode property.</param>
+    ''' <param name="createdDate">Initial value of the CreatedDate property.</param>
+    ''' <param name="modifiedDate">Initial value of the ModifiedDate property.</param>
+    Public Shared Function CreateGetAllCourseOfProgram_Result(courseID As Global.System.Int32, courseName As Global.System.String, courseCode As Global.System.String, createdDate As Global.System.DateTime, modifiedDate As Global.System.DateTime) As GetAllCourseOfProgram_Result
+        Dim getAllCourseOfProgram_Result as GetAllCourseOfProgram_Result = New GetAllCourseOfProgram_Result
+        getAllCourseOfProgram_Result.CourseID = courseID
+        getAllCourseOfProgram_Result.CourseName = courseName
+        getAllCourseOfProgram_Result.CourseCode = courseCode
+        getAllCourseOfProgram_Result.CreatedDate = createdDate
+        getAllCourseOfProgram_Result.ModifiedDate = modifiedDate
+        Return getAllCourseOfProgram_Result
+    End Function
+
+    #End Region
+    #Region "Primitive Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property CourseID() As Global.System.Int32
+        Get
+            Return _CourseID
+        End Get
+        Set
+            OnCourseIDChanging(value)
+            ReportPropertyChanging("CourseID")
+            _CourseID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("CourseID")
+            OnCourseIDChanged()
+        End Set
+    End Property
+
+    Private _CourseID As Global.System.Int32
+    Private Partial Sub OnCourseIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnCourseIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property CourseName() As Global.System.String
+        Get
+            Return _CourseName
+        End Get
+        Set
+            OnCourseNameChanging(value)
+            ReportPropertyChanging("CourseName")
+            _CourseName = StructuralObject.SetValidValue(value, false)
+            ReportPropertyChanged("CourseName")
+            OnCourseNameChanged()
+        End Set
+    End Property
+
+    Private _CourseName As Global.System.String
+    Private Partial Sub OnCourseNameChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnCourseNameChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property CourseCode() As Global.System.String
+        Get
+            Return _CourseCode
+        End Get
+        Set
+            OnCourseCodeChanging(value)
+            ReportPropertyChanging("CourseCode")
+            _CourseCode = StructuralObject.SetValidValue(value, false)
+            ReportPropertyChanged("CourseCode")
+            OnCourseCodeChanged()
+        End Set
+    End Property
+
+    Private _CourseCode As Global.System.String
+    Private Partial Sub OnCourseCodeChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnCourseCodeChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
+    <DataMemberAttribute()>
+    Public Property CourseDescription() As Global.System.String
+        Get
+            Return _CourseDescription
+        End Get
+        Set
+            OnCourseDescriptionChanging(value)
+            ReportPropertyChanging("CourseDescription")
+            _CourseDescription = StructuralObject.SetValidValue(value, true)
+            ReportPropertyChanged("CourseDescription")
+            OnCourseDescriptionChanged()
+        End Set
+    End Property
+
+    Private _CourseDescription As Global.System.String
+    Private Partial Sub OnCourseDescriptionChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnCourseDescriptionChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
+    <DataMemberAttribute()>
+    Public Property StaffID() As Nullable(Of Global.System.Int32)
+        Get
+            Return _StaffID
+        End Get
+        Set
+            OnStaffIDChanging(value)
+            ReportPropertyChanging("StaffID")
+            _StaffID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("StaffID")
+            OnStaffIDChanged()
+        End Set
+    End Property
+
+    Private _StaffID As Nullable(Of Global.System.Int32)
+    Private Partial Sub OnStaffIDChanging(value As Nullable(Of Global.System.Int32))
+    End Sub
+
+    Private Partial Sub OnStaffIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property CreatedDate() As Global.System.DateTime
+        Get
+            Return _CreatedDate
+        End Get
+        Set
+            OnCreatedDateChanging(value)
+            ReportPropertyChanging("CreatedDate")
+            _CreatedDate = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("CreatedDate")
+            OnCreatedDateChanged()
+        End Set
+    End Property
+
+    Private _CreatedDate As Global.System.DateTime
+    Private Partial Sub OnCreatedDateChanging(value As Global.System.DateTime)
+    End Sub
+
+    Private Partial Sub OnCreatedDateChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property ModifiedDate() As Global.System.DateTime
+        Get
+            Return _ModifiedDate
+        End Get
+        Set
+            OnModifiedDateChanging(value)
+            ReportPropertyChanging("ModifiedDate")
+            _ModifiedDate = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("ModifiedDate")
+            OnModifiedDateChanged()
+        End Set
+    End Property
+
+    Private _ModifiedDate As Global.System.DateTime
+    Private Partial Sub OnModifiedDateChanging(value As Global.System.DateTime)
+    End Sub
+
+    Private Partial Sub OnModifiedDateChanged()
     End Sub
 
     #End Region

@@ -168,10 +168,10 @@ Public Class StudentWindowController
     ''' </summary>
     ''' <returns>A list of all course objects</returns>
     ''' <remarks></remarks>
-    Public Function GetAllCourse() As List(Of Course)
+    Public Function GetAllCourseOfProgram(ByRef studentID As Int32) As List(Of Course)
         Try
             Dim list As New List(Of Course)
-            For Each i In db.GetAllCourse()
+            For Each i In db.GetAllCourseOfProgram(studentID)
                 Dim course As New Course
 
                 'assign values to object

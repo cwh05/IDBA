@@ -19,6 +19,12 @@
           </EntitySet>
           <EntitySet Name="EmployeeRole" EntityType="Model.Store.EmployeeRole" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Program" EntityType="Model.Store.Program" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProgramCourse" EntityType="Model.Store.ProgramCourse" store:Type="Tables" store:Schema="dbo" store:Name="ProgramCourse">
+            <DefiningQuery>SELECT 
+      [ProgramCourse].[ProgramID] AS [ProgramID], 
+      [ProgramCourse].[CourseID] AS [CourseID]
+      FROM [dbo].[ProgramCourse] AS [ProgramCourse]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="RoleCategory" EntityType="Model.Store.RoleCategory" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Student" EntityType="Model.Store.Student" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="StudentCourse" EntityType="Model.Store.StudentCourse" store:Type="Tables" store:Schema="dbo" store:Name="StudentCourse">
@@ -41,13 +47,21 @@
       [Enrollment].[Marks] AS [Marks]
       FROM [dbo].[Enrollment] AS [Enrollment]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__EmployeeD__Depar__49C3F6B7" Association="Model.Store.FK__EmployeeD__Depar__49C3F6B7">
+          <AssociationSet Name="FK__EmployeeD__Depar__30F848ED" Association="Model.Store.FK__EmployeeD__Depar__30F848ED">
             <End Role="Department" EntitySet="Department" />
             <End Role="EmployeeDepartment" EntitySet="EmployeeDepartment" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeD__Emplo__4AB81AF0" Association="Model.Store.FK__EmployeeD__Emplo__4AB81AF0">
+          <AssociationSet Name="FK__EmployeeD__Emplo__31EC6D26" Association="Model.Store.FK__EmployeeD__Emplo__31EC6D26">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="EmployeeDepartment" EntitySet="EmployeeDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProgramCo__Cours__34C8D9D1" Association="Model.Store.FK__ProgramCo__Cours__34C8D9D1">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="ProgramCourse" EntitySet="ProgramCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProgramCo__Progr__33D4B598" Association="Model.Store.FK__ProgramCo__Progr__33D4B598">
+            <End Role="Program" EntitySet="Program" />
+            <End Role="ProgramCourse" EntitySet="ProgramCourse" />
           </AssociationSet>
           <AssociationSet Name="fk_Course" Association="Model.Store.fk_Course">
             <End Role="Course" EntitySet="Course" />
@@ -85,6 +99,10 @@
             <End Role="Country" EntitySet="Country" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
+          <AssociationSet Name="fk_StudentProgram" Association="Model.Store.fk_StudentProgram">
+            <End Role="Program" EntitySet="Program" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -92,7 +110,7 @@
           </Key>
           <Property Name="AccountID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="LoginUsername" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="LoginPassword" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LoginPassword" Type="nvarchar" Nullable="false" MaxLength="255" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -108,10 +126,10 @@
           <Property Name="CourseID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CourseName" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="CourseCode" Type="nvarchar" Nullable="false" MaxLength="60" />
+          <Property Name="CourseDescription" Type="nvarchar(max)" />
           <Property Name="StaffID" Type="int" />
           <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="smalldatetime" Nullable="false" />
-          <Property Name="CourseDescription" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -172,6 +190,17 @@
           <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="smalldatetime" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AMS_DATABASE.dbo.ProgramCourse' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ProgramCourse">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="ProgramID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="RoleCategory">
           <Key>
             <PropertyRef Name="RoleID" />
@@ -198,6 +227,7 @@
           <Property Name="ContactNumber" Type="nvarchar" Nullable="false" MaxLength="15" />
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="AccountID" Type="int" />
+          <Property Name="ProgramID" Type="int" />
           <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="smalldatetime" Nullable="false" />
         </EntityType>
@@ -237,7 +267,7 @@
           <Property Name="CourseCode" Type="nvarchar" Nullable="false" MaxLength="60" />
           <Property Name="Marks" Type="float" />
         </EntityType>
-        <Association Name="FK__EmployeeD__Depar__49C3F6B7">
+        <Association Name="FK__EmployeeD__Depar__30F848ED">
           <End Role="Department" Type="Model.Store.Department" Multiplicity="1" />
           <End Role="EmployeeDepartment" Type="Model.Store.EmployeeDepartment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -249,7 +279,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeD__Emplo__4AB81AF0">
+        <Association Name="FK__EmployeeD__Emplo__31EC6D26">
           <End Role="Employee" Type="Model.Store.Employee" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -260,6 +290,32 @@
             </Principal>
             <Dependent Role="EmployeeDepartment">
               <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProgramCo__Cours__34C8D9D1">
+          <End Role="Course" Type="Model.Store.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProgramCourse" Type="Model.Store.ProgramCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="ProgramCourse">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProgramCo__Progr__33D4B598">
+          <End Role="Program" Type="Model.Store.Program" Multiplicity="1" />
+          <End Role="ProgramCourse" Type="Model.Store.ProgramCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ProgramID" />
+            </Principal>
+            <Dependent Role="ProgramCourse">
+              <PropertyRef Name="ProgramID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -373,12 +429,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_StudentProgram">
+          <End Role="Program" Type="Model.Store.Program" Multiplicity="0..1" />
+          <End Role="Student" Type="Model.Store.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ProgramID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="ProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="EnrolStudentCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="STUDENTID" Type="int" Mode="In" />
           <Parameter Name="COURSEID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetAllCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllCourseOfProgram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="STUDENTID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetStudentEnrollment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="studentID" Type="int" Mode="In" />
         </Function>
@@ -509,6 +580,17 @@
             <Parameter Name="STUDENTID" Mode="In" Type="Int32" />
             <Parameter Name="COURSEID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <AssociationSet Name="fk_StudentProgram" Association="Model.fk_StudentProgram">
+            <End Role="Program" EntitySet="Programs" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="ProgramCourse" Association="Model.ProgramCourse">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Program" EntitySet="Programs" />
+          </AssociationSet>
+          <FunctionImport Name="GetAllCourseOfProgram" ReturnType="Collection(Model.GetAllCourseOfProgram_Result)">
+            <Parameter Name="STUDENTID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -542,6 +624,7 @@
           <NavigationProperty Name="StudentCourses" Relationship="Model.fk_Course" FromRole="Course" ToRole="StudentCourse" />
           <NavigationProperty Name="Employee" Relationship="Model.fk_Staff" FromRole="Course" ToRole="Employee" />
           <Property Type="String" Name="CourseDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Programs" Relationship="Model.ProgramCourse" FromRole="Course" ToRole="Program" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -598,6 +681,8 @@
           <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
           <Property Type="DateTime" Name="ModifiedDate" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Model.fk_employee" FromRole="Program" ToRole="Employee" />
+          <NavigationProperty Name="Students" Relationship="Model.fk_StudentProgram" FromRole="Program" ToRole="Student" />
+          <NavigationProperty Name="Courses" Relationship="Model.ProgramCourse" FromRole="Program" ToRole="Course" />
         </EntityType>
         <EntityType Name="RoleCategory">
           <Key>
@@ -631,6 +716,8 @@
           <NavigationProperty Name="Account" Relationship="Model.fk_StudentAccount" FromRole="Student" ToRole="Account" />
           <NavigationProperty Name="Country" Relationship="Model.fk_StudentCountry" FromRole="Student" ToRole="Country" />
           <NavigationProperty Name="StudentCourses" Relationship="Model.fk_Student" FromRole="Student" ToRole="StudentCourse" />
+          <Property Type="Int32" Name="ProgramID" />
+          <NavigationProperty Name="Program" Relationship="Model.fk_StudentProgram" FromRole="Student" ToRole="Program" />
         </EntityType>
         <EntityType Name="StudentCourse">
           <Key>
@@ -813,6 +900,31 @@
           <Property Type="String" Name="CourseCode" Nullable="false" MaxLength="60" />
           <Property Type="Double" Name="Marks" Nullable="true" />
         </ComplexType>
+        <Association Name="fk_StudentProgram">
+          <End Type="Model.Program" Role="Program" Multiplicity="0..1" />
+          <End Type="Model.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ProgramID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="ProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProgramCourse">
+          <End Type="Model.Course" Role="Course" Multiplicity="*" />
+          <End Type="Model.Program" Role="Program" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="GetAllCourseOfProgram_Result">
+          <Property Type="Int32" Name="CourseID" Nullable="false" />
+          <Property Type="String" Name="CourseName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CourseCode" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="CourseDescription" Nullable="true" />
+          <Property Type="Int32" Name="StaffID" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="16" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="16" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -923,6 +1035,7 @@
           <EntitySetMapping Name="Students">
             <EntityTypeMapping TypeName="Model.Student">
               <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
@@ -1062,6 +1175,27 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="EnrolStudentCourse" FunctionName="Model.Store.EnrolStudentCourse" />
           <FunctionImportMapping FunctionImportName="RemoveStudentCourse" FunctionName="Model.Store.RemoveStudentCourse" />
+          <AssociationSetMapping Name="ProgramCourse" TypeName="Model.ProgramCourse" StoreEntitySet="ProgramCourse">
+            <EndProperty Name="Program">
+              <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+            </EndProperty>
+            <EndProperty Name="Course">
+              <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCourseOfProgram" FunctionName="Model.Store.GetAllCourseOfProgram">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetAllCourseOfProgram_Result">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1096,20 +1230,20 @@
         <EntityTypeShape EntityType="Model.Enrollment" Width="1.5" PointX="8" PointY="7" Height="2.5571907552083246" />
         <AssociationConnector Association="Model.fk_EmployeeAccount" >
           <ConnectorPoint PointX="2.25" PointY="6.8651432291666694" />
-          <ConnectorPoint PointX="2.6666666666666665" PointY="6.8651432291666685" />
-          <ConnectorPoint PointX="2.8333333333333335" PointY="6.8651432291666694" />
           <ConnectorPoint PointX="3" PointY="6.8651432291666694" />
         </AssociationConnector>
         <AssociationConnector Association="Model.fk_StudentAccount" >
-          <ConnectorPoint PointX="2.25" PointY="6.3388196145833344" />
-          <ConnectorPoint PointX="2.75" PointY="6.3388196145833344" />
-          <ConnectorPoint PointX="2.75" PointY="9.682109374999996" />
-          <ConnectorPoint PointX="3.2604141666666666" PointY="9.682109374999996" />
-          <ConnectorPoint PointX="3.4270808333333336" PointY="9.682109374999996" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="9.682109374999996" />
-          <ConnectorPoint PointX="3.8333333333333335" PointY="9.682109374999996" />
-          <ConnectorPoint PointX="6.75" PointY="9.682109374999996" />
-          <ConnectorPoint PointX="6.75" PointY="9.2975065104166674" />
+          <ConnectorPoint PointX="2.25" PointY="7.8552864583333388" />
+          <ConnectorPoint PointX="2.625" PointY="8.2302864583333388" />
+          <ConnectorPoint PointX="2.625" PointY="10.057109375000001" />
+          <ConnectorPoint PointX="3.2604141666666666" PointY="10.057109375000001" />
+          <ConnectorPoint PointX="3.4270808333333336" PointY="10.057109375000001" />
+          <ConnectorPoint PointX="3.8697929166666665" PointY="10.057109375000001" />
+          <ConnectorPoint PointX="4.0364595833333334" PointY="10.057109375000001" />
+          <ConnectorPoint PointX="5.626152846153845" PointY="10.057109375000001" />
+          <ConnectorPoint PointX="5.7691994349011209" PointY="9.9140627862527246" />
+          <ConnectorPoint PointX="5.8870505650988791" PointY="9.7962116560549681" />
+          <ConnectorPoint PointX="6.0011528461538459" PointY="9.6821093750000014" />
         </AssociationConnector>
         <AssociationConnector Association="Model.fk_EmployeeCountry" >
           <ConnectorPoint PointX="2.25" PointY="3.4999995" />
@@ -1117,28 +1251,30 @@
           <ConnectorPoint PointX="3.75" PointY="4.375" />
         </AssociationConnector>
         <AssociationConnector Association="Model.fk_StudentCountry" >
-          <ConnectorPoint PointX="2.25" PointY="4.0285953776041694" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="4.0285953776041685" />
-          <ConnectorPoint PointX="3.8333333333333335" PointY="4.0285953776041694" />
-          <ConnectorPoint PointX="5.510416666666667" PointY="4.0285953776041685" />
-          <ConnectorPoint PointX="5.677083333333333" PointY="4.0285953776041694" />
-          <ConnectorPoint PointX="7.15625" PointY="4.0285953776041694" />
+          <ConnectorPoint PointX="2.25" PointY="4.2208968098958337" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="4.2208968098958328" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="4.2208968098958337" />
+          <ConnectorPoint PointX="5.510416666666667" PointY="4.2208968098958328" />
+          <ConnectorPoint PointX="5.677083333333333" PointY="4.2208968098958337" />
+          <ConnectorPoint PointX="5.744791666666667" PointY="4.2208968098958328" />
+          <ConnectorPoint PointX="5.911458333333333" PointY="4.2208968098958337" />
+          <ConnectorPoint PointX="7.15625" PointY="4.2208968098958337" />
           <ConnectorPoint PointX="7.15625" PointY="4.625" />
         </AssociationConnector>
         <AssociationConnector Association="Model.fk_Course" >
-          <ConnectorPoint PointX="6.75" PointY="3.2038378906250031" />
-          <ConnectorPoint PointX="9.53125" PointY="3.2038378906250031" />
+          <ConnectorPoint PointX="6.75" PointY="3.396139322916667" />
+          <ConnectorPoint PointX="9.53125" PointY="3.396139322916667" />
           <ConnectorPoint PointX="9.53125" PointY="4.125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.fk_Staff" >
           <ConnectorPoint PointX="4.5" PointY="4.46875" />
           <ConnectorPoint PointX="5.59375" PointY="4.46875" />
-          <ConnectorPoint PointX="5.59375" PointY="3.6821907552083388" />
+          <ConnectorPoint PointX="5.59375" PointY="4.0667936197916665" />
         </AssociationConnector>
         <AssociationConnector Association="Model.fk_employee" >
-          <ConnectorPoint PointX="3.75" PointY="9.432109374999996" />
-          <ConnectorPoint PointX="3.75" PointY="11.557444661458334" />
-          <ConnectorPoint PointX="5.25" PointY="11.557444661458334" />
+          <ConnectorPoint PointX="3.95312625" PointY="9.432109374999996" />
+          <ConnectorPoint PointX="3.95312625" PointY="11.790345052083334" />
+          <ConnectorPoint PointX="5.25" PointY="11.790345052083334" />
         </AssociationConnector>
         <AssociationConnector Association="Model.fk_RoleCategory" >
           <ConnectorPoint PointX="9.25" PointY="1.7978417968750016" />
@@ -1152,6 +1288,14 @@
           <ConnectorPoint PointX="2.25" PointY="10.456197916666667" />
           <ConnectorPoint PointX="3.3437475" PointY="10.456197916666667" />
           <ConnectorPoint PointX="3.3437475" PointY="9.432109374999996" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.fk_StudentProgram" >
+          <ConnectorPoint PointX="6.4068289230769224" PointY="10.375" />
+          <ConnectorPoint PointX="6.4068289230769224" PointY="9.6821093750000014" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.ProgramCourse" >
+          <ConnectorPoint PointX="5.828125" PointY="4.0667936197916665" />
+          <ConnectorPoint PointX="5.828125" PointY="10.375" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

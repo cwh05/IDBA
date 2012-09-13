@@ -31,7 +31,7 @@ Public Class StudentWindow
 
         Try
             'retrieve all courses record
-            courseList = controller.GetAllCourse()
+            courseList = controller.GetAllCourseOfProgram(CUInt(StudentUsername.Substring(1)))
             listboxControl.ItemsSource = courseList
 
             listboxControl.Items.Refresh()
@@ -64,20 +64,26 @@ Public Class StudentWindow
         removeListBoxControl.Items.Refresh()
 
         btnRemove.IsEnabled = False
+        btnRemove.Content = "Remove"
 
     End Sub
 
     Private Sub btnViewAssessedCourse_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnViewAssessedCourse.Click
         StudentTabControl.SelectedIndex = 3
-        enrollCourseList.Clear()
 
-        'retrieves all student enrollment courses
-        For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
-            enrollCourseList.Add(i)
-        Next
+        Try
+            enrollCourseList.Clear()
 
-        viewListBoxCntrl.ItemsSource = enrollCourseList
-        viewListBoxCntrl.Items.Refresh()
+            'retrieves all student enrollment courses
+            For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
+                enrollCourseList.Add(i)
+            Next
+
+            viewListBoxCntrl.ItemsSource = enrollCourseList
+            viewListBoxCntrl.Items.Refresh()
+
+        Catch ex As Exception
+        End Try
 
     End Sub
 
@@ -149,8 +155,9 @@ Public Class StudentWindow
         Dim confirmPassword As String = txtConfirmPassword.Password
 
         'validate student textboxes details
-        Dim valid1 = controller.validatePersonalDetail(txtFirstName.Text, txtLastName.Text, dob.Text, txtContactNumber.Text,
-                                                      txtEmail.Text, radioGenderMale.IsChecked, radioGenderFemale.IsChecked)
+        Dim valid1 = controller.validatePersonalDetail(txtFirstName.Text, txtLastName.Text, dob.SelectedDate.ToString,
+                                                       txtContactNumber.Text, txtEmail.Text, radioGenderMale.IsChecked,
+                                                       radioGenderFemale.IsChecked)
         Dim valid2 = controller.validateAddressDetail(txtAddress1.Text, txtAddress2.Text, txtCity.Text, txtPostCode.Text,
                                                       txtState.Text, countryCombo.SelectedValue)
 
@@ -168,14 +175,14 @@ Public Class StudentWindow
 
                 'save data without password
                 If oldPassword.Length = 0 And newPassword.Length = 0 And confirmPassword.Length = 0 Then
-                    fail = Not controller.UpdateProfile(txtFirstName.Text, txtLastName.Text, gender, dob.DisplayDate,
+                    fail = Not controller.UpdateProfile(txtFirstName.Text, txtLastName.Text, gender, dob.SelectedDate,
                                                         txtAddress1.Text, txtAddress2.Text, txtCity.Text, txtPostCode.Text,
                                                         txtState.Text, countryCombo.SelectedValue, txtContactNumber.Text,
                                                         txtEmail.Text, CInt(StudentUsername.Substring(1)), Nothing, Nothing, Nothing)
 
                 ElseIf newPassword.Equals(confirmPassword) Then
                     'update new password with profile details
-                    fail = Not controller.UpdateProfile(txtFirstName.Text, txtLastName.Text, gender, dob.DisplayDate,
+                    fail = Not controller.UpdateProfile(txtFirstName.Text, txtLastName.Text, gender, dob.SelectedDate,
                                                         txtAddress1.Text, txtAddress2.Text, txtCity.Text, txtPostCode.Text,
                                                         txtState.Text, countryCombo.SelectedValue, txtContactNumber.Text,
                                                         txtEmail.Text, CInt(StudentUsername.Substring(1)), StudentUsername,
@@ -327,8 +334,24 @@ Public Class StudentWindow
     End Sub
 
     Private Sub removeListBoxControl_SelectionChanged(sender As System.Object, e As System.Windows.Controls.SelectionChangedEventArgs) Handles removeListBoxControl.SelectionChanged
-        'enable remove button
-        btnRemove.IsEnabled = True
-        btnRemove.Content = "Remove"
+        Try
+            If removeListBoxControl.SelectedIndex >= 0 Then
+                If enrollCourseList(removeListBoxControl.SelectedIndex).Marks Is Nothing Then
+                    'enable remove button
+                    btnRemove.IsEnabled = True
+                    btnRemove.Content = "Remove"
+
+                Else
+                    'disable remove button
+                    btnRemove.IsEnabled = False
+                    btnRemove.Content = "Assessed"
+                End If
+            End If
+            
+
+        Catch ex As Exception
+        End Try
     End Sub
+
+
 End Class

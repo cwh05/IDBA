@@ -619,6 +619,16 @@ AS
    SELECT * FROM Course
 GO
 
+CREATE PROCEDURE GetAllCourseOfProgram
+   @STUDENTID INT
+AS
+   SELECT c.CourseID, c.CourseName, c.CourseCode, c.CourseDescription, c.StaffID,
+         c.CreatedDate, c.ModifiedDate FROM Course c
+         INNER JOIN ProgramCourse pc ON pc.CourseID = c.CourseID
+         INNER JOIN Student s ON s.ProgramID = pc.ProgramID
+         WHERE s.StudentID = @STUDENTID
+GO
+
 CREATE PROCEDURE GetStudentEnrollment
    @studentID INT
 AS
@@ -826,6 +836,14 @@ BEGIN
    PRINT 'Stored procedure RemoveStudentCourse deleted.'
 END
 GO
+
+IF (OBJECT_ID('GetAllCourseOfProgram') IS NOT NULL)
+BEGIN
+   DROP PROCEDURE GetAllCourseOfProgram
+   PRINT 'Stored procedure GetAllCourseOfProgram deleted.'
+END
+GO
+
 
 
 
