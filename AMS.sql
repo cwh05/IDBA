@@ -26,33 +26,6 @@ CREATE TABLE dbo.Account
    LoginPassword NVARCHAR(255) NOT NULL
 );
 
-CREATE TABLE dbo.Student
-(
-   StudentID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-   StudentFirstName NVARCHAR(150) NOT NULL,
-   StudentLastName NVARCHAR(100) NOT NULL,
-   Gender BIT NOT NULL,          -- 0=male ; 1=female
-   DateOfBirth DATE NOT NULL,
-
-   Address1 NVARCHAR(100) NOT NULL,
-   Address2 NVARCHAR(100) NULL,
-   City NVARCHAR(100) NOT NULL,
-   PostCode NVARCHAR(20) NOT NULL,
-   StateProvince NVARCHAR(80) NOT NULL,
-   CountryCode NVARCHAR(5) NOT NULL,
-
-   ContactNumber NVARCHAR(15) NOT NULL,
-   Email NVARCHAR(255) NOT NULL,
-
-   AccountID INT NULL,
-
-   CreatedDate SMALLDATETIME NOT NULL,
-   ModifiedDate SMALLDATETIME NOT NULL,    -- ModifiedDate = CreatedDate for the first time
-
-   CONSTRAINT fk_StudentAccount FOREIGN KEY(AccountID) REFERENCES Account(AccountID),
-   CONSTRAINT fk_StudentCountry FOREIGN KEY(CountryCode) REFERENCES Country(CountryCode)
-);
-
 CREATE TABLE dbo.Employee
 (
    EmployeeID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -80,7 +53,50 @@ CREATE TABLE dbo.Employee
    CONSTRAINT fk_EmployeeCountry FOREIGN KEY(CountryCode) REFERENCES Country(CountryCode)
 );
 
--- Create table that consists of a list of roles
+CREATE TABLE dbo.Program
+(
+   ProgramID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+   ProgramName NVARCHAR(200) NOT NULL,
+   ProgramDescription NVARCHAR(MAX) NULL,
+   ManagerID INT NULL,
+
+   CreatedDate SMALLDATETIME NOT NULL,
+   ModifiedDate SMALLDATETIME NOT NULL,   -- ModifiedDate = CreatedDate for the first time
+
+   CONSTRAINT fk_employee FOREIGN KEY(ManagerID)
+      REFERENCES Employee(EmployeeID)
+);
+
+CREATE TABLE dbo.Student
+(
+   StudentID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+   StudentFirstName NVARCHAR(150) NOT NULL,
+   StudentLastName NVARCHAR(100) NOT NULL,
+   Gender BIT NOT NULL,          -- 0=male ; 1=female
+   DateOfBirth DATE NOT NULL,
+
+   Address1 NVARCHAR(100) NOT NULL,
+   Address2 NVARCHAR(100) NULL,
+   City NVARCHAR(100) NOT NULL,
+   PostCode NVARCHAR(20) NOT NULL,
+   StateProvince NVARCHAR(80) NOT NULL,
+   CountryCode NVARCHAR(5) NOT NULL,
+
+   ContactNumber NVARCHAR(15) NOT NULL,
+   Email NVARCHAR(255) NOT NULL,
+
+   AccountID INT NULL,
+   ProgramID INT NULL,
+
+   CreatedDate SMALLDATETIME NOT NULL,
+   ModifiedDate SMALLDATETIME NOT NULL,    -- ModifiedDate = CreatedDate for the first time
+
+   CONSTRAINT fk_StudentAccount FOREIGN KEY(AccountID) REFERENCES Account(AccountID),
+   CONSTRAINT fk_StudentCountry FOREIGN KEY(CountryCode) REFERENCES Country(CountryCode),
+   CONSTRAINT fk_StudentProgram FOREIGN KEY(ProgramID) REFERENCES Program(ProgramID)
+);
+
+-- Table that consists of a list of roles
 CREATE TABLE dbo.RoleCategory
 (
    RoleID TINYINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -122,20 +138,6 @@ CREATE TABLE dbo.Department
    ModifiedDate SMALLDATETIME NOT NULL    -- ModifiedDate = CreatedDate for the first time
 );
 
-CREATE TABLE dbo.Program
-(
-   ProgramID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-   ProgramName NVARCHAR(200) NOT NULL,
-   ProgramDescription NVARCHAR(MAX) NULL,
-   ManagerID INT NULL,
-
-   CreatedDate SMALLDATETIME NOT NULL,
-   ModifiedDate SMALLDATETIME NOT NULL,   -- ModifiedDate = CreatedDate for the first time
-
-   CONSTRAINT fk_employee FOREIGN KEY(ManagerID)
-      REFERENCES Employee(EmployeeID)
-);
-
 -- Table for student to add/remove courses
 CREATE TABLE dbo.StudentCourse
 (
@@ -154,6 +156,12 @@ CREATE TABLE dbo.EmployeeDepartment
    EmployeeID INT NOT NULL FOREIGN KEY REFERENCES Employee(EmployeeID) ON DELETE CASCADE
 );
 
+CREATE TABLE dbo.ProgramCourse
+(
+   ProgramID INT NOT NULL FOREIGN KEY REFERENCES Program(ProgramID),
+   CourseID INT NOT NULL FOREIGN KEY REFERENCES Course(CourseID) ON DELETE CASCADE
+);
+
 /*
 -- Table for storing average score in a particular course
 CREATE TABLE dbo.CourseScore
@@ -169,14 +177,14 @@ GO
 PRINT 'Tables created...'
 GO
 
--- Create Rule for dbo.StudentCourse's marks
+-- Rule for dbo.StudentCourse's marks
 CREATE RULE CourseMarksRule AS @Marks >=0.0 AND @Marks <=100.0
 GO
 EXEC sp_bindrule 'CourseMarksRule', 'StudentCourse.Marks'
 PRINT 'Rules created...'
 GO
 
--- Create default value for CreatedDate attribute
+-- Default value for CreatedDate attribute
 CREATE DEFAULT DATETIMECREATED AS CURRENT_TIMESTAMP
 GO
 sp_bindefault 'DATETIMECREATED', 'dbo.Department.CreatedDate'
@@ -206,13 +214,13 @@ GO
 PRINT 'View created...'
 GO
 
--- Trigger: Student enrols 1 course
+-- Trigger: Student enrols/delete 1 course
 CREATE TRIGGER InsertDeleteStudentCourse ON Enrollment
    INSTEAD OF INSERT, DELETE
 AS
    BEGIN
       IF EXISTS(SELECT * FROM DELETED)
-         DELETE FROM StudentCourse WHERE StudentID = (SELECT StudentID FROM DELETED) 
+         DELETE FROM StudentCourse WHERE StudentID = (SELECT StudentID FROM DELETED)
             AND CourseID = (SELECT CourseID FROM DELETED)
       ELSE
          INSERT INTO StudentCourse(StudentID, CourseID)
@@ -642,23 +650,22 @@ SET NOCOUNT ON
 USE AMS_DATABASE;
 GO
 
+IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'ProgramCourse'))
+BEGIN
+   DROP TABLE dbo.ProgramCourse
+   PRINT 'Table ProgramCourse deleted.'
+END
+
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'EmployeeDepartment'))
 BEGIN
    DROP TABLE dbo.EmployeeDepartment
    PRINT 'Table EmployeeDepartment deleted.'
 END
 
-
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'StudentCourse'))
 BEGIN
    DROP TABLE dbo.StudentCourse
    PRINT 'Table StudentCourse deleted.'
-END
-
-IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Program'))
-BEGIN
-   DROP TABLE dbo.Program
-   PRINT 'Table Program deleted.'
 END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Department'))
@@ -685,16 +692,22 @@ BEGIN
    PRINT 'Table RoleCategory deleted.'
 END
 
-IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Employee'))
-BEGIN
-   DROP TABLE dbo.Employee
-   PRINT 'Table Employee deleted.'
-END
-
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Student'))
 BEGIN
    DROP TABLE dbo.Student
    PRINT 'Table Student deleted.'
+END
+
+IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Program'))
+BEGIN
+   DROP TABLE dbo.Program
+   PRINT 'Table Program deleted.'
+END
+
+IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Employee'))
+BEGIN
+   DROP TABLE dbo.Employee
+   PRINT 'Table Employee deleted.'
 END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Account'))
@@ -813,8 +826,6 @@ BEGIN
    PRINT 'Stored procedure RemoveStudentCourse deleted.'
 END
 GO
-
-
 
 
 
