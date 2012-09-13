@@ -168,7 +168,7 @@ Public Class StudentWindowController
     ''' </summary>
     ''' <returns>A list of all course objects</returns>
     ''' <remarks></remarks>
-    Public Function GetAllCourse() As IList
+    Public Function GetAllCourse() As List(Of Course)
         Try
             Dim list As New List(Of Course)
             For Each i In db.GetAllCourse()

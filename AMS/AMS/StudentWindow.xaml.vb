@@ -8,7 +8,7 @@ Public Class StudentWindow
     Private controller As StudentWindowController = New StudentWindowController
     Private ReadOnly StudentUsername As String
     Private enrollCourseIDList As List(Of UInteger) = New List(Of UInteger)
-    'Private ls As listCompare = New listCompare()
+    Private courseList As List(Of Course)
 
 
     Public Sub New(ByRef username As String)
@@ -29,7 +29,9 @@ Public Class StudentWindow
         StudentTabControl.SelectedIndex = 1
 
         Try
-            listboxControl.ItemsSource = controller.GetAllCourse()
+            'retrieve all courses record
+            courseList = controller.GetAllCourse()
+            listboxControl.ItemsSource = courseList
             enrollCourseIDList.Clear()
 
             'retrieve student enrollment courses ID
@@ -39,60 +41,9 @@ Public Class StudentWindow
 
 
         Catch ex As Exception
-            MsgBox(ex.Message) '''''''''''''''''''''''''''''''''''''''''''''
         End Try
 
-
-
-
-        'If dt Is Nothing = False Then
-        '    dt.Clear()
-        'End If
-
-        ''get all courses into datagrid
-        'dt = db.GetAllCourse
-        'listboxControl.ItemsSource = dt
-
-
-
-
-        'Dim dt2 As DataTable = db.GetStudentEnrolCourse(CInt(StudentUsername.Substring(1)))
-        'Dim enrolledCourseList As List(Of Int32) = New List(Of Int32)
-
-        ''insert enrolled courseID into list
-
-        'If dt2 Is Nothing = False Then
-        '    For Each i In dt2.Rows
-        '        Dim dr As DataGridRow = i
-        '        enrolledCourseList.Add(CInt(dr.Item("CourseID")))
-
-        '        dr.IsEnabled = False
-
-
-        '    Next
-        'End If
-
-        'Dim temp As New DataTable
-        'For Each i In dt.Rows
-        '    Dim dr As DataRow = i
-
-        '    temp.Rows.Add(dr.Item(0))
-        'Next
-
-        'For Each i In dt.Rows
-        '    Dim dr As DataGridRow = DirectCast(i, DataGridRow)
-
-        '    'Dim id = CInt(dr.Item("CourseID"))
-
-        '    dr.IsEnabled = False
-
-        '    ' Dim dc As DataGridCell = dr
-
-        '    'If enrolledCourseList.BinarySearch(id) >= 0 Then
-
-        '    'End If
-        'Next
-        'enrolledCourseList.Clear()
+        btnEnrol.IsEnabled = False
 
     End Sub
 
@@ -253,27 +204,43 @@ Public Class StudentWindow
     End Sub
 
     Private Sub btnEnrol_Click(sender As System.Object, e As System.Windows.RoutedEventArgs)
-        btnEnrol.IsEnabled = False
-        btnEnrol.Content = "Enrolled"
+        If listboxControl.SelectedIndex >= 0 Then
+            'display confirmation window
+            If MessageBox.Show("Are you sure you want to enrol this course ? " _
+                           + vbCrLf + courseList(listboxControl.SelectedIndex).CourseCode.ToString + ": " _
+                           + courseList(listboxControl.SelectedIndex).CourseName.ToString, "System",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) = MessageBoxResult.Yes Then
+
+                'enrol student course
 
 
-        ''refresh once user has enrolled into a course
-        'enrollmentList.Clear()
-        'enrollmentList = controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
+                'disable enrol button
+                btnEnrol.IsEnabled = False
+                btnEnrol.Content = "Enrolled"
 
+                enrollCourseIDList.Clear()
 
+                'retrieve student enrollment courses ID
+                For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
+                    enrollCourseIDList.Add(i.CourseID)
+                Next
+            End If
+        End If
     End Sub
 
     Private Sub listboxControl_SelectionChanged(sender As System.Object, e As System.Windows.Controls.SelectionChangedEventArgs) Handles listboxControl.SelectionChanged
         Try
             If enrollCourseIDList.BinarySearch(CUInt(listboxControl.SelectedValue)) >= 0 Then
                 btnEnrol.IsEnabled = False
+                btnEnrol.Content = "Enrolled"
             Else
                 btnEnrol.IsEnabled = True
+                btnEnrol.Content = "Enroll"
             End If
 
         Catch ex As Exception
             btnEnrol.IsEnabled = True
+            btnEnrol.Content = "Enroll"
         End Try
     End Sub
 

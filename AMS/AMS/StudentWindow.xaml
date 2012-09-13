@@ -62,11 +62,11 @@
         <Label Grid.Column="1" Grid.Row="3"  Content="Profile" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
-        <TabControl Grid.Column="2" Height="525" HorizontalAlignment="Left" Name="StudentTabControl" 
-                    VerticalAlignment="Top" Width="441" Grid.RowSpan="5" BorderThickness="0" >
-            <TabItem IsHitTestVisible="False"/>
-            <TabItem IsHitTestVisible="False">
-                <Grid Margin="0,-16,0,0" Width="420" Height="490" VerticalAlignment="Top">
+        <TabControl Grid.Column="2" Height="525" HorizontalAlignment="Left" Name="StudentTabControl" Margin="0,-16,0,0"
+                    VerticalAlignment="Top" Width="441" Grid.RowSpan="5" BorderThickness="0" FocusVisualStyle="{x:Null}">
+            <TabItem IsHitTestVisible="False" />
+            <TabItem IsHitTestVisible="False" >
+                <Grid Margin="0,0,0,0" Width="420" Height="490" VerticalAlignment="Top" IsHitTestVisible="False">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="80"/>
@@ -102,24 +102,24 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <Button Name="btnEnrol" Grid.Row="1" Grid.Column="1" Content="Enrol" HorizontalAlignment="Right"
-                            Height="38" Padding="0" Width="80" Click="btnEnrol_Click"/>
+                            Height="38" Padding="0" Width="80" Click="btnEnrol_Click" />
                 </Grid>
             </TabItem>
 
             <TabItem IsHitTestVisible="False">
-                <Grid>
-
-                </Grid>
-            </TabItem>
-
-            <TabItem IsHitTestVisible="False">
-                <Grid>
+                <Grid Margin="0,0,0,0">
 
                 </Grid>
             </TabItem>
 
             <TabItem IsHitTestVisible="False">
-                <Grid Margin="0,-16,0,0">
+                <Grid Margin="0,0,0,0">
+
+                </Grid>
+            </TabItem>
+
+            <TabItem IsHitTestVisible="False">
+                <Grid Margin="0,0,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="28" />
                         <RowDefinition Height="28" />
