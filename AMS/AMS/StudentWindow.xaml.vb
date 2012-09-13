@@ -69,9 +69,15 @@ Public Class StudentWindow
 
     Private Sub btnViewAssessedCourse_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnViewAssessedCourse.Click
         StudentTabControl.SelectedIndex = 3
+        enrollCourseList.Clear()
 
-        enrollCourseIDList.Clear()
-        courseList.Clear()
+        'retrieves all student enrollment courses
+        For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
+            enrollCourseList.Add(i)
+        Next
+
+        viewListBoxCntrl.ItemsSource = enrollCourseList
+        viewListBoxCntrl.Items.Refresh()
 
     End Sub
 
