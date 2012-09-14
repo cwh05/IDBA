@@ -15,13 +15,13 @@ Public Class AdminWindow : Inherits MetroWindow
         Dim btnClicked = CType(sender, Button)
         Select Case btnClicked.Name
             Case "btnCreateDepartment"
-                tabContent.SelectedIndex = 0
-            Case "btnCreateProgram"
                 tabContent.SelectedIndex = 1
-            Case "btnCreateAccount"
+            Case "btnCreateProgram"
                 tabContent.SelectedIndex = 2
-            Case "btnAssignPM"
+            Case "btnCreateAccount"
                 tabContent.SelectedIndex = 3
+            Case "btnAssignPM"
+                tabContent.SelectedIndex = 4
         End Select
     End Sub
 

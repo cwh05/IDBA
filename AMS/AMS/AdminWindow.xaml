@@ -86,7 +86,8 @@
                FontSize="24">assign pm</Label>
         
         <TabControl Name="tabContent" Grid.Column="2" Grid.RowSpan="8">
-            <TabItem>
+            <TabItem IsHitTestVisible="False"/>
+            <TabItem IsHitTestVisible="False">
                 <Grid Name="gridDepartment" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -115,7 +116,7 @@
                     <Button Grid.Column="2" Grid.Row="3" Margin="0,20,0,0">cancel</Button>
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem IsHitTestVisible="False">
                 <Grid Name="gridProgram" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -153,7 +154,7 @@
                     <Button Grid.Column="2" Grid.Row="5" Margin="0,20,0,0">cancel</Button>
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem IsHitTestVisible="False">
                 <Grid Name="gridAccount" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -225,7 +226,7 @@
                     <Button Grid.Column="2" Grid.Row="7" Margin="0,20,0,0">cancel</Button>
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem IsHitTestVisible="False">
                 <Grid Name="gridAssignPM" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -244,7 +245,7 @@
                        Margin="0,0,0,20"
                        FontWeight="Normal" 
                        FontSize="45"
-                       Foreground="Red">assgin pm</Label>
+                       Foreground="Red">assign pm</Label>
                     <Label Grid.Column="0" Grid.Row="1" 
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold">STAFF</Label>
