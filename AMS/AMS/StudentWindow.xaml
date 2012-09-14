@@ -34,19 +34,19 @@
         
         <Button Name="btnEnrolCourse" Grid.Column="0" Grid.Row="0" Width="55" Height="55"
                 Style="{DynamicResource MetroCircleButtonStyle}" Focusable="False" >
-            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" />
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" Source="/AMS;component/Resources/Images/enrolCourse.png" />
         </Button>
         <Label Grid.Column="1" Grid.Row="0" Content="Enrol Course" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
         <Button Name="btnRemoveCourse" Grid.Column="0" Grid.Row="1" Width="55" Height="55"
                 Style="{DynamicResource MetroCircleButtonStyle}" Focusable="False" >
-            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" />
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" Source="/AMS;component/Resources/Images/removeCourse.png" />
         </Button>
         <Label Grid.Column="1" Grid.Row="1" Content="Remove Course" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
         <Button Name="btnViewAssessedCourse" Grid.Column="0" Grid.Row="2" Width="55" Height="55"
                 Style="{DynamicResource MetroCircleButtonStyle}" Focusable="False" >
-            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" />
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" Source="/AMS;component/Resources/Images/viewCourses.png" />
         </Button>
         <Label Grid.Column="1" Grid.Row="2" >
             <TextBlock Text="View Assessed Courses" TextWrapping="Wrap" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>

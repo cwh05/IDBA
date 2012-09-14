@@ -201,5 +201,14 @@
   <ItemGroup>
     <Resource Include="Resources\Images\loginDisplay.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\enrolCourse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\viewCourses.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\removeCourse.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
