@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("6ccc77a9-acba-4053-90ba-bc66a2a1c68a")>
+<Assembly: EdmSchemaAttribute("584ef4cc-46bb-4289-a707-de53750cd181")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -2257,13 +2257,11 @@ Public Partial Class Program
     ''' <summary>
     ''' Create a new Program object.
     ''' </summary>
-    ''' <param name="programID">Initial value of the ProgramID property.</param>
     ''' <param name="programName">Initial value of the ProgramName property.</param>
     ''' <param name="createdDate">Initial value of the CreatedDate property.</param>
     ''' <param name="modifiedDate">Initial value of the ModifiedDate property.</param>
-    Public Shared Function CreateProgram(programID As Global.System.Int32, programName As Global.System.String, createdDate As Global.System.DateTime, modifiedDate As Global.System.DateTime) As Program
+    Public Shared Function CreateProgram(programName As Global.System.String, createdDate As Global.System.DateTime, modifiedDate As Global.System.DateTime) As Program
         Dim program as Program = New Program
-        program.ProgramID = programID
         program.ProgramName = programName
         program.CreatedDate = createdDate
         program.ModifiedDate = modifiedDate
@@ -2293,7 +2291,7 @@ Public Partial Class Program
         End Set
     End Property
 
-    Private _ProgramID As Global.System.Int32
+    Private _ProgramID As Global.System.Int32 = 0
     Private Partial Sub OnProgramIDChanging(value As Global.System.Int32)
     End Sub
 

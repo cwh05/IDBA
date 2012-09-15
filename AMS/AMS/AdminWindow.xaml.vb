@@ -8,7 +8,10 @@ Public Class AdminWindow : Inherits MetroWindow
         ' This call is required by the designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
-
+        comboboxCountry.ItemsSource = adminWindowController.GetAllCountryForLookUp()
+        comboboxProgram.ItemsSource = adminWindowController.GetAllProgramForLookUp()
+        comboboxStaff.ItemsSource = adminWindowController.GetAllEmployeeForLookUp()
+        comboboxRole.ItemsSource = adminWindowController.GetAllRoleForLookUp()
     End Sub
 
     Private Sub btnMenu_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
@@ -34,7 +37,7 @@ Public Class AdminWindow : Inherits MetroWindow
     Private Sub btnSaveProgram(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         Dim program = New Program()
         program.ProgramName = txtProgramName.Text
-        program.ProgramDescription = ""
+        program.ProgramDescription = txtProgramDescription.Text
         adminWindowController.CreateProgram(program)
     End Sub
 

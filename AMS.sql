@@ -647,9 +647,76 @@ AS
    delete Enrollment where StudentID=@STUDENTID and CourseID=@COURSEID
 GO
 
+IF (OBJECT_ID('InsertDeaprtment') IS NOT NULL)
+BEGIN
+   DROP PROCEDURE InsertDeaprtment
+END
+GO
 
+CREATE PROCEDURE InsertDeaprtment
+	@departmentName NVARCHAR(200)
+AS
+BEGIN
+	INSERT Department(DepartmentName, ModifiedDate) VALUES (@departmentName, GETDATE())
+END
+GO
 
+IF (OBJECT_ID('InsertProgram') IS NOT NULL)
+BEGIN
+   DROP PROCEDURE InsertProgram
+END
+GO
 
+CREATE PROCEDURE InsertProgram
+	@programName NVARCHAR(200),
+	@programDescription NVARCHAR(MAX)
+AS
+BEGIN
+	INSERT Program(ProgramName, ProgramDescription, ModifiedDate) VALUES (@programName, @programDescription, GETDATE())
+END
+GO
+
+IF (OBJECT_ID('InsertAccount') IS NOT NULL)
+BEGIN
+   DROP PROCEDURE InsertAccount
+END
+GO
+
+CREATE PROCEDURE InsertAccount
+	@loginUsername NVARCHAR(100),
+	@loginPassword NVARCHAR(255)
+AS
+BEGIN
+	INSERT Account(LoginUsername, LoginPassword) VALUES (@loginUsername, @loginPassword)
+END
+GO
+
+IF (OBJECT_ID('InsertEmployee') IS NOT NULL)
+BEGIN
+   DROP PROCEDURE InsertEmployee
+END
+GO
+
+CREATE PROCEDURE InsertEmployee
+	@firstname		NVARCHAR(150),
+	@lastname		NVARCHAR(100),
+	@gender			BIT,
+	@dateOfBirth	DATETIME,
+	@address1		NVARCHAR(100),
+	@address2		NVARCHAR(100),
+	@city			NVARCHAR(100),
+	@postCode		NVARCHAR(20),
+	@stateProvince	NVARCHAR(80),
+	@countryCode	NVARCHAR(5),
+	@contactNumber  NVARCHAR(15),
+	@emailAddress	NVARCHAR(255),
+	@accountId		INT
+AS
+BEGIN
+	INSERT Employee(EmployeeFirstName, EmployeeLastName, Gender, DateOfBirth, Address1, Address2, City, PostCode, StateProvince, CountryCode, ContactNumber, Email, AccountID, ModifiedDate) 
+	VALUES (@firstname, @lastname, @gender, @dateOfBirth, @address1, @address2, @city, @postCode, @stateProvince, @countryCode, @contactNumber, @emailAddress, @accountId, GETDATE())
+END
+GO
 
 PRINT 'Stored procedures created'
 GO

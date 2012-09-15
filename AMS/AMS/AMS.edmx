@@ -456,6 +456,32 @@
         <Function Name="GetUserPersonalDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentUsername" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="InsertAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loginUsername" Type="nvarchar" Mode="In" />
+          <Parameter Name="loginPassword" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="InsertDeaprtment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="departmentName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="InsertEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstname" Type="nvarchar" Mode="In" />
+          <Parameter Name="lastname" Type="nvarchar" Mode="In" />
+          <Parameter Name="gender" Type="bit" Mode="In" />
+          <Parameter Name="dateOfBirth" Type="datetime" Mode="In" />
+          <Parameter Name="address1" Type="nvarchar" Mode="In" />
+          <Parameter Name="address2" Type="nvarchar" Mode="In" />
+          <Parameter Name="city" Type="nvarchar" Mode="In" />
+          <Parameter Name="postCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="stateProvince" Type="nvarchar" Mode="In" />
+          <Parameter Name="countryCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="contactNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="emailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="accountId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertProgram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="programName" Type="nvarchar" Mode="In" />
+          <Parameter Name="programDescription" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="LoginVerification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="nvarchar" Mode="In" />
           <Parameter Name="password" Type="nvarchar" Mode="In" />
@@ -589,7 +615,7 @@
             <End Role="Program" EntitySet="Programs" />
           </AssociationSet>
           <FunctionImport Name="GetAllCourseOfProgram" ReturnType="Collection(Model.GetAllCourseOfProgram_Result)">
-            <Parameter Name="STUDENTID" Mode="In" Type="Int32" />
+          <Parameter Name="STUDENTID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
@@ -674,7 +700,7 @@
           <Key>
             <PropertyRef Name="ProgramID" />
           </Key>
-          <Property Type="Int32" Name="ProgramID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ProgramID" Nullable="false" annotation:StoreGeneratedPattern="Identity" DefaultValue="0" />
           <Property Type="String" Name="ProgramName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ProgramDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="ManagerID" />
@@ -980,6 +1006,13 @@
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
               </MappingFragment>
             </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Model.Department">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="Model.Store.InsertDeaprtment" >
+                  <ScalarProperty Name="DepartmentName" ParameterName="departmentName" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="Model.Employee">
@@ -1021,6 +1054,14 @@
                 <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
                 <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
               </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Model.Program">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="Model.Store.InsertProgram" >
+                <ScalarProperty Name="ProgramDescription" ParameterName="programDescription" />
+                  <ScalarProperty Name="ProgramName" ParameterName="programName" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RoleCategories">
