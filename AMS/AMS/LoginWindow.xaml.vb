@@ -47,6 +47,8 @@ Class LoginWindow : Inherits MetroWindow
                 window1.Show()
                 Dim window3 = New StudentWindow(txtUsername.Text)
                 window3.Show()
+                Dim window4 = New StaffWindow()
+                window4.Show()
                 Me.Finalize()
                 Me.Close()
                 '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''

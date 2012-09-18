@@ -91,6 +91,9 @@
     <Compile Include="ProgramWindow.xaml.vb">
       <DependentUpon>ProgramWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StaffWindow.xaml.vb">
+      <DependentUpon>StaffWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StudentWindow.xaml.vb">
       <DependentUpon>StudentWindow.xaml</DependentUpon>
     </Compile>
@@ -114,6 +117,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ProgramWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StaffWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
