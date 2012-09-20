@@ -2,13 +2,29 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignHeight="40" d:DesignWidth="100">
+             mc:Ignorable="d" d:DesignHeight="56" d:DesignWidth="60">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <Button Name="btnLogout" BorderBrush="#00000000" BorderThickness="1" Padding="0" FontSize="24"
-                    Content="Logout" Foreground="Blue" FontWeight="SemiBold"
-                    VerticalContentAlignment="Top" VerticalAlignment="Center"
-                    HorizontalAlignment="Center" HorizontalContentAlignment="Right" Background="Transparent">
+        <Button Name="btnLogout" Width="55" Height="55"
+             Focusable="False" ToolTip="Logout" Style="{DynamicResource MetroCircleButtonStyle}">
+            <Image Source="/AMS;component/Resources/Images/logout.png" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Width="24" Height="24" />
         </Button>
     </Grid>
 </UserControl>

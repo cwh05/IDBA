@@ -15,4 +15,5 @@
         'launch login window
         window.Show()
     End Sub
+
 End Class

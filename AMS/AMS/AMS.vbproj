@@ -224,5 +224,8 @@
   <ItemGroup>
     <Resource Include="Resources\Images\removeCourse.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\logout.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
