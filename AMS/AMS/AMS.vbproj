@@ -104,14 +104,14 @@
     <Compile Include="StudentWindow.xaml.vb">
       <DependentUpon>StudentWindow.xaml</DependentUpon>
     </Compile>
-    <XamlAppdef Include="loginFlow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </XamlAppdef>
     <Page Include="AdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <XamlAppdef Include="LoginFlow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppdef>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

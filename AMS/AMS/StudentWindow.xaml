@@ -62,7 +62,7 @@
         <Label Grid.Column="1" Grid.Row="3"  Content="Profile" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <my:LogoutUserControl HorizontalAlignment="Left" VerticalAlignment="Top" 
-                              Grid.Column="0" Grid.Row="4" Margin="0,55,0,0"/>
+                              Grid.Column="0" Grid.Row="4" Margin="0,55,0,0" />
         <Label Grid.Column="1" Grid.Row="4"  Content="Logout" FontSize="24" HorizontalAlignment="Left" Margin="0,60,0,0"/>
 
 

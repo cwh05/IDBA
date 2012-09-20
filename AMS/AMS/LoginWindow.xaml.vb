@@ -5,7 +5,7 @@ Class LoginWindow : Inherits MetroWindow
     Private controller As LoginWindowContoller = New LoginWindowContoller()
 
     Private Sub btnLogin_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnLogin.Click
-        'Dim s = New loginFlow()
+        'Dim s = New LoginFlow()
         'Dim w = New WorkflowInvoker(s)
         'w.Invoke()
 

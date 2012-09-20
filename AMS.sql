@@ -13,6 +13,15 @@ USE AMS_DATABASE;
 GO
 SET NOCOUNT ON
 
+-- Table that consists of a list of roles
+CREATE TABLE dbo.RoleCategory
+(
+   RoleID TINYINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+   RoleTitle NVARCHAR(100) NOT NULL,
+
+   CreatedDate SMALLDATETIME NOT NULL,
+);
+
 CREATE TABLE dbo.Country
 (
    CountryCode NVARCHAR(5) NOT NULL PRIMARY KEY,
@@ -45,12 +54,14 @@ CREATE TABLE dbo.Employee
    Email NVARCHAR(255) NOT NULL,
 
    AccountID INT NULL,
+   RoleID TINYINT NULL,
 
    CreatedDate SMALLDATETIME NOT NULL,
    ModifiedDate SMALLDATETIME NOT NULL,    -- ModifiedDate = CreatedDate for the first time
 
    CONSTRAINT fk_EmployeeAccount FOREIGN KEY(AccountID) REFERENCES Account(AccountID),
-   CONSTRAINT fk_EmployeeCountry FOREIGN KEY(CountryCode) REFERENCES Country(CountryCode)
+   CONSTRAINT fk_EmployeeCountry FOREIGN KEY(CountryCode) REFERENCES Country(CountryCode),
+   CONSTRAINT fk_RoleCategory FOREIGN KEY(RoleID) REFERENCES RoleCategory(RoleID)
 );
 
 CREATE TABLE dbo.Program
@@ -94,25 +105,6 @@ CREATE TABLE dbo.Student
    CONSTRAINT fk_StudentAccount FOREIGN KEY(AccountID) REFERENCES Account(AccountID),
    CONSTRAINT fk_StudentCountry FOREIGN KEY(CountryCode) REFERENCES Country(CountryCode),
    CONSTRAINT fk_StudentProgram FOREIGN KEY(ProgramID) REFERENCES Program(ProgramID)
-);
-
--- Table that consists of a list of roles
-CREATE TABLE dbo.RoleCategory
-(
-   RoleID TINYINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-   RoleTitle NVARCHAR(100) NOT NULL,
-
-   CreatedDate SMALLDATETIME NOT NULL,
-);
-
--- Table for Employees and their roles
-CREATE TABLE dbo.EmployeeRole
-(
-   EmployeeRoleID INT NOT NULL PRIMARY KEY, -- same key as dbo.Employee's EmployeeID
-   RoleID TINYINT NOT NULL,
-
-   CONSTRAINT fk_RoleCategory FOREIGN KEY(RoleID)
-      REFERENCES RoleCategory(RoleID)
 );
 
 CREATE TABLE dbo.Course
@@ -538,8 +530,7 @@ AS
          BEGIN
             SET @TITLE = (SELECT rc.RoleTitle FROM Employee e
                   INNER JOIN Account a ON e.AccountID = a.AccountID
-                  INNER JOIN EmployeeRole er ON e.EmployeeID = er.EmployeeRoleID
-                  INNER JOIN RoleCategory rc ON er.RoleID = rc.RoleID
+                  INNER JOIN RoleCategory rc ON e.RoleID = rc.RoleID
                   WHERE a.LoginUsername = @username AND a.LoginPassword = @password)
 
             IF @TITLE = 'Administrator'
@@ -757,18 +748,6 @@ BEGIN
    PRINT 'Table Course deleted.'
 END
 
-IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'EmployeeRole'))
-BEGIN
-   DROP TABLE dbo.EmployeeRole
-   PRINT 'Table EmployeeRole deleted.'
-END
-
-IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'RoleCategory'))
-BEGIN
-   DROP TABLE dbo.RoleCategory
-   PRINT 'Table RoleCategory deleted.'
-END
-
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Student'))
 BEGIN
    DROP TABLE dbo.Student
@@ -799,6 +778,11 @@ BEGIN
    PRINT 'Table Country deleted.'
 END
 
+IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'RoleCategory'))
+BEGIN
+   DROP TABLE dbo.RoleCategory
+   PRINT 'Table RoleCategory deleted.'
+END
 
 IF (OBJECT_ID('CourseMarksRule') IS NOT NULL)
 BEGIN
