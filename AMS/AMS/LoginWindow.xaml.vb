@@ -1,9 +1,16 @@
 ﻿Imports MahApps.Metro.Controls
+Imports System.Activities
 
 Class LoginWindow : Inherits MetroWindow
     Private controller As LoginWindowContoller = New LoginWindowContoller()
 
     Private Sub btnLogin_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnLogin.Click
+        'Dim s = New loginFlow()
+        'Dim w = New WorkflowInvoker(s)
+        'w.Invoke()
+
+        'WorkflowInvoker.Invoke(s)
+
         'validate input textboxes
         If txtUsername.Text.Length = 0 And txtPassword.Password.Length = 0 Then
             FailToLogin()

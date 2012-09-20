@@ -62,7 +62,9 @@
         <Label Grid.Column="1" Grid.Row="3"  Content="Profile" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <my:LogoutUserControl HorizontalAlignment="Left" VerticalAlignment="Top" 
-                              Grid.Column="0" Grid.Row="4" Margin="0,10,0,0"/>
+                              Grid.Column="0" Grid.Row="4" Margin="0,55,0,0"/>
+        <Label Grid.Column="1" Grid.Row="4"  Content="Logout" FontSize="24" HorizontalAlignment="Left" Margin="0,60,0,0"/>
+
 
         <TabControl Grid.Column="2" Height="525" HorizontalAlignment="Left" Name="StudentTabControl" Margin="0,-16,0,0"
                 VerticalAlignment="Top" Width="441" Grid.RowSpan="5" BorderThickness="0" FocusVisualStyle="{x:Null}">
