@@ -17,330 +17,317 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
-    
-    <Grid>
+        
+    <Grid Margin="10" >
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="70" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="53"/>
+            <ColumnDefinition Width="175"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        
-        
-        <my:LogoutUserControl Grid.Row="0" HorizontalAlignment="Right"  VerticalAlignment="Top" 
-                              Height="auto" Width="auto"/>
-        
-        <Grid Margin="10" Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="55" />
-                <RowDefinition Height="55" />
-                <RowDefinition Height="70" />
-                <RowDefinition Height="55" />
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="53"/>
-                <ColumnDefinition Width="175"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
 
-            <Button Name="btnEnrolCourse" Grid.Column="0" Grid.Row="0" Width="55" Height="55"
-                Style="{DynamicResource MetroCircleButtonStyle}" Focusable="False" >
-                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" Source="/AMS;component/Resources/Images/enrolCourse.png" />
-            </Button>
-            <Label Grid.Column="1" Grid.Row="0" Content="Enrol Course" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <Button Name="btnEnrolCourse" Grid.Column="0" Grid.Row="0" Width="55" Height="55"
+            Style="{DynamicResource MetroCircleButtonStyle}" Focusable="False" Padding="0">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" Source="/AMS;component/Resources/Images/enrolCourse.png" />
+        </Button>
+        <Label Grid.Column="1" Grid.Row="0" Content="Enrol Course" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-            <Button Name="btnRemoveCourse" Grid.Column="0" Grid.Row="1" Width="55" Height="55"
-                Style="{DynamicResource MetroCircleButtonStyle}" Focusable="False" >
-                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" Source="/AMS;component/Resources/Images/removeCourse.png" />
-            </Button>
-            <Label Grid.Column="1" Grid.Row="1" Content="Remove Course" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <Button Name="btnRemoveCourse" Grid.Column="0" Grid.Row="1" Width="55" Height="55"
+            Style="{DynamicResource MetroCircleButtonStyle}" Focusable="False" >
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" Source="/AMS;component/Resources/Images/removeCourse.png" />
+        </Button>
+        <Label Grid.Column="1" Grid.Row="1" Content="Remove Course" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-            <Button Name="btnViewAssessedCourse" Grid.Column="0" Grid.Row="2" Width="55" Height="55"
-                Style="{DynamicResource MetroCircleButtonStyle}" Focusable="False" >
-                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" Source="/AMS;component/Resources/Images/viewCourses.png" />
-            </Button>
-            <Label Grid.Column="1" Grid.Row="2" >
-                <TextBlock Text="View Assessed Courses" TextWrapping="Wrap" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            </Label>
+        <Button Name="btnViewAssessedCourse" Grid.Column="0" Grid.Row="2" Width="55" Height="55"
+            Style="{DynamicResource MetroCircleButtonStyle}" Focusable="False" >
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" Source="/AMS;component/Resources/Images/viewCourses.png" />
+        </Button>
+        <Label Grid.Column="1" Grid.Row="2" >
+            <TextBlock Text="View Assessed Courses" TextWrapping="Wrap" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </Label>
 
-            <Button Name="btnUpdateProfile" Grid.Column="0" Grid.Row="3" Width="55" Height="55"
-                Style="{DynamicResource MetroCircleButtonStyle}" Focusable="False" >
-                <Image Source="Resources/Images/manager.png" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" 
-                   Width="24" Height="24" />
-            </Button>
-            <Label Grid.Column="1" Grid.Row="3"  Content="Profile" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Button Name="btnUpdateProfile" Grid.Column="0" Grid.Row="3" Width="55" Height="55"
+            Style="{DynamicResource MetroCircleButtonStyle}" Focusable="False" >
+            <Image Source="Resources/Images/manager.png" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Width="24" Height="24" />
+        </Button>
+        <Label Grid.Column="1" Grid.Row="3"  Content="Profile" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
+        <my:LogoutUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="4" Margin="4"/>
 
-            <TabControl Grid.Column="2" Height="525" HorizontalAlignment="Left" Name="StudentTabControl" Margin="0,-16,0,0"
-                    VerticalAlignment="Top" Width="441" Grid.RowSpan="5" BorderThickness="0" FocusVisualStyle="{x:Null}">
-                <TabItem IsHitTestVisible="False" />
-                <TabItem IsHitTestVisible="False" >
-                    <Grid Margin="0,0,0,0" Width="420" Height="490" VerticalAlignment="Top" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="80"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="40"/>
-                        </Grid.RowDefinitions>
+        <TabControl Grid.Column="2" Height="525" HorizontalAlignment="Left" Name="StudentTabControl" Margin="0,-16,0,0"
+                VerticalAlignment="Top" Width="441" Grid.RowSpan="5" BorderThickness="0" FocusVisualStyle="{x:Null}">
+            <TabItem IsHitTestVisible="False" />
+            <TabItem IsHitTestVisible="False" >
+                <Grid Margin="0,0,0,0" Width="420" Height="490" VerticalAlignment="Top" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
 
-                        <ListBox Name="listboxControl" Width="420" Height="450" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0"
-                             VerticalContentAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding}" 
-                             SelectedValuePath="CourseID" ItemContainerStyle="{StaticResource lbi}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="400"/>
-                                        </Grid.ColumnDefinitions>
+                    <ListBox Name="listboxControl" Width="420" Height="450" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0"
+                            VerticalContentAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding}" 
+                            SelectedValuePath="CourseID" ItemContainerStyle="{StaticResource lbi}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="400"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <StackPanel Grid.Column="0" Margin="1,0,0,3">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Course Code: " FontSize="13"  />
-                                                <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
-                                                           TextWrapping="Wrap" Width="320"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Course Name: " FontSize="13"  />
-                                                <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
-                                                           TextWrapping="Wrap" Width="320"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" >
-                                                <TextBlock Text="Description: " FontSize="13" />
-                                                <TextBlock Text="{Binding CourseDescription}" FontSize="13" Foreground="DimGray" 
-                                                       TextWrapping="Wrap" Width="320"/>
-                                            </StackPanel>
+                                    <StackPanel Grid.Column="0" Margin="1,0,0,3">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Course Code: " FontSize="13"  />
+                                            <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
+                                                        TextWrapping="Wrap" Width="320"/>
                                         </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <Button Name="btnEnrol" Grid.Row="1" Grid.Column="1" Content="Enrol" HorizontalAlignment="Right"
-                            Height="38" Padding="0" Width="80" Click="btnEnrol_Click" />
-                    </Grid>
-                </TabItem>
-
-                <TabItem IsHitTestVisible="False">
-                    <Grid Margin="0,0,0,0" Width="420" Height="490" VerticalAlignment="Top" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="80"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="40"/>
-                        </Grid.RowDefinitions>
-
-                        <ListBox Name="removeListBoxControl" Width="420" Height="450" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0"
-                             VerticalContentAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding}" 
-                             SelectedValuePath="CourseID" ItemContainerStyle="{StaticResource lbi}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="400"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <StackPanel Grid.Column="0" Margin="1,0,0,3">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Course Code: " FontSize="13"/>
-                                                <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Course Name: " FontSize="13"  />
+                                            <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
                                                         TextWrapping="Wrap" Width="320"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Course Name: " FontSize="13"/>
-                                                <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
-                                                        TextWrapping="Wrap" Width="320"/>
-                                            </StackPanel>
                                         </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <Button Name="btnRemove" Grid.Row="1" Grid.Column="1" Content="Remove" HorizontalAlignment="Right"
-                            Height="38" Padding="0" Width="80" Click="btnRemove_Click" />
-                    </Grid>
-                </TabItem>
-
-                <TabItem IsHitTestVisible="False">
-                    <Grid Margin="0,0,0,0" Width="420" Height="490" VerticalAlignment="Top" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="80"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="40"/>
-                        </Grid.RowDefinitions>
-
-                        <ListBox Name="viewListBoxCntrl" Width="420" Height="450" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0"
-                             VerticalContentAlignment="Center" VerticalAlignment="Top" ItemContainerStyle="{StaticResource lbi}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="400"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <StackPanel Grid.Column="0" Margin="1,0,0,3">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Course Code: " FontSize="13"/>
-                                                <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
-                                                        TextWrapping="Wrap" Width="320"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Course Name: " FontSize="13"/>
-                                                <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
-                                                        TextWrapping="Wrap" Width="320"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Marks: " FontSize="13"/>
-                                                <TextBlock Text="{Binding Marks}" FontSize="13" Foreground="DimGray" 
-                                                        TextWrapping="Wrap" Width="320"/>
-                                            </StackPanel>
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBlock Text="Description: " FontSize="13" />
+                                            <TextBlock Text="{Binding CourseDescription}" FontSize="13" Foreground="DimGray" 
+                                                    TextWrapping="Wrap" Width="320"/>
                                         </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-                </TabItem>
-
-                <TabItem IsHitTestVisible="False">
-                    <Grid Margin="0,0,0,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="9" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="9" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition Height="28" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="220"/>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-
-                        <Label Grid.Row="0" Grid.Column="0" Content="Student ID" VerticalContentAlignment="Center" />
-                        <Label Name="labelStudentID" Grid.Row="0" Grid.Column="1"
-                           VerticalContentAlignment="Center" />
-
-                        <Label Grid.Row="1" Grid.Column="0" Content="First Name" VerticalContentAlignment="Center" />
-                        <TextBox Name="txtFirstName" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" 
-                             MaxLines="1" AllowDrop="False" MaxLength="100" Text="{Binding StudentFirstName}" 
-                             Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
-
-                        <Label Grid.Row="2" Grid.Column="0" Content="Last Name" VerticalContentAlignment="Center" />
-                        <TextBox Name="txtLastName" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" 
-                             MaxLines="1" AllowDrop="False" MaxLength="100" Text="{Binding StudentLastName}"
-                             Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
-
-                        <Label Grid.Row="3" Grid.Column="0" Content="Gender" VerticalContentAlignment="Center" />
-                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-                            <RadioButton Name="radioGenderMale" VerticalContentAlignment="Center" FontSize="12" Content="Male" Margin="0,0,5,0" />
-                            <RadioButton Name="radioGenderFemale" VerticalContentAlignment="Center" FontSize="12" Content="Female" />
-                        </StackPanel>
-
-                        <Label Grid.Row="4" Grid.Column="0" Content="Date of Birth" VerticalContentAlignment="Center"/>
-                        <DatePicker Name="dob" Grid.Row="4" Grid.Column="1" FirstDayOfWeek="Sunday" Width="120" Height="24"
-                                HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" 
-                                SelectedDate="{Binding DateOfBirth}" />
-
-                        <Label Grid.Row="5" Grid.Column="0" Content="Contact Number" VerticalContentAlignment="Center" />
-                        <TextBox Name="txtContactNumber" Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center" 
-                             MaxLines="1" AllowDrop="False" MaxLength="15" Text="{Binding ContactNumber}" 
-                             Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
-
-                        <Label Grid.Row="6" Grid.Column="0" Content="Email" VerticalContentAlignment="Center" />
-                        <TextBox Name="txtEmail" Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Center" 
-                             MaxLines="1" AllowDrop="False" MaxLength="255" Text="{Binding Email}" 
-                             Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
-
-                        <Separator Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,0,10,0" Background="LightBlue" />
-                        <Label Grid.Row="8" Grid.Column="0" Content="Address 1" VerticalContentAlignment="Center" />
-                        <TextBox Name="txtAddress1" Grid.Row="8" Grid.Column="1" VerticalContentAlignment="Center" 
-                             MaxLines="1" AllowDrop="False" MaxLength="100" Text="{Binding Address1}" 
-                             Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
-
-                        <Label Grid.Row="9" Grid.Column="0" Content="Address 2" VerticalContentAlignment="Center" />
-                        <TextBox Name="txtAddress2" Grid.Row="9" Grid.Column="1" VerticalContentAlignment="Center" 
-                             MaxLines="1" AllowDrop="False" MaxLength="100" Text="{Binding Address2}" 
-                             Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
-
-                        <Label Grid.Row="10" Grid.Column="0" Content="City" VerticalContentAlignment="Center" />
-                        <TextBox Name="txtCity" Grid.Row="10" Grid.Column="1" VerticalContentAlignment="Center" 
-                             MaxLines="1" AllowDrop="False" MaxLength="100" Text="{Binding City}" 
-                             Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
-
-                        <Label Grid.Row="11" Grid.Column="0" Content="PostCode" VerticalContentAlignment="Center" />
-                        <TextBox Name="txtPostCode" Grid.Row="11" Grid.Column="1" VerticalContentAlignment="Center" 
-                             MaxLines="1" AllowDrop="False" MaxLength="15"  Text="{Binding PostCode}" 
-                             Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
-
-                        <Label Grid.Row="12" Grid.Column="0" Content="State Province" VerticalContentAlignment="Center" />
-                        <TextBox Name="txtState" Grid.Row="12" Grid.Column="1" VerticalContentAlignment="Center" 
-                             MaxLines="1" AllowDrop="False" MaxLength="75"  Text="{Binding StateProvince}" 
-                             Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
-
-                        <Label Grid.Row="13" Grid.Column="0" Content="Country" VerticalContentAlignment="Center" />
-                        <ComboBox Grid.Row="13" Grid.Column="1" VerticalContentAlignment="Center" Name="countryCombo"
-                              Height="24" FontSize="12"  MaxDropDownHeight="88" 
-                              SelectedValuePath="CountryCode" IsSynchronizedWithCurrentItem="True" >
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding CountryTitle}" ToolTip="{Binding CountryTitle}" />
                                     </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button Name="btnEnrol" Grid.Row="1" Grid.Column="1" Content="Enrol" HorizontalAlignment="Right"
+                        Height="38" Padding="0" Width="80" Click="btnEnrol_Click" />
+                </Grid>
+            </TabItem>
 
-                        <Separator Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,0,10,0" Background="LightBlue" />
-                        <Label Grid.Row="15" Grid.Column="0" Content="Old Password" VerticalContentAlignment="Center" FontStyle="Italic"/>
-                        <PasswordBox Name="txtOldPassword" Grid.Row="15" Grid.Column="1" MaxLength="100" 
-                            ContextMenu="{x:Null}" VerticalContentAlignment="Center" 
-                            Controls:TextboxHelper.Watermark="Old Password" Template="{StaticResource PasswordTxtBoxDisplay}"
-                            Controls:TextboxHelper.ClearTextButton="False" Height="24" MinHeight="24" />
+            <TabItem IsHitTestVisible="False">
+                <Grid Margin="0,0,0,0" Width="420" Height="490" VerticalAlignment="Top" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
 
-                        <Label Grid.Row="16" Grid.Column="0" Content="New Password" VerticalContentAlignment="Center" FontStyle="Italic"/>
-                        <PasswordBox Name="txtNewPassword" Grid.Row="16" Grid.Column="1" MaxLength="100" 
-                            ContextMenu="{x:Null}" VerticalContentAlignment="Center" 
-                            Controls:TextboxHelper.Watermark="New Password" Template="{StaticResource PasswordTxtBoxDisplay}"
-                            Controls:TextboxHelper.ClearTextButton="False" Height="24" MinHeight="24" />
+                    <ListBox Name="removeListBoxControl" Width="420" Height="450" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0"
+                            VerticalContentAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding}" 
+                            SelectedValuePath="CourseID" ItemContainerStyle="{StaticResource lbi}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="400"/>
+                                    </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="17" Grid.Column="0" Content="Confirm Password" VerticalContentAlignment="Center" FontStyle="Italic"/>
-                        <PasswordBox Name="txtConfirmPassword" Grid.Row="17" Grid.Column="1" MaxLength="100" 
-                            ContextMenu="{x:Null}" VerticalContentAlignment="Center" 
-                            Controls:TextboxHelper.Watermark="Old Password" Template="{StaticResource PasswordTxtBoxDisplay}"
-                            Controls:TextboxHelper.ClearTextButton="False" Height="24" MinHeight="24" />
+                                    <StackPanel Grid.Column="0" Margin="1,0,0,3">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Course Code: " FontSize="13"/>
+                                            <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
+                                                    TextWrapping="Wrap" Width="320"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Course Name: " FontSize="13"/>
+                                            <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
+                                                    TextWrapping="Wrap" Width="320"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button Name="btnRemove" Grid.Row="1" Grid.Column="1" Content="Remove" HorizontalAlignment="Right"
+                        Height="38" Padding="0" Width="80" Click="btnRemove_Click" />
+                </Grid>
+            </TabItem>
 
-                        <Button Content="Edit" Grid.Row="18" Grid.Column="2" HorizontalAlignment="Right" 
-                            Name="btnEdit" VerticalAlignment="Top" Width="80" Margin="0,0,10,0"/>
-                        <Button Content="Save" Grid.Row="18" Grid.Column="2" HorizontalAlignment="Right" 
-                            Name="btnSave" VerticalAlignment="Top" Width="80" Margin="0,0,10,0"/>
-                    </Grid>
-                </TabItem>
-            </TabControl>
-        </Grid>
+            <TabItem IsHitTestVisible="False">
+                <Grid Margin="0,0,0,0" Width="420" Height="490" VerticalAlignment="Top" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+
+                    <ListBox Name="viewListBoxCntrl" Width="420" Height="450" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0"
+                            VerticalContentAlignment="Center" VerticalAlignment="Top" ItemContainerStyle="{StaticResource lbi}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="400"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Margin="1,0,0,3">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Course Code: " FontSize="13"/>
+                                            <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
+                                                    TextWrapping="Wrap" Width="320"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Course Name: " FontSize="13"/>
+                                            <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
+                                                    TextWrapping="Wrap" Width="320"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Marks: " FontSize="13"/>
+                                            <TextBlock Text="{Binding Marks}" FontSize="13" Foreground="DimGray" 
+                                                    TextWrapping="Wrap" Width="320"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+
+            <TabItem IsHitTestVisible="False">
+                <Grid Margin="0,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="9" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="9" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Student ID" VerticalContentAlignment="Center" />
+                    <Label Name="labelStudentID" Grid.Row="0" Grid.Column="1"
+                        VerticalContentAlignment="Center" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="First Name" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtFirstName" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" 
+                            MaxLines="1" AllowDrop="False" MaxLength="100" Text="{Binding StudentFirstName}" 
+                            Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Last Name" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtLastName" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" 
+                            MaxLines="1" AllowDrop="False" MaxLength="100" Text="{Binding StudentLastName}"
+                            Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
+
+                    <Label Grid.Row="3" Grid.Column="0" Content="Gender" VerticalContentAlignment="Center" />
+                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                        <RadioButton Name="radioGenderMale" VerticalContentAlignment="Center" FontSize="12" Content="Male" Margin="0,0,5,0" />
+                        <RadioButton Name="radioGenderFemale" VerticalContentAlignment="Center" FontSize="12" Content="Female" />
+                    </StackPanel>
+
+                    <Label Grid.Row="4" Grid.Column="0" Content="Date of Birth" VerticalContentAlignment="Center"/>
+                    <DatePicker Name="dob" Grid.Row="4" Grid.Column="1" FirstDayOfWeek="Sunday" Width="120" Height="24"
+                            HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" 
+                            SelectedDate="{Binding DateOfBirth}" />
+
+                    <Label Grid.Row="5" Grid.Column="0" Content="Contact Number" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtContactNumber" Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center" 
+                            MaxLines="1" AllowDrop="False" MaxLength="15" Text="{Binding ContactNumber}" 
+                            Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
+
+                    <Label Grid.Row="6" Grid.Column="0" Content="Email" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtEmail" Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Center" 
+                            MaxLines="1" AllowDrop="False" MaxLength="255" Text="{Binding Email}" 
+                            Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
+
+                    <Separator Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,0,10,0" Background="LightBlue" />
+                    <Label Grid.Row="8" Grid.Column="0" Content="Address 1" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtAddress1" Grid.Row="8" Grid.Column="1" VerticalContentAlignment="Center" 
+                            MaxLines="1" AllowDrop="False" MaxLength="100" Text="{Binding Address1}" 
+                            Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
+
+                    <Label Grid.Row="9" Grid.Column="0" Content="Address 2" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtAddress2" Grid.Row="9" Grid.Column="1" VerticalContentAlignment="Center" 
+                            MaxLines="1" AllowDrop="False" MaxLength="100" Text="{Binding Address2}" 
+                            Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
+
+                    <Label Grid.Row="10" Grid.Column="0" Content="City" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtCity" Grid.Row="10" Grid.Column="1" VerticalContentAlignment="Center" 
+                            MaxLines="1" AllowDrop="False" MaxLength="100" Text="{Binding City}" 
+                            Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
+
+                    <Label Grid.Row="11" Grid.Column="0" Content="PostCode" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtPostCode" Grid.Row="11" Grid.Column="1" VerticalContentAlignment="Center" 
+                            MaxLines="1" AllowDrop="False" MaxLength="15"  Text="{Binding PostCode}" 
+                            Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
+
+                    <Label Grid.Row="12" Grid.Column="0" Content="State Province" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtState" Grid.Row="12" Grid.Column="1" VerticalContentAlignment="Center" 
+                            MaxLines="1" AllowDrop="False" MaxLength="75"  Text="{Binding StateProvince}" 
+                            Template="{StaticResource ResourceKey=TxtBoxDisplay}" Height="24" />
+
+                    <Label Grid.Row="13" Grid.Column="0" Content="Country" VerticalContentAlignment="Center" />
+                    <ComboBox Grid.Row="13" Grid.Column="1" VerticalContentAlignment="Center" Name="countryCombo"
+                            Height="24" FontSize="12"  MaxDropDownHeight="88" 
+                            SelectedValuePath="CountryCode" IsSynchronizedWithCurrentItem="True" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding CountryTitle}" ToolTip="{Binding CountryTitle}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <Separator Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,0,10,0" Background="LightBlue" />
+                    <Label Grid.Row="15" Grid.Column="0" Content="Old Password" VerticalContentAlignment="Center" FontStyle="Italic"/>
+                    <PasswordBox Name="txtOldPassword" Grid.Row="15" Grid.Column="1" MaxLength="100" 
+                        ContextMenu="{x:Null}" VerticalContentAlignment="Center" 
+                        Controls:TextboxHelper.Watermark="Old Password" Template="{StaticResource PasswordTxtBoxDisplay}"
+                        Controls:TextboxHelper.ClearTextButton="False" Height="24" MinHeight="24" />
+
+                    <Label Grid.Row="16" Grid.Column="0" Content="New Password" VerticalContentAlignment="Center" FontStyle="Italic"/>
+                    <PasswordBox Name="txtNewPassword" Grid.Row="16" Grid.Column="1" MaxLength="100" 
+                        ContextMenu="{x:Null}" VerticalContentAlignment="Center" 
+                        Controls:TextboxHelper.Watermark="New Password" Template="{StaticResource PasswordTxtBoxDisplay}"
+                        Controls:TextboxHelper.ClearTextButton="False" Height="24" MinHeight="24" />
+
+                    <Label Grid.Row="17" Grid.Column="0" Content="Confirm Password" VerticalContentAlignment="Center" FontStyle="Italic"/>
+                    <PasswordBox Name="txtConfirmPassword" Grid.Row="17" Grid.Column="1" MaxLength="100" 
+                        ContextMenu="{x:Null}" VerticalContentAlignment="Center" 
+                        Controls:TextboxHelper.Watermark="Old Password" Template="{StaticResource PasswordTxtBoxDisplay}"
+                        Controls:TextboxHelper.ClearTextButton="False" Height="24" MinHeight="24" />
+
+                    <Button Content="Edit" Grid.Row="18" Grid.Column="2" HorizontalAlignment="Right" 
+                        Name="btnEdit" VerticalAlignment="Top" Width="80" Margin="0,0,10,0"/>
+                    <Button Content="Save" Grid.Row="18" Grid.Column="2" HorizontalAlignment="Right" 
+                        Name="btnSave" VerticalAlignment="Top" Width="80" Margin="0,0,10,0"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
     
 </Controls:MetroWindow>
