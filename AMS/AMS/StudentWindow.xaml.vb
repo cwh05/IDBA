@@ -52,19 +52,23 @@ Public Class StudentWindow
 
     Private Sub btnRemoveCourse_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnRemoveCourse.Click
         StudentTabControl.SelectedIndex = 2
-        enrollCourseList.Clear()
 
-        'get all course enrollment data
-        For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
-            enrollCourseList.Add(i)
-        Next
+        Try
+            enrollCourseList.Clear()
 
-        'bind source item
-        removeListBoxControl.ItemsSource = enrollCourseList
-        removeListBoxControl.Items.Refresh()
+            'get all course enrollment data
+            For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
+                enrollCourseList.Add(i)
+            Next
 
-        btnRemove.IsEnabled = False
-        btnRemove.Content = "Remove"
+            'bind source item
+            removeListBoxControl.ItemsSource = enrollCourseList
+            removeListBoxControl.Items.Refresh()
+
+            btnRemove.IsEnabled = False
+            btnRemove.Content = "Remove"
+        Catch ex As Exception
+        End Try
 
     End Sub
 
