@@ -171,7 +171,7 @@ Public Class StudentWindowController
     Public Function GetAllCourseOfProgram(ByRef studentID As Int32) As List(Of Course)
         Try
             Dim list As New List(Of Course)
-            For Each i In db.GetAllCourseOfProgram(studentID)
+            For Each i In db.GetAllCourseOfProgram(14)
                 Dim course As New Course
 
                 'assign values to object

@@ -450,6 +450,9 @@
         <Function Name="GetAllCourseOfProgram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="STUDENTID" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetAllCourseOfStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="STAFFID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetStudentEnrollment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="studentID" Type="int" Mode="In" />
         </Function>
@@ -616,6 +619,9 @@
           </AssociationSet>
           <FunctionImport Name="GetAllCourseOfProgram" ReturnType="Collection(Model.GetAllCourseOfProgram_Result)">
           <Parameter Name="STUDENTID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllCourseOfStaff" ReturnType="Collection(Model.GetAllCourseOfStaff_Result)">
+            <Parameter Name="STAFFID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
@@ -951,6 +957,15 @@
           <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="16" />
           <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="16" />
         </ComplexType>
+        <ComplexType Name="GetAllCourseOfStaff_Result">
+          <Property Type="Int32" Name="CourseID" Nullable="false" />
+          <Property Type="String" Name="CourseName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CourseCode" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="CourseDescription" Nullable="true" />
+          <Property Type="Int32" Name="StaffID" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="16" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="false" Precision="16" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1227,6 +1242,19 @@
           <FunctionImportMapping FunctionImportName="GetAllCourseOfProgram" FunctionName="Model.Store.GetAllCourseOfProgram">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Model.GetAllCourseOfProgram_Result">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCourseOfStaff" FunctionName="Model.Store.GetAllCourseOfStaff" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetAllCourseOfStaff_Result">
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="CourseName" ColumnName="CourseName" />
                 <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />

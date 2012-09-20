@@ -12,58 +12,17 @@ Class LoginWindow : Inherits MetroWindow
         'WorkflowInvoker.Invoke(s)
 
         'validate input textboxes
-        If txtUsername.Text.Length = 0 And txtPassword.Password.Length = 0 Then
-            FailToLogin()
 
-        Else
-            Try
-                Dim forwardTo As Byte = controller.UserVerification(txtUsername.Text, txtPassword.Password)
-
-                ''forward to corresponding page
-                'If forwardTo = 0 Then
-                '    FailToLogin()
-                'Else
-                '    If forwardTo = 1 Then
-                '        'Administrator
-                '        Dim window As New AdminWindow
-                '        window.Show()
-
-                '    ElseIf forwardTo = 2 Then
-                '        'Program Manager
-                '        Dim window As New ProgramWindow
-                '        window.Show()
-
-                '    ElseIf forwardTo = 3 Then
-                '        'Staff
-
-                '    ElseIf forwardTo = 4 Then
-                '        'Student
-                '        'Dim window As New StudentWindow(txtUsername.Text)
-                '        'window.Show()
-
-                '    End If
-
-                '    Me.Finalize()
-                '    Me.Close()
-                'End If
-
-                '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
-                Dim window As New AdminWindow
-                window.Show()
-                Dim window1 = New ProgramWindow()
-                window1.Show()
-                Dim window3 = New StudentWindow(txtUsername.Text)
-                window3.Show()
-                Dim window4 = New StaffWindow()
-                window4.Show()
-                Me.Finalize()
-                Me.Close()
-                '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
-
-            Catch ex As Exception
-                FailToLogin()
-            End Try
-        End If
+        '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
+        Dim window As New AdminWindow
+        window.Show()
+        Dim window3 = New StudentWindow(txtUsername.Text)
+        window3.Show()
+        Dim window4 = New StaffWindow(txtUsername.Text)
+        window4.Show()
+        Me.Finalize()
+        Me.Close()
+        '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
 
     End Sub
 

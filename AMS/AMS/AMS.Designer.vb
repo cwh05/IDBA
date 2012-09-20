@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("584ef4cc-46bb-4289-a707-de53750cd181")>
+<Assembly: EdmSchemaAttribute("5e8d3c1a-4330-40b1-9d9f-f439907e919e")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -595,6 +595,22 @@ Public Partial Class AMSEntities
         End If
 
         Return MyBase.ExecuteFunction(Of GetAllCourseOfProgram_Result)("GetAllCourseOfProgram", sTUDENTIDParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="sTAFFID">No Metadata Documentation available.</param>
+    Public Function GetAllCourseOfStaff(sTAFFID As Nullable(Of Global.System.Int32)) As ObjectResult(Of GetAllCourseOfStaff_Result)
+        Dim sTAFFIDParameter As ObjectParameter
+        If (sTAFFID.HasValue)
+            sTAFFIDParameter = New ObjectParameter("STAFFID", sTAFFID)
+        Else
+            sTAFFIDParameter = New ObjectParameter("STAFFID", GetType(Global.System.Int32))
+        End If
+
+        Return MyBase.ExecuteFunction(Of GetAllCourseOfStaff_Result)("GetAllCourseOfStaff", sTAFFIDParameter)
 
     End Function
 
@@ -3734,6 +3750,215 @@ Public Partial Class GetAllCourseOfProgram_Result
         getAllCourseOfProgram_Result.CreatedDate = createdDate
         getAllCourseOfProgram_Result.ModifiedDate = modifiedDate
         Return getAllCourseOfProgram_Result
+    End Function
+
+    #End Region
+    #Region "Primitive Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property CourseID() As Global.System.Int32
+        Get
+            Return _CourseID
+        End Get
+        Set
+            OnCourseIDChanging(value)
+            ReportPropertyChanging("CourseID")
+            _CourseID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("CourseID")
+            OnCourseIDChanged()
+        End Set
+    End Property
+
+    Private _CourseID As Global.System.Int32
+    Private Partial Sub OnCourseIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnCourseIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property CourseName() As Global.System.String
+        Get
+            Return _CourseName
+        End Get
+        Set
+            OnCourseNameChanging(value)
+            ReportPropertyChanging("CourseName")
+            _CourseName = StructuralObject.SetValidValue(value, false)
+            ReportPropertyChanged("CourseName")
+            OnCourseNameChanged()
+        End Set
+    End Property
+
+    Private _CourseName As Global.System.String
+    Private Partial Sub OnCourseNameChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnCourseNameChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property CourseCode() As Global.System.String
+        Get
+            Return _CourseCode
+        End Get
+        Set
+            OnCourseCodeChanging(value)
+            ReportPropertyChanging("CourseCode")
+            _CourseCode = StructuralObject.SetValidValue(value, false)
+            ReportPropertyChanged("CourseCode")
+            OnCourseCodeChanged()
+        End Set
+    End Property
+
+    Private _CourseCode As Global.System.String
+    Private Partial Sub OnCourseCodeChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnCourseCodeChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
+    <DataMemberAttribute()>
+    Public Property CourseDescription() As Global.System.String
+        Get
+            Return _CourseDescription
+        End Get
+        Set
+            OnCourseDescriptionChanging(value)
+            ReportPropertyChanging("CourseDescription")
+            _CourseDescription = StructuralObject.SetValidValue(value, true)
+            ReportPropertyChanged("CourseDescription")
+            OnCourseDescriptionChanged()
+        End Set
+    End Property
+
+    Private _CourseDescription As Global.System.String
+    Private Partial Sub OnCourseDescriptionChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnCourseDescriptionChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
+    <DataMemberAttribute()>
+    Public Property StaffID() As Nullable(Of Global.System.Int32)
+        Get
+            Return _StaffID
+        End Get
+        Set
+            OnStaffIDChanging(value)
+            ReportPropertyChanging("StaffID")
+            _StaffID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("StaffID")
+            OnStaffIDChanged()
+        End Set
+    End Property
+
+    Private _StaffID As Nullable(Of Global.System.Int32)
+    Private Partial Sub OnStaffIDChanging(value As Nullable(Of Global.System.Int32))
+    End Sub
+
+    Private Partial Sub OnStaffIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property CreatedDate() As Global.System.DateTime
+        Get
+            Return _CreatedDate
+        End Get
+        Set
+            OnCreatedDateChanging(value)
+            ReportPropertyChanging("CreatedDate")
+            _CreatedDate = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("CreatedDate")
+            OnCreatedDateChanged()
+        End Set
+    End Property
+
+    Private _CreatedDate As Global.System.DateTime
+    Private Partial Sub OnCreatedDateChanging(value As Global.System.DateTime)
+    End Sub
+
+    Private Partial Sub OnCreatedDateChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property ModifiedDate() As Global.System.DateTime
+        Get
+            Return _ModifiedDate
+        End Get
+        Set
+            OnModifiedDateChanging(value)
+            ReportPropertyChanging("ModifiedDate")
+            _ModifiedDate = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("ModifiedDate")
+            OnModifiedDateChanged()
+        End Set
+    End Property
+
+    Private _ModifiedDate As Global.System.DateTime
+    Private Partial Sub OnModifiedDateChanging(value As Global.System.DateTime)
+    End Sub
+
+    Private Partial Sub OnModifiedDateChanged()
+    End Sub
+
+    #End Region
+End Class
+
+''' <summary>
+''' No Metadata Documentation available.
+''' </summary>
+<EdmComplexTypeAttribute(NamespaceName:="Model", Name:="GetAllCourseOfStaff_Result")>
+<DataContractAttribute(IsReference:=True)>
+<Serializable()>
+Public Partial Class GetAllCourseOfStaff_Result
+    Inherits ComplexObject
+    #Region "Factory Method"
+
+    ''' <summary>
+    ''' Create a new GetAllCourseOfStaff_Result object.
+    ''' </summary>
+    ''' <param name="courseID">Initial value of the CourseID property.</param>
+    ''' <param name="courseName">Initial value of the CourseName property.</param>
+    ''' <param name="courseCode">Initial value of the CourseCode property.</param>
+    ''' <param name="createdDate">Initial value of the CreatedDate property.</param>
+    ''' <param name="modifiedDate">Initial value of the ModifiedDate property.</param>
+    Public Shared Function CreateGetAllCourseOfStaff_Result(courseID As Global.System.Int32, courseName As Global.System.String, courseCode As Global.System.String, createdDate As Global.System.DateTime, modifiedDate As Global.System.DateTime) As GetAllCourseOfStaff_Result
+        Dim getAllCourseOfStaff_Result as GetAllCourseOfStaff_Result = New GetAllCourseOfStaff_Result
+        getAllCourseOfStaff_Result.CourseID = courseID
+        getAllCourseOfStaff_Result.CourseName = courseName
+        getAllCourseOfStaff_Result.CourseCode = courseCode
+        getAllCourseOfStaff_Result.CreatedDate = createdDate
+        getAllCourseOfStaff_Result.ModifiedDate = modifiedDate
+        Return getAllCourseOfStaff_Result
     End Function
 
     #End Region

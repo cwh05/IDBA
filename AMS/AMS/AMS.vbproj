@@ -91,6 +91,7 @@
     <Compile Include="Controllers\AdminWindowController.vb" />
     <Compile Include="Controllers\LoginWindowContoller.vb" />
     <Compile Include="Controllers\ProgramWindowController.vb" />
+    <Compile Include="Controllers\StaffWindowController.vb" />
     <Compile Include="Controllers\StudentWindowController.vb" />
     <Compile Include="LogoutUserControl.xaml.vb">
       <DependentUpon>LogoutUserControl.xaml</DependentUpon>
