@@ -11,7 +11,13 @@ Class LoginWindow : Inherits MetroWindow
 
         'WorkflowInvoker.Invoke(s)
 
+
         'validate input textboxes
+        'If txtUsername.Text.Length = 0 And txtPassword.Password.Length = 0 Then
+        '    FailToLogin()
+        'Else
+
+        'End If
 
         '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
         Dim window As New AdminWindow
