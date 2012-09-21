@@ -1,0 +1,139 @@
+﻿<Activity mc:Ignorable="sap" x:Class="LoginActivity" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:local="clr-namespace:AMS" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mmc="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:s1="clr-namespace:System;assembly=System" xmlns:s2="clr-namespace:System;assembly=System.Xml" xmlns:s3="clr-namespace:System;assembly=System.Core" xmlns:s4="clr-namespace:System;assembly=System.ServiceModel" xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System" xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core" xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" xmlns:st="clr-namespace:System.Text;assembly=mscorlib" xmlns:sw="clr-namespace:System.Windows;assembly=WindowsBase" xmlns:sw1="clr-namespace:System.Windows;assembly=PresentationCore" xmlns:sw2="clr-namespace:System.Windows;assembly=PresentationFramework" xmlns:swc="clr-namespace:System.Windows.Controls;assembly=PresentationFramework" xmlns:swm="clr-namespace:System.Windows.Markup;assembly=System.Xaml" xmlns:swm1="clr-namespace:System.Windows.Markup;assembly=WindowsBase" xmlns:swm2="clr-namespace:System.Windows.Markup;assembly=PresentationCore" xmlns:swm3="clr-namespace:System.Windows.Markup;assembly=PresentationFramework" xmlns:swm4="clr-namespace:System.Windows.Media;assembly=WindowsBase" xmlns:swm5="clr-namespace:System.Windows.Media;assembly=PresentationCore" xmlns:swm6="clr-namespace:System.Windows.Media;assembly=PresentationFramework" xmlns:swma="clr-namespace:System.Windows.Media.Animation;assembly=PresentationFramework" xmlns:swma1="clr-namespace:System.Windows.Media.Animation;assembly=PresentationCore" xmlns:swt="clr-namespace:System.Windows.Threading;assembly=WindowsBase" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="controller" Type="InArgument(local:LoginWindowContoller)" />
+    <x:Property Name="studentwindow" Type="InArgument(local:StudentWindow)" />
+    <x:Property Name="adminwindow" Type="InArgument(local:AdminWindow)" />
+    <x:Property Name="pmwindow" Type="InArgument(local:ProgramWindow)" />
+    <x:Property Name="staffwindow" Type="InArgument(local:StaffWindow)" />
+    <x:Property Name="inputUsername" Type="InArgument(x:String)" />
+    <x:Property Name="inputPassword" Type="InArgument(x:String)" />
+    <x:Property Name="loginwindow" Type="InArgument(local:LoginWindow)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>538,640</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Sequence sad:XamlDebuggerXmlReader.FileName="C:\Users\cwh\Documents\GitHub\IDBA\AMS\AMS\LoginActivity.xaml" sap:VirtualizedContainerService.HintSize="498,600">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Byte" Name="forwardTo" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <InvokeMethod DisplayName="Authenticate User" sap:VirtualizedContainerService.HintSize="476,130" MethodName="UserVerification">
+      <InvokeMethod.Result>
+        <OutArgument x:TypeArguments="x:Byte">[forwardTo]</OutArgument>
+      </InvokeMethod.Result>
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="local:LoginWindowContoller">[controller]</InArgument>
+      </InvokeMethod.TargetObject>
+      <InArgument x:TypeArguments="x:String">[inputUsername]</InArgument>
+      <InArgument x:TypeArguments="x:String">[inputPassword]</InArgument>
+    </InvokeMethod>
+    <Switch x:TypeArguments="x:Byte" Expression="[forwardTo]" sap:VirtualizedContainerService.HintSize="476,306">
+      <Switch.Default>
+        <WriteLine sap:VirtualizedContainerService.HintSize="458,100" Text="[forwardTo.ToString]" />
+      </Switch.Default>
+      <Sequence x:Key="1" sap:VirtualizedContainerService.HintSize="456,522">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg3:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Assign sap:VirtualizedContainerService.HintSize="242,58">
+          <Assign.To>
+            <OutArgument x:TypeArguments="local:AdminWindow">[adminwindow]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="local:AdminWindow">[New AdminWindow()]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <InvokeMethod DisplayName="Admin Window" sap:VirtualizedContainerService.HintSize="242,130" MethodName="Show">
+          <InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="local:AdminWindow">[adminwindow]</InArgument>
+          </InvokeMethod.TargetObject>
+        </InvokeMethod>
+        <InvokeMethod DisplayName="Close LoginWindow" sap:VirtualizedContainerService.HintSize="242,130" MethodName="Close">
+          <InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="local:LoginWindow">[loginwindow]</InArgument>
+          </InvokeMethod.TargetObject>
+        </InvokeMethod>
+      </Sequence>
+      <Sequence x:Key="2" sap:VirtualizedContainerService.HintSize="456,522">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg3:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Assign sap:VirtualizedContainerService.HintSize="242,58">
+          <Assign.To>
+            <OutArgument x:TypeArguments="local:ProgramWindow">[pmwindow]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="local:ProgramWindow">[New ProgramWindow()]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <InvokeMethod sap:VirtualizedContainerService.HintSize="242,130" MethodName="Show">
+          <InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="local:ProgramWindow">[pmwindow]</InArgument>
+          </InvokeMethod.TargetObject>
+        </InvokeMethod>
+        <InvokeMethod DisplayName="Close LoginWindow" sap:VirtualizedContainerService.HintSize="242,130" MethodName="Close">
+          <InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="local:LoginWindow">[loginwindow]</InArgument>
+          </InvokeMethod.TargetObject>
+        </InvokeMethod>
+      </Sequence>
+      <Sequence x:Key="3" sap:VirtualizedContainerService.HintSize="456,522">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg3:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Assign sap:VirtualizedContainerService.HintSize="242,58">
+          <Assign.To>
+            <OutArgument x:TypeArguments="local:StaffWindow">[staffwindow]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="local:StaffWindow">[New StaffWindow(inputUsername)]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <InvokeMethod sap:VirtualizedContainerService.HintSize="242,130" MethodName="Show">
+          <InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="local:StaffWindow">[staffwindow]</InArgument>
+          </InvokeMethod.TargetObject>
+        </InvokeMethod>
+        <InvokeMethod DisplayName="Close LoginWindow" sap:VirtualizedContainerService.HintSize="242,130" MethodName="Close">
+          <InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="local:LoginWindow">[loginwindow]</InArgument>
+          </InvokeMethod.TargetObject>
+        </InvokeMethod>
+      </Sequence>
+      <Sequence x:Key="4" sap:VirtualizedContainerService.HintSize="456,522">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg3:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Assign sap:VirtualizedContainerService.HintSize="242,58">
+          <Assign.To>
+            <OutArgument x:TypeArguments="local:StudentWindow">[studentwindow]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="local:StudentWindow">[New StudentWindow(inputUsername)]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <InvokeMethod DisplayName="Student Window" sap:VirtualizedContainerService.HintSize="242,130" MethodName="Show">
+          <InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="local:StudentWindow">[studentwindow]</InArgument>
+          </InvokeMethod.TargetObject>
+        </InvokeMethod>
+        <InvokeMethod DisplayName="Close LoginWindow" sap:VirtualizedContainerService.HintSize="242,130" MethodName="Close">
+          <InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="local:LoginWindow">[loginwindow]</InArgument>
+          </InvokeMethod.TargetObject>
+        </InvokeMethod>
+      </Sequence>
+    </Switch>
+  </Sequence>
+</Activity>

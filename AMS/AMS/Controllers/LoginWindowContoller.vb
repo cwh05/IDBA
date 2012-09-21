@@ -6,7 +6,7 @@
     ''' <param name="password">A password</param>
     ''' <returns>a scalar byte value that determines the next forwarding page</returns>
     ''' <remarks></remarks>
-    Public Function UserVerification(ByRef username As String, ByRef password As String) As Byte
+    Public Function UserVerification(ByVal username As String, ByVal password As String) As Byte
         'connect to database
         Dim db As New AMSEntities()
 
