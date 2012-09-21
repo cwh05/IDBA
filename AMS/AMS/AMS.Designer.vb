@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("5e8d3c1a-4330-40b1-9d9f-f439907e919e")>
+<Assembly: EdmSchemaAttribute("09edd5b4-fb52-467c-b2e2-202959004c6d")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -25,11 +25,11 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("Model", "fk_Course", "Course", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Course), "StudentCourse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(StudentCourse), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_Staff", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Employee), "Course", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Course), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Employee), "Program", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Program), True)>
-<Assembly: EdmRelationshipAttribute("Model", "fk_RoleCategory", "RoleCategory", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(RoleCategory), "EmployeeRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(EmployeeRole), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_Student", "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Student), "StudentCourse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(StudentCourse), True)>
 <Assembly: EdmRelationshipAttribute("Model", "EmployeeDepartment", "Department", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Department), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee))>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentProgram", "Program", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Program), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
 <Assembly: EdmRelationshipAttribute("Model", "ProgramCourse", "Course", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Course), "Program", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Program))>
+<Assembly: EdmRelationshipAttribute("Model", "fk_RoleCategory1", "RoleCategory", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(RoleCategory), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 
 #End Region
 
@@ -154,20 +154,6 @@ Public Partial Class AMSEntities
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    Public ReadOnly Property EmployeeRoles() As ObjectSet(Of EmployeeRole)
-        Get
-            If (_EmployeeRoles Is Nothing) Then
-                _EmployeeRoles = MyBase.CreateObjectSet(Of EmployeeRole)("EmployeeRoles")
-            End If
-            Return _EmployeeRoles
-        End Get
-    End Property
-
-    Private _EmployeeRoles As ObjectSet(Of EmployeeRole)
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
     Public ReadOnly Property Programs() As ObjectSet(Of Program)
         Get
             If (_Programs Is Nothing) Then
@@ -271,13 +257,6 @@ Public Partial Class AMSEntities
     ''' </summary>
     Public Sub AddToEmployees(ByVal employee As Employee)
         MyBase.AddObject("Employees", employee)
-    End Sub
-
-    ''' <summary>
-    ''' Deprecated Method for adding a new object to the EmployeeRoles EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
-    ''' </summary>
-    Public Sub AddToEmployeeRoles(ByVal employeeRole As EmployeeRole)
-        MyBase.AddObject("EmployeeRoles", employeeRole)
     End Sub
 
     ''' <summary>
@@ -1772,6 +1751,31 @@ Public Partial Class Employee
     Private Partial Sub OnModifiedDateChanged()
     End Sub
 
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
+    <DataMemberAttribute()>
+    Public Property RoleID() As Nullable(Of Global.System.Byte)
+        Get
+            Return _RoleID
+        End Get
+        Set
+            OnRoleIDChanging(value)
+            ReportPropertyChanging("RoleID")
+            _RoleID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("RoleID")
+            OnRoleIDChanged()
+        End Set
+    End Property
+
+    Private _RoleID As Nullable(Of Global.System.Byte)
+    Private Partial Sub OnRoleIDChanging(value As Nullable(Of Global.System.Byte))
+    End Sub
+
+    Private Partial Sub OnRoleIDChanged()
+    End Sub
+
     #End Region
     #Region "Navigation Properties"
 
@@ -1891,102 +1895,19 @@ Public Partial Class Employee
         End Set
     End Property
 
-    #End Region
-End Class
-
-''' <summary>
-''' No Metadata Documentation available.
-''' </summary>
-<EdmEntityTypeAttribute(NamespaceName:="Model", Name:="EmployeeRole")>
-<Serializable()>
-<DataContractAttribute(IsReference:=True)>
-Public Partial Class EmployeeRole
-    Inherits EntityObject
-    #Region "Factory Method"
-
-    ''' <summary>
-    ''' Create a new EmployeeRole object.
-    ''' </summary>
-    ''' <param name="employeeRoleID">Initial value of the EmployeeRoleID property.</param>
-    ''' <param name="roleID">Initial value of the RoleID property.</param>
-    Public Shared Function CreateEmployeeRole(employeeRoleID As Global.System.Int32, roleID As Global.System.Byte) As EmployeeRole
-        Dim employeeRole as EmployeeRole = New EmployeeRole
-        employeeRole.EmployeeRoleID = employeeRoleID
-        employeeRole.RoleID = roleID
-        Return employeeRole
-    End Function
-
-    #End Region
-    #Region "Primitive Properties"
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property EmployeeRoleID() As Global.System.Int32
-        Get
-            Return _EmployeeRoleID
-        End Get
-        Set
-            If (_EmployeeRoleID <> Value) Then
-                OnEmployeeRoleIDChanging(value)
-                ReportPropertyChanging("EmployeeRoleID")
-                _EmployeeRoleID = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("EmployeeRoleID")
-                OnEmployeeRoleIDChanged()
-            End If
-        End Set
-    End Property
-
-    Private _EmployeeRoleID As Global.System.Int32
-    Private Partial Sub OnEmployeeRoleIDChanging(value As Global.System.Int32)
-    End Sub
-
-    Private Partial Sub OnEmployeeRoleIDChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property RoleID() As Global.System.Byte
-        Get
-            Return _RoleID
-        End Get
-        Set
-            OnRoleIDChanging(value)
-            ReportPropertyChanging("RoleID")
-            _RoleID = StructuralObject.SetValidValue(value)
-            ReportPropertyChanged("RoleID")
-            OnRoleIDChanged()
-        End Set
-    End Property
-
-    Private _RoleID As Global.System.Byte
-    Private Partial Sub OnRoleIDChanging(value As Global.System.Byte)
-    End Sub
-
-    Private Partial Sub OnRoleIDChanged()
-    End Sub
-
-    #End Region
-    #Region "Navigation Properties"
-
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
     <XmlIgnoreAttribute()>
     <SoapIgnoreAttribute()>
     <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("Model", "fk_RoleCategory", "RoleCategory")>
+    <EdmRelationshipNavigationPropertyAttribute("Model", "fk_RoleCategory1", "RoleCategory")>
     Public Property RoleCategory() As RoleCategory
         Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of RoleCategory)("Model.fk_RoleCategory", "RoleCategory").Value
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of RoleCategory)("Model.fk_RoleCategory1", "RoleCategory").Value
         End Get
         Set
-            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of RoleCategory)("Model.fk_RoleCategory", "RoleCategory").Value = value
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of RoleCategory)("Model.fk_RoleCategory1", "RoleCategory").Value = value
         End Set
     End Property
     ''' <summary>
@@ -1996,11 +1917,11 @@ Public Partial Class EmployeeRole
     <DataMemberAttribute()>
     Public Property RoleCategoryReference() As EntityReference(Of RoleCategory)
         Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of RoleCategory)("Model.fk_RoleCategory", "RoleCategory")
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of RoleCategory)("Model.fk_RoleCategory1", "RoleCategory")
         End Get
         Set
             If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of RoleCategory)("Model.fk_RoleCategory", "RoleCategory", value)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of RoleCategory)("Model.fk_RoleCategory1", "RoleCategory", value)
             End If
         End Set
     End Property
@@ -2625,14 +2546,14 @@ Public Partial Class RoleCategory
     <XmlIgnoreAttribute()>
     <SoapIgnoreAttribute()>
     <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("Model", "fk_RoleCategory", "EmployeeRole")>
-     Public Property EmployeeRoles() As EntityCollection(Of EmployeeRole)
+    <EdmRelationshipNavigationPropertyAttribute("Model", "fk_RoleCategory1", "Employee")>
+     Public Property Employees() As EntityCollection(Of Employee)
         Get
-            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of EmployeeRole)("Model.fk_RoleCategory", "EmployeeRole")
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Employee)("Model.fk_RoleCategory1", "Employee")
         End Get
         Set
             If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of EmployeeRole)("Model.fk_RoleCategory", "EmployeeRole", value)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Employee)("Model.fk_RoleCategory1", "Employee", value)
             End If
         End Set
     End Property
