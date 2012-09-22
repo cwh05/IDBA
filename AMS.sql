@@ -709,6 +709,50 @@ BEGIN
 END
 GO
 
+
+-- SP newly added by Edward ----------------------------------------------------------- 
+CREATE PROCEDURE [dbo].[GetAllCourseOfStaff]
+   @STAFFID INT
+AS
+   SELECT c.CourseID, c.CourseName, c.CourseCode, c.CourseDescription, c.StaffID,
+         c.CreatedDate, c.ModifiedDate FROM Course c
+         WHERE c.StaffID=@STAFFID
+
+GO
+
+CREATE PROCEDURE [dbo].[GetStudentEnrollmentByCourseID]
+   @COURSEID INT
+AS
+   SELECT * FROM Enrollment WHERE CourseID=@COURSEID ORDER BY StudentID
+GO
+
+CREATE PROCEDURE [dbo].[InsertCourse]
+	@coursename nvarchar(200),
+	@coursecode nvarchar(60),
+	@coursedescription nvarchar(max),
+	@staffid int
+AS
+BEGIN
+	INSERT Course(CourseName, CourseCode, CourseDescription, StaffID, CreatedDate, ModifiedDate) 
+	VALUES (@coursename, @coursecode, @coursedescription, @staffid, GETDATE(), GETDATE())
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateCourse]
+	@courseid int,
+	@coursename nvarchar(200),
+	@coursecode nvarchar(60),
+	@coursedescription nvarchar(max)
+AS
+BEGIN
+	UPDATE Course SET CourseName = @coursename, CourseCode = @coursecode,
+	CourseDescription = @coursedescription, ModifiedDate = GETDATE()
+	WHERE CourseID = @courseid
+END
+GO
+-------------------------------------------------------------------------------------------- End Edward
+
+
 PRINT 'Stored procedures created'
 GO
 
