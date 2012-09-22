@@ -54,11 +54,11 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="EmployeeDepartment" EntitySet="EmployeeDepartment" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProgramCo__Cours__30F848ED" Association="Model.Store.FK__ProgramCo__Cours__30F848ED">
+          <AssociationSet Name="FK__ProgramCo__Cours__47DBAE45" Association="Model.Store.FK__ProgramCo__Cours__47DBAE45">
             <End Role="Course" EntitySet="Course" />
             <End Role="ProgramCourse" EntitySet="ProgramCourse" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProgramCo__Progr__300424B4" Association="Model.Store.FK__ProgramCo__Progr__300424B4">
+          <AssociationSet Name="FK__ProgramCo__Progr__46E78A0C" Association="Model.Store.FK__ProgramCo__Progr__46E78A0C">
             <End Role="Program" EntitySet="Program" />
             <End Role="ProgramCourse" EntitySet="ProgramCourse" />
           </AssociationSet>
@@ -286,7 +286,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProgramCo__Cours__30F848ED">
+        <Association Name="FK__ProgramCo__Cours__47DBAE45">
           <End Role="Course" Type="Model.Store.Course" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -300,7 +300,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProgramCo__Progr__300424B4">
+        <Association Name="FK__ProgramCo__Progr__46E78A0C">
           <End Role="Program" Type="Model.Store.Program" Multiplicity="1" />
           <End Role="ProgramCourse" Type="Model.Store.ProgramCourse" Multiplicity="*" />
           <ReferentialConstraint>
@@ -443,8 +443,14 @@
         <Function Name="GetAllCourseOfProgram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="STUDENTID" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetAllCourseOfStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="STAFFID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetStudentEnrollment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="studentID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetStudentEnrollmentByCourseID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="COURSEID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetUserPersonalDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentUsername" Type="nvarchar" Mode="In" />
@@ -452,6 +458,12 @@
         <Function Name="InsertAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="loginUsername" Type="nvarchar" Mode="In" />
           <Parameter Name="loginPassword" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="InsertCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="coursename" Type="nvarchar" Mode="In" />
+          <Parameter Name="coursecode" Type="nvarchar" Mode="In" />
+          <Parameter Name="coursedescription" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="staffid" Type="int" Mode="In" />
         </Function>
         <Function Name="InsertDeaprtment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="departmentName" Type="nvarchar" Mode="In" />
@@ -482,6 +494,12 @@
         <Function Name="RemoveStudentCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="STUDENTID" Type="int" Mode="In" />
           <Parameter Name="COURSEID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="courseid" Type="int" Mode="In" />
+          <Parameter Name="coursename" Type="nvarchar" Mode="In" />
+          <Parameter Name="coursecode" Type="nvarchar" Mode="In" />
+          <Parameter Name="coursedescription" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="UpdateStudentProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
@@ -606,12 +624,21 @@
           <Parameter Name="STUDENTID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAllCourseOfStaff" ReturnType="Collection(Model.GetAllCourseOfStaff_Result)">
-            <Parameter Name="STAFFID" Mode="In" Type="Int32" />
+          <Parameter Name="STAFFID" Mode="In" Type="Int32" />
           </FunctionImport>
           <AssociationSet Name="fk_RoleCategory1" Association="Model.fk_RoleCategory1">
             <End Role="RoleCategory" EntitySet="RoleCategories" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
+          <FunctionImport Name="GetStudentEnrollmentByCourseID" ReturnType="Collection(Model.GetStudentEnrollmentByCourseID_Result)">
+            <Parameter Name="COURSEID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateCourse">
+            <Parameter Name="courseid" Mode="In" Type="Int32" />
+            <Parameter Name="coursename" Mode="In" Type="String" />
+            <Parameter Name="coursecode" Mode="In" Type="String" />
+            <Parameter Name="coursedescription" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -949,6 +976,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetStudentEnrollmentByCourseID_Result">
+          <Property Type="Int32" Name="StudentID" Nullable="false" />
+          <Property Type="String" Name="StudentFirstName" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="StudentLastName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="CourseID" Nullable="false" />
+          <Property Type="String" Name="CourseName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CourseCode" Nullable="false" MaxLength="60" />
+          <Property Type="Double" Name="Marks" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -993,6 +1030,16 @@
                 <ScalarProperty Name="CourseName" ColumnName="CourseName" />
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
               </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Model.Course">
+              <ModificationFunctionMapping>
+                <UpdateFunction FunctionName="Model.Store.UpdateCourse" >
+                  <ScalarProperty Name="CourseDescription" ParameterName="coursedescription" Version="Current" />
+                  <ScalarProperty Name="CourseCode" ParameterName="coursecode" Version="Current" />
+                  <ScalarProperty Name="CourseName" ParameterName="coursename" Version="Current" />
+                  <ScalarProperty Name="CourseID" ParameterName="courseid" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
@@ -1218,6 +1265,34 @@
           <FunctionImportMapping FunctionImportName="GetAllCourseOfProgram" FunctionName="Model.Store.GetAllCourseOfProgram">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Model.GetAllCourseOfProgram_Result">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetStudentEnrollmentByCourseID" FunctionName="Model.Store.GetStudentEnrollmentByCourseID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetStudentEnrollmentByCourseID_Result">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentFirstName" ColumnName="StudentFirstName" />
+                <ScalarProperty Name="StudentLastName" ColumnName="StudentLastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="Marks" ColumnName="Marks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateCourse" FunctionName="Model.Store.UpdateCourse" />
+          <FunctionImportMapping FunctionImportName="GetAllCourseOfStaff" FunctionName="Model.Store.GetAllCourseOfStaff">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetAllCourseOfStaff_Result">
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="CourseName" ColumnName="CourseName" />
                 <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
