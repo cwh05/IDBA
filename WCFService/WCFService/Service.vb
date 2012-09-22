@@ -37,17 +37,17 @@ Public Class Service
                                         sb.AppendLine(reader.ReadElementContentAsString)
                                         sb.Replace("C", "°C")
                                         sb.Replace("F", "°F")
-                                        weatherMap.Add("Temperature", sb.ToString)
+                                        weatherMap.Add("Temperature", sb.ToString.Trim)
                                         sb.Clear()
 
                                     Case "RelativeHumidity"
-                                        weatherMap.Add("RelativeHumidity", reader.ReadElementContentAsString)
+                                        weatherMap.Add("RelativeHumidity", reader.ReadElementContentAsString.Trim)
 
                                     Case "Wind"
-                                        weatherMap.Add("Wind", reader.ReadElementContentAsString)
+                                        weatherMap.Add("Wind", reader.ReadElementContentAsString.Trim)
 
                                     Case "SkyConditions"
-                                        weatherMap.Add("SkyConditions", reader.ReadElementContentAsString)
+                                        weatherMap.Add("SkyConditions", reader.ReadElementContentAsString.Trim)
                                 End Select
                             End If
                         End While

@@ -25,14 +25,10 @@ Public Class StudentWindow
         'select empty tab
         StudentTabControl.SelectedIndex = 0
 
-        'start thread to update temperature
-        Dim temperatureThread As New Thread(New ThreadStart(AddressOf UpdateTemperature))
-        temperatureThread.Name = "TemperatureThread"
-        temperatureThread.IsBackground = True
-        temperatureThread.SetApartmentState(ApartmentState.STA)
-        temperatureThread.Start()
-
-
+        'set weather temperature
+        If CType(Application.Current, Application).WeatherTemperature <> String.Empty Then
+            lblTemperatureContent.Content = CType(Application.Current, Application).WeatherTemperature
+        End If
 
 
     End Sub
@@ -52,7 +48,6 @@ Public Class StudentWindow
             For Each i In controller.GetStudentEnrollment(CInt(StudentUsername.Substring(1)))
                 enrollCourseIDList.Add(i.CourseID)
             Next
-
 
         Catch ex As Exception
         End Try
@@ -367,47 +362,5 @@ Public Class StudentWindow
         Catch ex As Exception
         End Try
     End Sub
-
-
-
-    Private Function UpdateTemperature()
-        'connect to WCF Service
-        Dim service = New WCFService.ServiceClient()
-        Dim weatherResult = service.GetWeather("Melbourne")
-
-
-        'display temperature
-        'lblTemperature.Visibility = Windows.Visibility.Visible
-        'lblTemperatureContent.Visibility = Windows.Visibility.Visible
-        'lblTemperatureContent.Content = weatherResult.Item("Temperature")
-
-
-
-
-        'Dim sp As New StackPanel
-        'sp.Orientation = Orientation.Horizontal
-        'sp.HorizontalAlignment = Windows.HorizontalAlignment.Left
-        'sp.VerticalAlignment = Windows.VerticalAlignment.Bottom
-        'sp.SetValue(Grid.RowProperty, 4)
-        'sp.SetValue(Grid.ColumnProperty, 0)
-        'sp.SetValue(Grid.ColumnSpanProperty, 2)
-        'sp.Visibility = Windows.Visibility.Visible
-
-        'Dim lblTemperature = lblTemperatureContent
-        'lblTemperature.Content = "xxxx"
-        'lblTemperature.Visibility = Windows.Visibility.Visible
-
-        'sp.Children.Add(lblTemperature)
-
-
-        MsgBox("True") '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-        Return Nothing
-
-
-    End Function
-
-
-
 
 End Class

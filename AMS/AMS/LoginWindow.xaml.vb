@@ -3,6 +3,7 @@ Imports System.Activities
 Imports System.IO
 
 
+
 Class LoginWindow : Inherits MetroWindow
     Private controller As LoginWindowContoller = New LoginWindowContoller()
     Private inputs As New Dictionary(Of String, Object)
@@ -60,8 +61,12 @@ Class LoginWindow : Inherits MetroWindow
         Me.Close()
     End Sub
 
-    Private Sub MetroWindow_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
+    Private Sub LoginWindow_ContentRendered(sender As Object, e As System.EventArgs) Handles Me.ContentRendered
         txtUsername.Focus()
+    End Sub
+
+    Private Sub MetroWindow_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
+        'txtUsername.Focus()
 
         'set variables to workflow
         inputs.Add("controller", controller)
@@ -99,4 +104,7 @@ Class LoginWindow : Inherits MetroWindow
         writer.Dispose()
         GC.Collect()
     End Sub
+
+
+
 End Class

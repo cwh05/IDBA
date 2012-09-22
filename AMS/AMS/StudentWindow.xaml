@@ -66,10 +66,10 @@
         <Label Grid.Column="1" Grid.Row="4"  Content="Logout" FontSize="24" HorizontalAlignment="Left" Margin="0,60,0,0"/>
 
 
-        <StackPanel Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+        <StackPanel Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                     Orientation="Horizontal">
-            <Label Content="Current Temperature:" Name="lblTemperature" Visibility="Hidden" />
-            <Label Name="lblTemperatureContent" Visibility="Hidden"/>
+            <Label Name="lblTemperature" Content="Current Temperature:"  />
+            <Label Name="lblTemperatureContent" Content="N/A"/>
         </StackPanel>
 
 
