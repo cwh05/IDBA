@@ -1,8 +1,8 @@
-﻿<Controls:MetroWindow x:Class="StaffWindow"
+﻿<Controls:MetroWindow x:Class="StaffWindow" xmlns:my="clr-namespace:AMS"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    Title="Staff" Height="600" Width="1100" WindowStartupLocation="CenterScreen">
+    Title="Staff" Height="600" Width="1150" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -51,21 +51,7 @@
         <Label Grid.Column="1" Grid.Row="0" 
                HorizontalAlignment="Left" VerticalAlignment="Center" 
                FontSize="24">student</Label>
-        
-        <Button Name="btnCourseDetail"
-                Grid.Column="0" Grid.Row="3" Width="55" Height="55"
-                HorizontalAlignment="Left" 
-                Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnMenu_Click">
-            <Image Source="Resources/Images/enrolCourse.png" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" 
-                   Width="24" Height="24"></Image>
-        </Button>
-        <Label Grid.Column="1" Grid.Row="3" 
-               HorizontalAlignment="Left" VerticalAlignment="Center" 
-               FontSize="24">course details</Label>
-        
+
         <Button Name="btnAssessmentInfo"
                 Grid.Column="0" Grid.Row="1" Width="55" Height="55"
                 HorizontalAlignment="Left" 
@@ -92,7 +78,24 @@
         <Label Grid.Column="1" Grid.Row="2" 
                HorizontalAlignment="Left" VerticalAlignment="Center" 
                FontSize="24">view course enrolment</Label>
-        
+
+        <Button Name="btnCourseDetail"
+                Grid.Column="0" Grid.Row="3" Width="55" Height="55"
+                HorizontalAlignment="Left" 
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Click="btnMenu_Click">
+            <Image Source="Resources/Images/enrolCourse.png" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Width="24" Height="24"></Image>
+        </Button>
+        <Label Grid.Column="1" Grid.Row="3" 
+               HorizontalAlignment="Left" VerticalAlignment="Center" 
+               FontSize="24">course details</Label>
+
+        <my:LogoutUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Height="55" />
+        <Label Grid.Column="1" Grid.Row="5" Content="logout" FontSize="24" HorizontalAlignment="Left" Margin="0,8,0,0" />
+
         <TabControl Name="tabContent" Grid.Column="2" Grid.RowSpan="12">
             <TabItem IsHitTestVisible="False"/>
             <TabItem IsHitTestVisible="False">
@@ -168,23 +171,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                        Margin="0,0,0,20"
@@ -192,13 +179,13 @@
                        FontSize="45"
                        Foreground="Red">view course enrolment</Label>
 
-                    <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                    <Label Grid.Column="0" Grid.Row="1"
                        Margin="0,0,0,10"
                        FontWeight="Normal" 
                        FontSize="25"
                        Foreground="Red">select course</Label>
 
-                    <ListBox Name="staffListboxControl" Width="250" Height="300" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0"
+                    <ListBox Name="viewCourseListboxControl" Width="250" Height="300" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0"
                              VerticalContentAlignment="Center" VerticalAlignment="Top"
                              SelectedValuePath="CourseID" ItemContainerStyle="{StaticResource lbi}">
                         <ListBox.ItemTemplate>
@@ -224,16 +211,60 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button Content="save" Grid.Row="18" Grid.Column="2" HorizontalAlignment="Right" 
-                            VerticalAlignment="Top" Width="80" Margin="0,0,10,0"/>
+                    <Label Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
+                       Margin="0,0,0,10"
+                       FontWeight="Normal" 
+                       FontSize="25"
+                       Foreground="Red">student</Label>
+
+                    <ListBox Name="studentListboxControl" Width="300" Height="300" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1"
+                             VerticalContentAlignment="Center"  VerticalAlignment="Top" Grid.ColumnSpan="2"
+                             SelectedValuePath="CourseID" ItemContainerStyle="{StaticResource lbi}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="80"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Margin="1,0,0,3">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Student ID: " FontSize="13"  />
+                                            <TextBlock Text="{Binding StudentID}" FontSize="13" Foreground="DarkOrange" 
+                                                           TextWrapping="Wrap" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Firstname: " FontSize="13"  />
+                                            <TextBlock Text="{Binding StudentFirstName}" FontSize="13" Foreground="Green" 
+                                                           TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Lastname: " FontSize="13"  />
+                                            <TextBlock Text="{Binding StudentLastName}" FontSize="13" Foreground="Green" 
+                                                           TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="1" Margin="1,10,0,3">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Marks: " FontSize="13"  />
+                                            <TextBlock Text="{Binding Marks}" FontSize="15" FontWeight="Bold"
+                                                           TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </TabItem>
             <TabItem IsHitTestVisible="False">
                 <Grid Name="gridCourseDetail" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -242,45 +273,49 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
-                       Margin="0,0,0,20"
-                       FontWeight="Normal" 
-                       FontSize="45"
-                       Foreground="Red">assign pm</Label>
-                    <Label Grid.Column="0" Grid.Row="1" 
-                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontWeight="Bold">STAFF</Label>
-                    <ComboBox Name="comboboxStaff" 
-                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
-                         Width="250" Margin="20,5,0,5">
-                        <ComboBox.ItemTemplate>
+                    
+                    <Label Grid.Column="0" Grid.Row="0" Margin="0,0,0,20" FontWeight="Normal"  FontSize="45" Foreground="Red">course details</Label>
+                    <Label Grid.Column="0" Grid.Row="1" Margin="0,0,0,10" FontWeight="Normal"  FontSize="25" Foreground="Red">select course</Label>
+                    
+                    <ListBox Name="courseDetailListboxControl" Width="250" Height="300" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0"
+                             VerticalContentAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="5"
+                             SelectedValuePath="CourseID" ItemContainerStyle="{StaticResource lbi}">
+                        <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding ProgramName}" ToolTip="{Binding ProgramName}" />
-                                </StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="250"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Margin="1,0,0,3">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Name="tesssting" Text="Course Code: " FontSize="13"  />
+                                            <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
+                                                           TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
+                                                           TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
                             </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
-                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontWeight="Bold" Margin="100,5,0,5" Opacity="0.4">ASSIGN TO</Label>
-                    <Label Grid.Column="0" Grid.Row="3" 
-                       HorizontalAlignment="Left" VerticalAlignment="Top"
-                       FontWeight="Bold">PROGRAM</Label>
-                    <ComboBox Name="comboboxProgram" 
-                         Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"
-                         Width="250" Margin="20,5,0,5">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding ProgramName}" ToolTip="{Binding ProgramName}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <Button Grid.Column="1" Grid.Row="5" Margin="20,20,0,0">save</Button>
-                    <Button Grid.Column="2" Grid.Row="5" Margin="0,20,0,0">cancel</Button>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Label Grid.Column="1" Grid.Row="2" FontWeight="Bold" Content="COURSE CODE" />
+                    <TextBox Grid.Column="2" Grid.Row="2" Name="tbCourseCode" VerticalAlignment="Top" Text="{Binding CourseCode}" FontSize="13" Height="20" Width="220" MaxLines="1" IsEnabled="False" />
+
+                    <Label Grid.Column="1" Grid.Row="3" FontWeight="Bold" Content="COURSE NAME" />
+                    <TextBox Grid.Column="2" Grid.Row="3" Name="tbCourseName" VerticalAlignment="Top" Text="{Binding CourseName}" FontSize="13" Height="20" Width="220" MaxLines="1" IsEnabled="False" />
+
+                    <Label Grid.Column="1" Grid.Row="4" Grid.RowSpan="3" FontWeight="Bold" Content="COURSE DESCRIPTION" />
+                    <TextBox Grid.Column="2" Grid.Row="4" Grid.RowSpan="3" VerticalAlignment="Top" Name="tbCourseDesc" TextWrapping="WrapWithOverflow" MaxLines="5" Text="{Binding CourseDescription}" FontSize="13" Height="100" Width="220" IsEnabled="False" />
+
+                    <Button Grid.Column="2" Grid.Row="7" Name="btnEdit" Content="edit"></Button>
                 </Grid>
             </TabItem>
         </TabControl>
