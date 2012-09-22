@@ -101,24 +101,155 @@
             <TabItem IsHitTestVisible="False">
                 <Grid Name="gridStudent" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="100"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                        Margin="0,0,0,20"
                        FontWeight="Normal" 
                        FontSize="45"
                        Foreground="Red">new student</Label>
-                    
-                    <Button Name="btnStudentSave" Grid.Column="1" Grid.Row="3" Margin="20,20,0,0">save</Button>
-                    <Button Name="btnStudentReset" Grid.Column="2" Grid.Row="3" Margin="0,20,0,0">reset</Button>
+
+                    <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                       Margin="0,0,0,10"
+                       FontWeight="Normal" 
+                       FontSize="25"
+                       Foreground="Red">personal detail</Label>
+
+                    <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="STUDENT ID" />
+                    <Label Name="labelStudentID" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" Margin="20,5,0,5" />
+
+                    <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="FIRSTNAME"  />
+                    <TextBox Name="txtFirstName" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" MaxLines="1" AllowDrop="False" MaxLength="100" Margin="20,5,0,5"/>
+
+                    <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="LASTNAME" />
+                    <TextBox Name="txtLastName" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" MaxLines="1" AllowDrop="False" MaxLength="100" Margin="20,5,0,5"/>
+
+                    <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="GENDER"/>
+                    <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Margin="20,5,0,5">
+                        <RadioButton Name="radioGenderMale" VerticalContentAlignment="Center" Content="Male" Margin="0,0,5,0" />
+                        <RadioButton Name="radioGenderFemale" VerticalContentAlignment="Center" Content="Female" />
+                    </StackPanel>
+
+                    <Label Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="DATE OF BIRTH" />
+                    <DatePicker Name="datePickerDateofBirth" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" 
+                                VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" SelectedDate="{Binding DateOfBirth}" Margin="20,5,0,5"/>
+
+                    <Label Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="CONTACT NUMBER" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtContactNumber" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" 
+                             MaxLines="1" AllowDrop="False" MaxLength="15" Text="{Binding ContactNumber}" Margin="20,5,0,5"/>
+
+                    <Label Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="EMAIL" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtEmail" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" 
+                             MaxLines="1" AllowDrop="False" MaxLength="255"  Margin="20,5,0,5" Controls:TextboxHelper.Watermark="example@email.com" />
+
+                    <Label Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,10" FontWeight="Normal" FontSize="25" Foreground="Red">address detail</Label>
+
+                    <Label Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center"
+                       FontWeight="Bold" Content="ADDRESS 1" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtAddress1" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" 
+                             MaxLines="1" AllowDrop="False" MaxLength="100" Margin="20,5,0,5"/>
+
+                    <Label Grid.Row="3" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="ADDRESS 2" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtAddress2" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" 
+                             MaxLines="1" AllowDrop="False" MaxLength="100" Margin="20,5,0,5"/>
+
+                    <Label Grid.Row="4" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="CITY" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtCity" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" 
+                             MaxLines="1" AllowDrop="False" MaxLength="100"  Margin="20,5,0,5"/>
+
+                    <Label Grid.Row="5" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="POSTCODE" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtPostCode" Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" 
+                             MaxLines="1" AllowDrop="False" MaxLength="15" Margin="20,5,0,5"/>
+
+                    <Label Grid.Row="6" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="STATE PROVICE" VerticalContentAlignment="Center" />
+                    <TextBox Name="txtState" Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" 
+                             MaxLines="1" AllowDrop="False" MaxLength="75" Margin="20,5,0,5"/>
+
+                    <Label Grid.Row="7" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="COUNTRY" VerticalContentAlignment="Center" />
+                    <ComboBox Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" Name="comboboxCountry" Margin="20,5,0,5" 
+                              SelectedValuePath="CountryCode" IsSynchronizedWithCurrentItem="True" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding CountryTitle}" ToolTip="{Binding CountryTitle}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <Label Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Margin="0,0,0,10" FontWeight="Normal" FontSize="25" Foreground="Red">security</Label>
+
+                    <Label Grid.Row="10" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="PASSWORD"/>
+                    <PasswordBox Name="txtPassword" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" MaxLength="100" Margin="20,5,0,5" 
+                            ContextMenu="{x:Null}" Controls:TextboxHelper.Watermark="Password" Controls:TextboxHelper.ClearTextButton="False" />
+
+                    <Label Grid.Row="11" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="CONFIRM PASSWORD"/>
+                    <PasswordBox Name="txtConfirmPassword" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"  MaxLength="100" Margin="20,5,0,5"
+                            ContextMenu="{x:Null}" Controls:TextboxHelper.Watermark="Confirm Password" Controls:TextboxHelper.ClearTextButton="False"/>
+
+                    <Label Grid.Column="4" Grid.Row="9" Grid.ColumnSpan="2" Margin="0,0,0,10" FontWeight="Normal" FontSize="25" Foreground="Red">enrol program</Label>
+
+                    <Label Grid.Column="4" Grid.Row="10" Margin="0,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="PROGRAM" />
+                    <ComboBox Grid.Row="10" Grid.Column="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" Name="comboboxProgram" Margin="20,5,0,5" 
+                              SelectedValuePath="ProgramID" IsSynchronizedWithCurrentItem="True" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding ProgramName}" ToolTip="{Binding ProgramName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <StackPanel Grid.Column="4" Grid.Row="17">
+                        <CheckBox Name="PCheckBox" Margin="10,10,0,0"
+          Content="Popup Window"/>
+                        <Button HorizontalAlignment="Left" Width="129" Margin="10,10,0,0">
+                            <Button.Triggers>
+                                <EventTrigger RoutedEvent="Button.Click">
+                                    
+                                </EventTrigger>
+                            </Button.Triggers>
+                            Start Animation
+                        </Button>
+                        <Popup IsOpen="{Binding ElementName=PCheckBox,Path=IsChecked}"
+       PlacementTarget="{Binding ElementName=txtFirstName}"           
+       AllowsTransparency="True"
+       PopupAnimation="Slide"
+       >
+                                <TextBlock TextWrapping="Wrap" Foreground="Black">Rotating Popup</TextBlock>
+                        </Popup>
+                    </StackPanel>
+
+                    <Button Content="save" Grid.Row="18" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Margin="0,0,10,0" Name="btnSave" />
                 </Grid>
             </TabItem>
             <TabItem IsHitTestVisible="False">

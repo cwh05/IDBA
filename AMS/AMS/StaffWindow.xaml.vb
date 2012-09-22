@@ -10,7 +10,8 @@
         ' This call is required by the designer.
         InitializeComponent()
 
-        ' Add any initialization after the InitializeComponent() call.
+        comboboxCountry.ItemsSource = controller.GetAllCountryForLookUp()
+        comboboxProgram.ItemsSource = controller.GetAllProgramForLookUp()
         StaffUsername = username
         editable = False
 
@@ -36,7 +37,7 @@
 
         Try
             'retrieve all courses record
-            courseList = controller.GetAllCourseOfStaff(CUInt(StaffUsername))
+            courseList = controller.GetAllCourseByStaff(CUInt(StaffUsername))
             listboxControl.ItemsSource = courseList
 
             listboxControl.Items.Refresh()
@@ -90,7 +91,7 @@
         If editable Then
             If tbCourseCode.Text.Length > 0 And tbCourseDesc.Text.Length > 0 And tbCourseName.Text.Length > 0 Then
 
-                If MsgBox("Update course?", MsgBoxStyle.YesNo, "Confirmation") = MsgBoxResult.Yes Then
+                If MsgBox("Update Course: " & tbCourseCode.Text & "?", MsgBoxStyle.YesNo, "Confirmation") = MsgBoxResult.Yes Then
                     If controller.UpdateCourse(tbCourseCode.Text, tbCourseName.Text, tbCourseDesc.Text, courseDetailListboxControl.SelectedValue) Then
                         tbCourseCode.IsEnabled = False
                         tbCourseName.IsEnabled = False
@@ -111,4 +112,62 @@
 
 
     End Sub
+
+    Private Sub btnSave_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnSave.Click
+
+        Dim newStud As New Student
+
+        Try
+            newStud.StudentFirstName = txtFirstName.Text
+            newStud.StudentLastName = txtLastName.Text
+            newStud.DateOfBirth = datePickerDateofBirth.SelectedDate
+            newStud.ContactNumber = txtContactNumber.Text
+            newStud.Email = txtEmail.Text
+            newStud.Address1 = txtAddress1.Text
+            newStud.Address2 = txtAddress2.Text
+            newStud.City = txtCity.Text
+            newStud.PostCode = txtPostCode.Text
+            newStud.StateProvince = txtState.Text
+            newStud.CountryCode = comboboxCountry.SelectedValue
+            newStud.ProgramID = comboboxProgram.SelectedValue
+            If radioGenderMale.IsChecked Then
+                newStud.Gender = False
+            Else
+                newStud.Gender = True
+            End If
+
+            If validateStudent(newStud) Then
+
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
+        End Try
+        
+
+    End Sub
+
+    Private Function validateStudent(ByVal stud As Student) As Boolean
+
+        If stud.StudentFirstName.Length = 0 Then
+
+        ElseIf stud.StudentLastName.Length = 0 Then
+
+        ElseIf stud.StateProvince.Length = 0 Then
+
+        ElseIf stud.PostCode.Length = 0 Then
+
+        ElseIf stud.Email.Length = 0 Then
+
+        ElseIf IsNothing(stud.DateOfBirth) Then
+
+        ElseIf stud.ContactNumber.Length = 0 Then
+
+        ElseIf stud.City.Length = 0 Then
+
+        ElseIf stud.Address1.Length = 0 Then
+
+        End If
+
+        Return True
+    End Function
 End Class
