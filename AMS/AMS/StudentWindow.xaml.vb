@@ -2,6 +2,7 @@
 Imports System.Data.Objects
 Imports System.Data
 Imports System.Collections.Generic
+Imports System.Threading
 
 
 Public Class StudentWindow
@@ -23,6 +24,16 @@ Public Class StudentWindow
     Private Sub MetroWindow_Loaded(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
         'select empty tab
         StudentTabControl.SelectedIndex = 0
+
+        'start thread to update temperature
+        Dim temperatureThread As New Thread(New ThreadStart(AddressOf UpdateTemperature))
+        temperatureThread.Name = "TemperatureThread"
+        temperatureThread.IsBackground = True
+        temperatureThread.SetApartmentState(ApartmentState.STA)
+        temperatureThread.Start()
+
+
+
 
     End Sub
 
@@ -339,6 +350,7 @@ Public Class StudentWindow
 
     Private Sub removeListBoxControl_SelectionChanged(sender As System.Object, e As System.Windows.Controls.SelectionChangedEventArgs) Handles removeListBoxControl.SelectionChanged
         Try
+            'change the button's content if selected a particular row
             If removeListBoxControl.SelectedIndex >= 0 Then
                 If enrollCourseList(removeListBoxControl.SelectedIndex).Marks Is Nothing Then
                     'enable remove button
@@ -351,11 +363,51 @@ Public Class StudentWindow
                     btnRemove.Content = "Assessed"
                 End If
             End If
-            
 
         Catch ex As Exception
         End Try
     End Sub
+
+
+
+    Private Function UpdateTemperature()
+        'connect to WCF Service
+        Dim service = New WCFService.ServiceClient()
+        Dim weatherResult = service.GetWeather("Melbourne")
+
+
+        'display temperature
+        'lblTemperature.Visibility = Windows.Visibility.Visible
+        'lblTemperatureContent.Visibility = Windows.Visibility.Visible
+        'lblTemperatureContent.Content = weatherResult.Item("Temperature")
+
+
+
+
+        'Dim sp As New StackPanel
+        'sp.Orientation = Orientation.Horizontal
+        'sp.HorizontalAlignment = Windows.HorizontalAlignment.Left
+        'sp.VerticalAlignment = Windows.VerticalAlignment.Bottom
+        'sp.SetValue(Grid.RowProperty, 4)
+        'sp.SetValue(Grid.ColumnProperty, 0)
+        'sp.SetValue(Grid.ColumnSpanProperty, 2)
+        'sp.Visibility = Windows.Visibility.Visible
+
+        'Dim lblTemperature = lblTemperatureContent
+        'lblTemperature.Content = "xxxx"
+        'lblTemperature.Visibility = Windows.Visibility.Visible
+
+        'sp.Children.Add(lblTemperature)
+
+
+        MsgBox("True") '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        Return Nothing
+
+
+    End Function
+
+
 
 
 End Class

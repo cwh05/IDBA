@@ -1,11 +1,13 @@
 ﻿Imports System.Xml
 Imports System.IO
+Imports System.Text
 
 Public Class Service
     Implements IService
 
     Public Function GetWeather(ByVal city As String) As Dictionary(Of String, String) Implements IService.GetWeather
         Dim weatherMap = New Dictionary(Of String, String)
+        Dim sb = New StringBuilder()
 
         Try
             'connect to web service
@@ -31,7 +33,12 @@ Public Class Service
                                 'record few element data
                                 Select Case reader.Name
                                     Case "Temperature"
-                                        weatherMap.Add("Temperature", reader.ReadElementContentAsString)
+                                        'replace charactere with unicode
+                                        sb.AppendLine(reader.ReadElementContentAsString)
+                                        sb.Replace("C", "°C")
+                                        sb.Replace("F", "°F")
+                                        weatherMap.Add("Temperature", sb.ToString)
+                                        sb.Clear()
 
                                     Case "RelativeHumidity"
                                         weatherMap.Add("RelativeHumidity", reader.ReadElementContentAsString)

@@ -119,6 +119,11 @@
     <Compile Include="ProgramWindow.xaml.vb">
       <DependentUpon>ProgramWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Service References\WCFService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="StaffWindow.xaml.vb">
       <DependentUpon>StaffWindow.xaml</DependentUpon>
     </Compile>
@@ -218,6 +223,16 @@
     </None>
     <AppDesigner Include="My Project\" />
     <None Include="packages.config" />
+    <None Include="Service References\WCFService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFService\service.wsdl" />
+    <None Include="Service References\WCFService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\add_user.png" />
@@ -281,6 +296,20 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\WCFService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WCFService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WCFService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WCFService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
