@@ -1,4 +1,6 @@
-﻿Public Class StaffWindow
+﻿Imports System.Windows.Controls.Primitives
+
+Public Class StaffWindow
 
     Private controller As StaffWindowController = New StaffWindowController
     Private courseList As List(Of Course)
@@ -14,6 +16,11 @@
         comboboxProgram.ItemsSource = controller.GetAllProgramForLookUp()
         StaffUsername = username
         editable = False
+
+        'set weather temperature
+        If CType(Application.Current, Application).WeatherTemperature <> String.Empty Then
+            lblTemperatureContent.Content = CType(Application.Current, Application).WeatherTemperature
+        End If
 
     End Sub
 
@@ -57,7 +64,7 @@
 
                 studentListboxControl.Items.Refresh()
             End If
-            
+
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
@@ -116,58 +123,95 @@
     Private Sub btnSave_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnSave.Click
 
         Dim newStud As New Student
+        Dim account As New Account
 
         Try
-            newStud.StudentFirstName = txtFirstName.Text
-            newStud.StudentLastName = txtLastName.Text
-            newStud.DateOfBirth = datePickerDateofBirth.SelectedDate
-            newStud.ContactNumber = txtContactNumber.Text
-            newStud.Email = txtEmail.Text
-            newStud.Address1 = txtAddress1.Text
-            newStud.Address2 = txtAddress2.Text
-            newStud.City = txtCity.Text
-            newStud.PostCode = txtPostCode.Text
-            newStud.StateProvince = txtState.Text
-            newStud.CountryCode = comboboxCountry.SelectedValue
-            newStud.ProgramID = comboboxProgram.SelectedValue
-            If radioGenderMale.IsChecked Then
-                newStud.Gender = False
-            Else
-                newStud.Gender = True
-            End If
+            If validateStudent() Then
+                newStud.StudentFirstName = txtFirstName.Text
+                newStud.StudentLastName = txtLastName.Text
+                newStud.DateOfBirth = datePickerDateofBirth.SelectedDate
+                newStud.ContactNumber = txtContactNumber.Text
+                newStud.Email = txtEmail.Text
+                newStud.Address1 = txtAddress1.Text
+                newStud.Address2 = txtAddress2.Text
+                newStud.City = txtCity.Text
+                newStud.PostCode = txtPostCode.Text
+                newStud.StateProvince = txtState.Text
+                newStud.CountryCode = comboboxCountry.SelectedValue
+                newStud.ProgramID = comboboxProgram.SelectedValue
+                If radioGenderMale.IsChecked Then
+                    newStud.Gender = False
+                Else
+                    newStud.Gender = True
+                End If
+                account.LoginUsername = controller.GeNewStudentID()
+                account.LoginPassword = txtPassword.Text
 
-            If validateStudent(newStud) Then
-
+                controller.InsertStudent(newStud, account)
+                'controller
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
         End Try
-        
+
 
     End Sub
 
-    Private Function validateStudent(ByVal stud As Student) As Boolean
+    Private Function validateStudent() As Boolean
 
-        If stud.StudentFirstName.Length = 0 Then
 
-        ElseIf stud.StudentLastName.Length = 0 Then
-
-        ElseIf stud.StateProvince.Length = 0 Then
-
-        ElseIf stud.PostCode.Length = 0 Then
-
-        ElseIf stud.Email.Length = 0 Then
-
-        ElseIf IsNothing(stud.DateOfBirth) Then
-
-        ElseIf stud.ContactNumber.Length = 0 Then
-
-        ElseIf stud.City.Length = 0 Then
-
-        ElseIf stud.Address1.Length = 0 Then
-
+        If txtFirstName.Text.Length = 0 Then
+            MsgBox("Please fill in first name field.", MsgBoxStyle.Information)
+            txtFirstName.Focus()
+            Return False
+        ElseIf txtLastName.Text.Length = 0 Then
+            MsgBox("Please fill in last name field.", MsgBoxStyle.Information)
+            txtLastName.Focus()
+            Return False
+        ElseIf Not (radioGenderMale.IsChecked Or radioGenderFemale.IsChecked) Then
+            MsgBox("Please select your gender.", MsgBoxStyle.Information)
+            radioGenderMale.Focus()
+            Return False
+        ElseIf IsNothing(datePickerDateofBirth.SelectedDate) Then
+            MsgBox("Please select date of birth.", MsgBoxStyle.Information)
+            datePickerDateofBirth.Focus()
+            Return False
+        ElseIf txtContactNumber.Text.Length = 0 Then
+            MsgBox("Please fill in contact number field.", MsgBoxStyle.Information)
+            txtContactNumber.Focus()
+            Return False
+        ElseIf txtEmail.Text.Length = 0 Then
+            MsgBox("Please fill in email field.", MsgBoxStyle.Information)
+            txtEmail.Focus()
+            Return False
+        ElseIf txtAddress1.Text.Length = 0 Then
+            MsgBox("Please fill in addressline 1 field.", MsgBoxStyle.Information)
+            txtAddress1.Focus()
+            Return False
+        ElseIf txtCity.Text.Length = 0 Then
+            MsgBox("Please fill in city field.", MsgBoxStyle.Information)
+            txtCity.Focus()
+            Return False
+        ElseIf txtPostCode.Text.Length = 0 Then
+            MsgBox("Please fill in postcode field.", MsgBoxStyle.Information)
+            txtPostCode.Focus()
+            Return False
+        ElseIf txtState.Text.Length = 0 Then
+            MsgBox("Please fill in state province field.", MsgBoxStyle.Information)
+            txtState.Focus()
+            Return False
+        ElseIf txtPassword.Text.Length = 0 Then
+            MsgBox("Password field cannot be empty.", MsgBoxStyle.Information)
+            txtPassword.Focus()
+            Return False
         End If
 
         Return True
     End Function
+
+    Private Sub datePickerDateofBirth_SelectedDateChanged(sender As System.Object, e As System.Windows.Controls.SelectionChangedEventArgs) Handles datePickerDateofBirth.SelectedDateChanged
+
+        txtPassword.Text = datePickerDateofBirth.Text
+
+    End Sub
 End Class

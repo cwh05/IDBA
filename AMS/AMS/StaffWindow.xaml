@@ -160,7 +160,7 @@
 
                     <Label Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="DATE OF BIRTH" />
                     <DatePicker Name="datePickerDateofBirth" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" 
-                                VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" SelectedDate="{Binding DateOfBirth}" Margin="20,5,0,5"/>
+                                VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" SelectedDate="{Binding DateOfBirth, StringFormat='yyyy-MM-dd'}" Margin="20,5,0,5"/>
 
                     <Label Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="CONTACT NUMBER" VerticalContentAlignment="Center" />
                     <TextBox Name="txtContactNumber" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" 
@@ -207,13 +207,8 @@
 
                     <Label Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Margin="0,0,0,10" FontWeight="Normal" FontSize="25" Foreground="Red">security</Label>
 
-                    <Label Grid.Row="10" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="PASSWORD"/>
-                    <PasswordBox Name="txtPassword" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" MaxLength="100" Margin="20,5,0,5" 
-                            ContextMenu="{x:Null}" Controls:TextboxHelper.Watermark="Password" Controls:TextboxHelper.ClearTextButton="False" />
-
-                    <Label Grid.Row="11" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="CONFIRM PASSWORD"/>
-                    <PasswordBox Name="txtConfirmPassword" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"  MaxLength="100" Margin="20,5,0,5"
-                            ContextMenu="{x:Null}" Controls:TextboxHelper.Watermark="Confirm Password" Controls:TextboxHelper.ClearTextButton="False"/>
+                    <Label Grid.Row="10" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="DEFAULT PASSWORD"/>
+                    <TextBox Controls:TextboxHelper.Watermark="DOB [yyyy-MM-dd]" Name="txtPassword" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Margin="20,5,0,5" />
 
                     <Label Grid.Column="4" Grid.Row="9" Grid.ColumnSpan="2" Margin="0,0,0,10" FontWeight="Normal" FontSize="25" Foreground="Red">enrol program</Label>
 
@@ -228,26 +223,6 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-
-                    <StackPanel Grid.Column="4" Grid.Row="17">
-                        <CheckBox Name="PCheckBox" Margin="10,10,0,0"
-          Content="Popup Window"/>
-                        <Button HorizontalAlignment="Left" Width="129" Margin="10,10,0,0">
-                            <Button.Triggers>
-                                <EventTrigger RoutedEvent="Button.Click">
-                                    
-                                </EventTrigger>
-                            </Button.Triggers>
-                            Start Animation
-                        </Button>
-                        <Popup IsOpen="{Binding ElementName=PCheckBox,Path=IsChecked}"
-       PlacementTarget="{Binding ElementName=txtFirstName}"           
-       AllowsTransparency="True"
-       PopupAnimation="Slide"
-       >
-                                <TextBlock TextWrapping="Wrap" Foreground="Black">Rotating Popup</TextBlock>
-                        </Popup>
-                    </StackPanel>
 
                     <Button Content="save" Grid.Row="18" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Margin="0,0,10,0" Name="btnSave" />
                 </Grid>
@@ -450,5 +425,10 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <StackPanel Grid.Column="0" Grid.Row="7"  Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                    Orientation="Horizontal">
+            <Label Name="lblTemperature" Content="Current Temperature:"  />
+            <Label Name="lblTemperatureContent" Content="N/A"/>
+        </StackPanel>
     </Grid>
 </Controls:MetroWindow>

@@ -1,4 +1,6 @@
-﻿Public Class StaffWindowController
+﻿Imports System.Transactions
+
+Public Class StaffWindowController
 
     Private db As New AMSEntities()
     Public Function GetAllCourseByStaff(ByRef staffID As Int32) As List(Of Course)
@@ -20,6 +22,7 @@
             Return list
 
         Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
         End Try
         Return Nothing
     End Function
@@ -44,6 +47,7 @@
             Return enrollmentList
 
         Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
         End Try
 
         Return Nothing
@@ -60,7 +64,31 @@
             Return True
 
         Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
         End Try
+
+        Return False
+    End Function
+
+    Public Function InsertStudent(ByVal student As Student, ByVal account As Account) As Boolean
+
+
+        Using transaction As New TransactionScope()
+
+            Try
+                Dim test As Int32
+
+                'test = db.InsertAccount(account.LoginUsername, account.LoginPassword)
+
+
+                db.SaveChanges()
+                transaction.Complete()
+                Return True
+
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
+            End Try
+        End Using
 
         Return False
     End Function
@@ -77,5 +105,14 @@
                           Order By programs.ProgramID
                           Select programs
         Return programList
+    End Function
+
+    Public Function GeNewStudentID() As Integer
+        Dim lastid = (From students In db.Students
+                          Select students.StudentID).Max()
+        If IsNothing(lastid) Then
+            lastid = 0
+        End If
+        Return lastid + 1
     End Function
 End Class

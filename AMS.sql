@@ -731,7 +731,7 @@ CREATE PROCEDURE [dbo].[InsertCourse]
 	@coursecode nvarchar(60),
 	@coursedescription nvarchar(max),
 	@staffid int
-AS
+AS3
 BEGIN
 	INSERT Course(CourseName, CourseCode, CourseDescription, StaffID, CreatedDate, ModifiedDate) 
 	VALUES (@coursename, @coursecode, @coursedescription, @staffid, GETDATE(), GETDATE())
@@ -750,6 +750,29 @@ BEGIN
 	WHERE CourseID = @courseid
 END
 GO
+
+CREATE PROCEDURE [dbo].[InsertStudent]
+	@FirstName NVARCHAR(150),
+   @LastName NVARCHAR(100),
+   @Gender BIT,
+   @DOB DATE,
+   @Address1 NVARCHAR(100),
+   @Address2 NVARCHAR(100),
+   @City NVARCHAR(100),
+   @PostCode NVARCHAR(20),
+   @StateProvince NVARCHAR(80),
+   @CountryCode NVARCHAR(5),
+   @ContactNumber NVARCHAR(15),
+   @Email NVARCHAR(255),
+   @AccountID int,
+   @ProgramID int
+AS
+BEGIN
+	INSERT Student(StudentFirstName, StudentLastName, Gender, DateOfBirth, Address1, Address2, City, PostCode, StateProvince, CountryCode, ContactNumber, Email, AccountID, ProgramID, CreatedDate, ModifiedDate) 
+	VALUES (@FirstName, @LastName, @Gender, @DOB, @Address1, @Address2, @City, @PostCode, @StateProvince, @CountryCode, @ContactNumber, @Email, @AccountID, @ProgramID, GETDATE(), GETDATE())
+END
+GO
+
 -------------------------------------------------------------------------------------------- End Edward
 
 

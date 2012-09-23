@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("117ec2be-4e25-46dd-92f4-e37c76dea1d2")>
+<Assembly: EdmSchemaAttribute("96c79a80-60bc-42dd-a759-99f80cf0da50")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -646,6 +646,30 @@ Public Partial Class AMSEntities
         End If
 
         Return MyBase.ExecuteFunction("UpdateCourse", courseidParameter, coursenameParameter, coursecodeParameter, coursedescriptionParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="loginUsername">No Metadata Documentation available.</param>
+    ''' <param name="loginPassword">No Metadata Documentation available.</param>
+    Public Function InsertAccount(loginUsername As Global.System.String, loginPassword As Global.System.String) As Integer
+        Dim loginUsernameParameter As ObjectParameter
+        If (loginUsername IsNot Nothing)
+            loginUsernameParameter = New ObjectParameter("loginUsername", loginUsername)
+        Else
+            loginUsernameParameter = New ObjectParameter("loginUsername", GetType(Global.System.String))
+        End If
+
+        Dim loginPasswordParameter As ObjectParameter
+        If (loginPassword IsNot Nothing)
+            loginPasswordParameter = New ObjectParameter("loginPassword", loginPassword)
+        Else
+            loginPasswordParameter = New ObjectParameter("loginPassword", GetType(Global.System.String))
+        End If
+
+        Return MyBase.ExecuteFunction("InsertAccount", loginUsernameParameter, loginPasswordParameter)
 
     End Function
 

@@ -487,6 +487,22 @@
           <Parameter Name="programName" Type="nvarchar" Mode="In" />
           <Parameter Name="programDescription" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="InsertStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Gender" Type="bit" Mode="In" />
+          <Parameter Name="DOB" Type="date" Mode="In" />
+          <Parameter Name="Address1" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address2" Type="nvarchar" Mode="In" />
+          <Parameter Name="City" Type="nvarchar" Mode="In" />
+          <Parameter Name="PostCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="StateProvince" Type="nvarchar" Mode="In" />
+          <Parameter Name="CountryCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContactNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="AccountID" Type="int" Mode="In" />
+          <Parameter Name="ProgramID" Type="int" Mode="In" />
+        </Function>
         <Function Name="LoginVerification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="nvarchar" Mode="In" />
           <Parameter Name="password" Type="nvarchar" Mode="In" />
@@ -631,13 +647,17 @@
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
           <FunctionImport Name="GetStudentEnrollmentByCourseID" ReturnType="Collection(Model.GetStudentEnrollmentByCourseID_Result)">
-            <Parameter Name="COURSEID" Mode="In" Type="Int32" />
+          <Parameter Name="COURSEID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UpdateCourse">
             <Parameter Name="courseid" Mode="In" Type="Int32" />
             <Parameter Name="coursename" Mode="In" Type="String" />
             <Parameter Name="coursecode" Mode="In" Type="String" />
             <Parameter Name="coursedescription" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertAccount">
+            <Parameter Name="loginUsername" Mode="In" Type="String" />
+            <Parameter Name="loginPassword" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
@@ -1302,6 +1322,8 @@
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </ComplexTypeMapping>
             </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertAccount" FunctionName="Model.Store.InsertAccount" >
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
