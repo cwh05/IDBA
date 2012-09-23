@@ -237,10 +237,12 @@ AS
    DECLARE @cid INT
    BEGIN
       SET @cid = (SELECT CourseID FROM INSERTED)
-      SET @v = (SELECT COUNT(StudentID) FROM Enrollment WHERE CourseID = @cid)
+      SET @v = (SELECT COUNT(StudentID) FROM Enrollment WHERE CourseID = @cid
+                     AND Marks IS NOT NULL)
 
       IF (@v % 5) = 0
-         SELECT AVG(Marks) FROM Enrollment WHERE CourseID = @cid
+         SELECT AVG(Marks) AS 'Average' FROM Enrollment WHERE CourseID = @cid
+               AND Marks IS NOT NULL
    END
 GO
 PRINT 'Triggers created...'
