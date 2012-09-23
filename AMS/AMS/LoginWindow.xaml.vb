@@ -82,7 +82,6 @@ Class LoginWindow : Inherits MetroWindow
 
     End Sub
 
-
     ''' <summary>
     ''' This function clears 2 textboxes' content 
     ''' </summary>
