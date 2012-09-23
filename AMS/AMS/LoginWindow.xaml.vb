@@ -16,9 +16,12 @@ Class LoginWindow : Inherits MetroWindow
         '    FailToLogin()
 
         'Else
+
+        'Dim dll As New DLLResource.EncryptionProvider()
+
         ''pass arguments to workflow
         'inputs.Add("inputUsername", txtUsername.Text)
-        'inputs.Add("inputPassword", txtPassword.Password)
+        'inputs.Add("inputPassword", dll.Encrypt(txtPassword.Password))
 
         'Try
         '    'call workflow
@@ -43,6 +46,7 @@ Class LoginWindow : Inherits MetroWindow
         'End Try
 
         'End If
+        
 
         '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
         Dim window As New AdminWindow
