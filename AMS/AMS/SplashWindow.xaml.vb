@@ -26,9 +26,14 @@ Public Class SplashWindow
 
             'save value to application
             CType(Application.Current, Application).WeatherTemperature = weatherResult.Item("Temperature")
+            CType(Application.Current, Application).WeatherRelativeHumidity = weatherResult.Item("RelativeHumidity")
+            CType(Application.Current, Application).WeatherWind = weatherResult.Item("Wind")
 
         Catch ex As Exception
+            'save empty values if error occurs
             CType(Application.Current, Application).WeatherTemperature = String.Empty
+            CType(Application.Current, Application).WeatherRelativeHumidity = String.Empty
+            CType(Application.Current, Application).WeatherWind = String.Empty
 
         Finally
             Dim login As New LoginWindow

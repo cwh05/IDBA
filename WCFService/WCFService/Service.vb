@@ -46,8 +46,8 @@ Public Class Service
                                     Case "Wind"
                                         weatherMap.Add("Wind", reader.ReadElementContentAsString.Trim)
 
-                                    Case "SkyConditions"
-                                        weatherMap.Add("SkyConditions", reader.ReadElementContentAsString.Trim)
+                                        'Case "SkyConditions"
+                                        '    weatherMap.Add("SkyConditions", reader.ReadElementContentAsString.Trim)
                                 End Select
                             End If
                         End While

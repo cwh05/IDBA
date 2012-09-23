@@ -28,6 +28,9 @@ Public Class StudentWindow
         'set weather temperature
         If CType(Application.Current, Application).WeatherTemperature <> String.Empty Then
             lblTemperatureContent.Content = CType(Application.Current, Application).WeatherTemperature
+            lblTemperatureContent.ToolTip = "Relative Humidity: " & CType(Application.Current, Application).WeatherRelativeHumidity &
+                    vbNewLine & "Wind: " & CType(Application.Current, Application).WeatherWind
+
         End If
 
 
@@ -191,12 +194,14 @@ Public Class StudentWindow
                                                         txtEmail.Text, CInt(StudentUsername.Substring(1)), Nothing, Nothing, Nothing)
 
                 ElseIf newPassword.Equals(confirmPassword) Then
+                    Dim dll As New DLLResource.EncryptionProvider()
+
                     'update new password with profile details
                     fail = Not controller.UpdateProfile(txtFirstName.Text, txtLastName.Text, gender, dob.SelectedDate,
                                                         txtAddress1.Text, txtAddress2.Text, txtCity.Text, txtPostCode.Text,
                                                         txtState.Text, countryCombo.SelectedValue, txtContactNumber.Text,
                                                         txtEmail.Text, CInt(StudentUsername.Substring(1)), StudentUsername,
-                                                        oldPassword, newPassword)
+                                                        dll.Encrypt(oldPassword), dll.Encrypt(newPassword))
                 Else
                     fail = True
                 End If
