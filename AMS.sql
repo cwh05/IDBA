@@ -741,26 +741,35 @@ END
 GO
 
 CREATE PROCEDURE [dbo].[InsertStudent]
-   @FirstName        NVARCHAR(150),
-   @LastName         NVARCHAR(100),
-   @Gender           BIT,
-   @DOB              DATE,
-   @Address1         NVARCHAR(100),
-   @Address2         NVARCHAR(100),
-   @City             NVARCHAR(100),
-   @PostCode         NVARCHAR(20),
-   @StateProvince    NVARCHAR(80),
-   @CountryCode      NVARCHAR(5),
-   @ContactNumber    NVARCHAR(15),
-   @Email            NVARCHAR(255),
-   @AccountID        INT,
-   @ProgramID        INT
+	
+	@loginPassword NVARCHAR(255),
+	@FirstName NVARCHAR(150),
+   @LastName NVARCHAR(100),
+   @Gender BIT,
+   @DOB DATE,
+   @Address1 NVARCHAR(100),
+   @Address2 NVARCHAR(100),
+   @City NVARCHAR(100),
+   @PostCode NVARCHAR(20),
+   @StateProvince NVARCHAR(80),
+   @CountryCode NVARCHAR(5),
+   @ContactNumber NVARCHAR(15),
+   @Email NVARCHAR(255),
+   @ProgramID int
 AS
 BEGIN
-   INSERT Student(StudentFirstName, StudentLastName, Gender, DateOfBirth, Address1, Address2, City, PostCode,
-                  StateProvince, CountryCode, ContactNumber, Email, AccountID, ProgramID, CreatedDate, ModifiedDate)
-      VALUES (@FirstName, @LastName, @Gender, @DOB, @Address1, @Address2, @City, @PostCode, @StateProvince,
-              @CountryCode, @ContactNumber, @Email, @AccountID, @ProgramID, GETDATE(), GETDATE())
+	DECLARE @AccountID int
+	DECLARE @loginUsername NVARCHAR(100)
+	
+	INSERT Student(StudentFirstName, StudentLastName, Gender, DateOfBirth, Address1, Address2, City, PostCode, StateProvince, CountryCode, ContactNumber, Email, AccountID, ProgramID, CreatedDate, ModifiedDate) 
+	VALUES (@FirstName, @LastName, @Gender, @DOB, @Address1, @Address2, @City, @PostCode, @StateProvince, @CountryCode, @ContactNumber, @Email, 1, @ProgramID, GETDATE(), GETDATE())
+	
+	SET @loginUsername = 's' + CAST(SCOPE_IDENTITY() AS varchar(10))
+	INSERT Account(LoginUsername, LoginPassword) VALUES (@loginUsername, @loginPassword)
+	
+	SET @AccountID = SCOPE_IDENTITY()
+	UPDATE Student SET AccountID = @AccountID
+	WHERE StudentID = SUBSTRING(@loginUsername, 2, 10)
 END
 GO
 
