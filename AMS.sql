@@ -74,8 +74,7 @@ CREATE TABLE dbo.Program
    CreatedDate SMALLDATETIME NOT NULL,
    ModifiedDate SMALLDATETIME NOT NULL,   -- ModifiedDate = CreatedDate for the first time
 
-   CONSTRAINT fk_employee FOREIGN KEY(ManagerID)
-      REFERENCES Employee(EmployeeID)
+   CONSTRAINT fk_employee FOREIGN KEY(ManagerID) REFERENCES Employee(EmployeeID)
 );
 
 CREATE TABLE dbo.Student
@@ -117,8 +116,7 @@ CREATE TABLE dbo.Course
    CreatedDate SMALLDATETIME NOT NULL,
    ModifiedDate SMALLDATETIME NOT NULL    -- ModifiedDate = CreatedDate for the first time
 
-   CONSTRAINT fk_Staff FOREIGN KEY(StaffID)
-      REFERENCES Employee(EmployeeID)
+   CONSTRAINT fk_Staff FOREIGN KEY(StaffID) REFERENCES Employee(EmployeeID)
 );
 
 CREATE TABLE dbo.Department
@@ -199,9 +197,9 @@ GO
 CREATE VIEW Enrollment
 AS
    SELECT s.StudentID, s.StudentFirstName, s.StudentLastName, s.Email, c.CourseID,
-   c.CourseName, c.CourseCode, sc.Marks FROM StudentCourse sc
-   INNER JOIN Student s ON s.StudentID = sc.StudentID
-   INNER JOIN Course c ON c.CourseID = sc.CourseID
+      c.CourseName, c.CourseCode, sc.Marks FROM StudentCourse sc
+      INNER JOIN Student s ON s.StudentID = sc.StudentID
+      INNER JOIN Course c ON c.CourseID = sc.CourseID
 GO
 PRINT 'View created...'
 GO
@@ -248,268 +246,278 @@ GO
 PRINT 'Triggers created...'
 GO
 
--- Insert data into RoleCategory table
-INSERT INTO dbo.RoleCategory(RoleTitle) VALUES('Administrator')
-INSERT INTO dbo.RoleCategory(RoleTitle) VALUES('Program Manager')
-INSERT INTO dbo.RoleCategory(RoleTitle) VALUES('Staff')
-PRINT 'Data inserted to dbo.RoleCategory...'
+BEGIN
+   -- Insert data into RoleCategory table
+   INSERT INTO dbo.RoleCategory(RoleTitle) VALUES('Administrator')
+   INSERT INTO dbo.RoleCategory(RoleTitle) VALUES('Program Manager')
+   INSERT INTO dbo.RoleCategory(RoleTitle) VALUES('Staff')
+   PRINT 'Data inserted to dbo.RoleCategory...'
+
+   -- Insert data into Country Table
+   INSERT INTO Country VALUES('AF', N'Afghanistan')
+   INSERT INTO Country VALUES('AX', N'?land Islands')
+   INSERT INTO Country VALUES('AL', N'Albania')
+   INSERT INTO Country VALUES('DZ', N'Algeria')
+   INSERT INTO Country VALUES('AS', N'American Samoa')
+   INSERT INTO Country VALUES('AD', N'Andorra')
+   INSERT INTO Country VALUES('AO', N'Angola')
+   INSERT INTO Country VALUES('AI', N'Anguilla')
+   INSERT INTO Country VALUES('AQ', N'Antarctica')
+   INSERT INTO Country VALUES('AG', N'Antigua and Barbuda')
+   INSERT INTO Country VALUES('AR', N'Argentina')
+   INSERT INTO Country VALUES('AM', N'Armenia')
+   INSERT INTO Country VALUES('AW', N'Aruba')
+   INSERT INTO Country VALUES('AU', N'Australia')
+   INSERT INTO Country VALUES('AT', N'Austria')
+   INSERT INTO Country VALUES('AZ', N'Azerbaijan')
+   INSERT INTO Country VALUES('BS', N'Bahamas')
+   INSERT INTO Country VALUES('BH', N'Bahrain')
+   INSERT INTO Country VALUES('BD', N'Bangladesh')
+   INSERT INTO Country VALUES('BB', N'Barbados')
+   INSERT INTO Country VALUES('BY', N'Belarus')
+   INSERT INTO Country VALUES('BE', N'Belgium')
+   INSERT INTO Country VALUES('BZ', N'Belize')
+   INSERT INTO Country VALUES('BJ', N'Benin')
+   INSERT INTO Country VALUES('BM', N'Bermuda')
+   INSERT INTO Country VALUES('BT', N'Bhutan')
+   INSERT INTO Country VALUES('BO', N'Bolivia')
+   INSERT INTO Country VALUES('BQ', N'Bonaire')
+   INSERT INTO Country VALUES('BA', N'Bosnia and Herzegovina')
+   INSERT INTO Country VALUES('BW', N'Botswana')
+   INSERT INTO Country VALUES('BV', N'Bouvet Island')
+   INSERT INTO Country VALUES('BR', N'Brazil')
+   INSERT INTO Country VALUES('IO', N'British Indian Ocean Territory')
+   INSERT INTO Country VALUES('BN', N'Brunei')
+   INSERT INTO Country VALUES('BG', N'Bulgaria')
+   INSERT INTO Country VALUES('BF', N'Burkina Faso')
+   INSERT INTO Country VALUES('BI', N'Burundi')
+   INSERT INTO Country VALUES('KH', N'Cambodia')
+   INSERT INTO Country VALUES('CM', N'Cameroon')
+   INSERT INTO Country VALUES('CA', N'Canada')
+   INSERT INTO Country VALUES('CV', N'Cape Verde')
+   INSERT INTO Country VALUES('KY', N'Cayman Islands')
+   INSERT INTO Country VALUES('CF', N'Central African Republic')
+   INSERT INTO Country VALUES('TD', N'Chad')
+   INSERT INTO Country VALUES('CL', N'Chile')
+   INSERT INTO Country VALUES('CN', N'China')
+   INSERT INTO Country VALUES('CX', N'Christmas Island')
+   INSERT INTO Country VALUES('CC', N'Cocos (Keeling) Islands')
+   INSERT INTO Country VALUES('CO', N'Colombia')
+   INSERT INTO Country VALUES('KM', N'Comoros')
+   INSERT INTO Country VALUES('CG', N'Congo')
+   INSERT INTO Country VALUES('CD', N'Congo (DRC)')
+   INSERT INTO Country VALUES('CK', N'Cook Islands')
+   INSERT INTO Country VALUES('CR', N'Costa Rica')
+   INSERT INTO Country VALUES('HR', N'Croatia')
+   INSERT INTO Country VALUES('CU', N'Cuba')
+   INSERT INTO Country VALUES('CW', N'Cura?ao')
+   INSERT INTO Country VALUES('CY', N'Cyprus')
+   INSERT INTO Country VALUES('CZ', N'Czech Republic')
+   INSERT INTO Country VALUES('DK', N'Denmark')
+   INSERT INTO Country VALUES('DJ', N'Djibouti')
+   INSERT INTO Country VALUES('DM', N'Dominica')
+   INSERT INTO Country VALUES('DO', N'Dominican Republic')
+   INSERT INTO Country VALUES('EC', N'Ecuador')
+   INSERT INTO Country VALUES('EG', N'Egypt')
+   INSERT INTO Country VALUES('SV', N'El Salvador')
+   INSERT INTO Country VALUES('GQ', N'Equatorial Guinea')
+   INSERT INTO Country VALUES('ER', N'Eritrea')
+   INSERT INTO Country VALUES('EE', N'Estonia')
+   INSERT INTO Country VALUES('ET', N'Ethiopia')
+   INSERT INTO Country VALUES('FK', N'Falkland Islands (Islas Malvinas)')
+   INSERT INTO Country VALUES('FO', N'Faroe Islands')
+   INSERT INTO Country VALUES('FJ', N'Fiji Islands')
+   INSERT INTO Country VALUES('FI', N'Finland')
+   INSERT INTO Country VALUES('FR', N'France')
+   INSERT INTO Country VALUES('GF', N'French Guiana')
+   INSERT INTO Country VALUES('PF', N'French Polynesia')
+   INSERT INTO Country VALUES('TF', N'French Southern and Antarctic Lands')
+   INSERT INTO Country VALUES('GA', N'Gabon')
+   INSERT INTO Country VALUES('GM', N'Gambia, The')
+   INSERT INTO Country VALUES('GE', N'Georgia')
+   INSERT INTO Country VALUES('DE', N'Germany')
+   INSERT INTO Country VALUES('GH', N'Ghana')
+   INSERT INTO Country VALUES('GI', N'Gibraltar')
+   INSERT INTO Country VALUES('GR', N'Greece')
+   INSERT INTO Country VALUES('GL', N'Greenland')
+   INSERT INTO Country VALUES('GD', N'Grenada')
+   INSERT INTO Country VALUES('GP', N'Guadeloupe')
+   INSERT INTO Country VALUES('GU', N'Guam')
+   INSERT INTO Country VALUES('GT', N'Guatemala')
+   INSERT INTO Country VALUES('GG', N'Guernsey')
+   INSERT INTO Country VALUES('GN', N'Guinea')
+   INSERT INTO Country VALUES('GW', N'Guinea-Bissau')
+   INSERT INTO Country VALUES('GY', N'Guyana')
+   INSERT INTO Country VALUES('HT', N'Haiti')
+   INSERT INTO Country VALUES('HM', N'Heard Island and McDonald Islands')
+   INSERT INTO Country VALUES('HN', N'Honduras')
+   INSERT INTO Country VALUES('HK', N'Hong Kong SAR')
+   INSERT INTO Country VALUES('HU', N'Hungary')
+   INSERT INTO Country VALUES('IS', N'Iceland')
+   INSERT INTO Country VALUES('IN', N'India')
+   INSERT INTO Country VALUES('ID', N'Indonesia')
+   INSERT INTO Country VALUES('IR', N'Iran')
+   INSERT INTO Country VALUES('IQ', N'Iraq')
+   INSERT INTO Country VALUES('IE', N'Ireland')
+   INSERT INTO Country VALUES('IM', N'Isle of Man')
+   INSERT INTO Country VALUES('IL', N'Israel')
+   INSERT INTO Country VALUES('IT', N'Italy')
+   INSERT INTO Country VALUES('JM', N'Jamaica')
+   INSERT INTO Country VALUES('SJ', N'Jan Mayen')
+   INSERT INTO Country VALUES('JP', N'Japan')
+   INSERT INTO Country VALUES('JE', N'Jersey')
+   INSERT INTO Country VALUES('JO', N'Jordan')
+   INSERT INTO Country VALUES('KZ', N'Kazakhstan')
+   INSERT INTO Country VALUES('KE', N'Kenya')
+   INSERT INTO Country VALUES('KI', N'Kiribati')
+   INSERT INTO Country VALUES('KR', N'Korea')
+   INSERT INTO Country VALUES('KW', N'Kuwait')
+   INSERT INTO Country VALUES('KG', N'Kyrgyzstan')
+   INSERT INTO Country VALUES('LA', N'Laos')
+   INSERT INTO Country VALUES('LV', N'Latvia')
+   INSERT INTO Country VALUES('LB', N'Lebanon')
+   INSERT INTO Country VALUES('LS', N'Lesotho')
+   INSERT INTO Country VALUES('LR', N'Liberia')
+   INSERT INTO Country VALUES('LY', N'Libya')
+   INSERT INTO Country VALUES('LI', N'Liechtenstein')
+   INSERT INTO Country VALUES('LT', N'Lithuania')
+   INSERT INTO Country VALUES('LU', N'Luxembourg')
+   INSERT INTO Country VALUES('MO', N'Macao SAR')
+   INSERT INTO Country VALUES('MK', N'Macedonia, Former Yugoslav Republic of')
+   INSERT INTO Country VALUES('MG', N'Madagascar')
+   INSERT INTO Country VALUES('MW', N'Malawi')
+   INSERT INTO Country VALUES('MY', N'Malaysia')
+   INSERT INTO Country VALUES('MV', N'Maldives')
+   INSERT INTO Country VALUES('ML', N'Mali')
+   INSERT INTO Country VALUES('MT', N'Malta')
+   INSERT INTO Country VALUES('MH', N'Marshall Islands')
+   INSERT INTO Country VALUES('MQ', N'Martinique')
+   INSERT INTO Country VALUES('MR', N'Mauritania')
+   INSERT INTO Country VALUES('MU', N'Mauritius')
+   INSERT INTO Country VALUES('YT', N'Mayotte')
+   INSERT INTO Country VALUES('MX', N'Mexico')
+   INSERT INTO Country VALUES('FM', N'Micronesia')
+   INSERT INTO Country VALUES('MD', N'Moldova')
+   INSERT INTO Country VALUES('MC', N'Monaco')
+   INSERT INTO Country VALUES('MN', N'Mongolia')
+   INSERT INTO Country VALUES('ME', N'Montenegro')
+   INSERT INTO Country VALUES('MS', N'Montserrat')
+   INSERT INTO Country VALUES('MA', N'Morocco')
+   INSERT INTO Country VALUES('MZ', N'Mozambique')
+   INSERT INTO Country VALUES('MM', N'Myanmar')
+   INSERT INTO Country VALUES('NA', N'Namibia')
+   INSERT INTO Country VALUES('NR', N'Nauru')
+   INSERT INTO Country VALUES('NP', N'Nepal')
+   INSERT INTO Country VALUES('NL', N'Netherlands')
+   INSERT INTO Country VALUES('NC', N'New Caledonia')
+   INSERT INTO Country VALUES('NZ', N'New Zealand')
+   INSERT INTO Country VALUES('NI', N'Nicaragua')
+   INSERT INTO Country VALUES('NE', N'Niger')
+   INSERT INTO Country VALUES('NG', N'Nigeria')
+   INSERT INTO Country VALUES('NU', N'Niue')
+   INSERT INTO Country VALUES('NF', N'Norfolk Island')
+   INSERT INTO Country VALUES('KP', N'North Korea')
+   INSERT INTO Country VALUES('MP', N'Northern Mariana Islands')
+   INSERT INTO Country VALUES('NO', N'Norway')
+   INSERT INTO Country VALUES('OM', N'Oman')
+   INSERT INTO Country VALUES('PK', N'Pakistan')
+   INSERT INTO Country VALUES('PW', N'Palau')
+   INSERT INTO Country VALUES('PS', N'Palestinian Authority')
+   INSERT INTO Country VALUES('PA', N'Panama')
+   INSERT INTO Country VALUES('PG', N'Papua New Guinea')
+   INSERT INTO Country VALUES('PY', N'Paraguay')
+   INSERT INTO Country VALUES('PE', N'Peru')
+   INSERT INTO Country VALUES('PH', N'Philippines')
+   INSERT INTO Country VALUES('PN', N'Pitcairn Islands')
+   INSERT INTO Country VALUES('PL', N'Poland')
+   INSERT INTO Country VALUES('PT', N'Portugal')
+   INSERT INTO Country VALUES('PR', N'Puerto Rico')
+   INSERT INTO Country VALUES('QA', N'Qatar')
+   INSERT INTO Country VALUES('CI', N'Republic of C?te d''Ivoire')
+   INSERT INTO Country VALUES('RE', N'Reunion')
+   INSERT INTO Country VALUES('RO', N'Romania')
+   INSERT INTO Country VALUES('RU', N'Russia')
+   INSERT INTO Country VALUES('RW', N'Rwanda')
+   INSERT INTO Country VALUES('XS', N'Saba')
+   INSERT INTO Country VALUES('WS', N'Samoa')
+   INSERT INTO Country VALUES('SM', N'San Marino')
+   INSERT INTO Country VALUES('ST', N'S?o Tom¨¦ and Pr¨ªncipe')
+   INSERT INTO Country VALUES('SA', N'Saudi Arabia')
+   INSERT INTO Country VALUES('SN', N'Senegal')
+   INSERT INTO Country VALUES('RS', N'Serbia')
+   INSERT INTO Country VALUES('SC', N'Seychelles')
+   INSERT INTO Country VALUES('SL', N'Sierra Leone')
+   INSERT INTO Country VALUES('SG', N'Singapore')
+   INSERT INTO Country VALUES('XE', N'Sint Eustatius')
+   INSERT INTO Country VALUES('SX', N'Sint Maarten')
+   INSERT INTO Country VALUES('SK', N'Slovakia')
+   INSERT INTO Country VALUES('SI', N'Slovenia')
+   INSERT INTO Country VALUES('SB', N'Solomon Islands')
+   INSERT INTO Country VALUES('SO', N'Somalia')
+   INSERT INTO Country VALUES('ZA', N'South Africa')
+   INSERT INTO Country VALUES('GS', N'South Georgia and the South Sandwich Islands')
+   INSERT INTO Country VALUES('ES', N'Spain')
+   INSERT INTO Country VALUES('LK', N'Sri Lanka')
+   INSERT INTO Country VALUES('BL', N'St. Barth¨¦lemy')
+   INSERT INTO Country VALUES('SH', N'St. Helena')
+   INSERT INTO Country VALUES('KN', N'St. Kitts and Nevis')
+   INSERT INTO Country VALUES('LC', N'St. Lucia')
+   INSERT INTO Country VALUES('MF', N'St. Martin')
+   INSERT INTO Country VALUES('PM', N'St. Pierre and Miquelon')
+   INSERT INTO Country VALUES('VC', N'St. Vincent and the Grenadines')
+   INSERT INTO Country VALUES('SD', N'Sudan')
+   INSERT INTO Country VALUES('SR', N'Suriname')
+   INSERT INTO Country VALUES('SZ', N'Swaziland')
+   INSERT INTO Country VALUES('SE', N'Sweden')
+   INSERT INTO Country VALUES('CH', N'Switzerland')
+   INSERT INTO Country VALUES('SY', N'Syria')
+   INSERT INTO Country VALUES('TW', N'Taiwan')
+   INSERT INTO Country VALUES('TJ', N'Tajikistan')
+   INSERT INTO Country VALUES('TZ', N'Tanzania')
+   INSERT INTO Country VALUES('TH', N'Thailand')
+   INSERT INTO Country VALUES('TL', N'Timor-Leste')
+   INSERT INTO Country VALUES('TG', N'Togo')
+   INSERT INTO Country VALUES('TK', N'Tokelau')
+   INSERT INTO Country VALUES('TO', N'Tonga')
+   INSERT INTO Country VALUES('TT', N'Trinidad and Tobago')
+   INSERT INTO Country VALUES('TN', N'Tunisia')
+   INSERT INTO Country VALUES('TR', N'Turkey')
+   INSERT INTO Country VALUES('TM', N'Turkmenistan')
+   INSERT INTO Country VALUES('TC', N'Turks and Caicos Islands')
+   INSERT INTO Country VALUES('TV', N'Tuvalu')
+   INSERT INTO Country VALUES('UG', N'Uganda')
+   INSERT INTO Country VALUES('UA', N'Ukraine')
+   INSERT INTO Country VALUES('AE', N'United Arab Emirates')
+   INSERT INTO Country VALUES('UK', N'United Kingdom')
+   INSERT INTO Country VALUES('US', N'United States')
+   INSERT INTO Country VALUES('UM', N'United States Minor Outlying Islands')
+   INSERT INTO Country VALUES('UY', N'Uruguay')
+   INSERT INTO Country VALUES('UZ', N'Uzbekistan')
+   INSERT INTO Country VALUES('VU', N'Vanuatu')
+   INSERT INTO Country VALUES('VA', N'Vatican City')
+   INSERT INTO Country VALUES('VE', N'Venezuela')
+   INSERT INTO Country VALUES('VN', N'Vietnam')
+   INSERT INTO Country VALUES('VG', N'Virgin Islands, British')
+   INSERT INTO Country VALUES('VI', N'Virgin Islands, U.S.')
+   INSERT INTO Country VALUES('WF', N'Wallis and Futuna')
+   INSERT INTO Country VALUES('YE', N'Yemen')
+   INSERT INTO Country VALUES('ZM', N'Zambia')
+   INSERT INTO Country VALUES('ZW', N'Zimbabwe')
+   PRINT 'Data inserted to dbo.Country...'
+
+   -- Insert admin record
+   INSERT INTO Account(LoginUsername, LoginPassword) VALUES('e1', 'F9-E5-10-C7-B7-5D-A2-E0-2A-04-82-77-C0-29-6F-28')
+   INSERT INTO Employee(EmployeeFirstName, EmployeeLastName, Gender, DateOfBirth, Address1,
+                        City, PostCode, StateProvince, CountryCode, ContactNumber, Email,
+                        RoleID, ModifiedDate, AccountID)
+         VALUES('Admin', 'Admin', 0, '1/1/1990', 'a', 'Melbourne', '3000', 'Victoria',
+                'AU', '0300000000', 'admin@admin.com', 1, CURRENT_TIMESTAMP, 1)
+   PRINT 'Admin data inserted..'
+END
 GO
 
--- Insert data into Country Table
-INSERT INTO Country VALUES('AF', N'Afghanistan')
-INSERT INTO Country VALUES('AX', N'?land Islands')
-INSERT INTO Country VALUES('AL', N'Albania')
-INSERT INTO Country VALUES('DZ', N'Algeria')
-INSERT INTO Country VALUES('AS', N'American Samoa')
-INSERT INTO Country VALUES('AD', N'Andorra')
-INSERT INTO Country VALUES('AO', N'Angola')
-INSERT INTO Country VALUES('AI', N'Anguilla')
-INSERT INTO Country VALUES('AQ', N'Antarctica')
-INSERT INTO Country VALUES('AG', N'Antigua and Barbuda')
-INSERT INTO Country VALUES('AR', N'Argentina')
-INSERT INTO Country VALUES('AM', N'Armenia')
-INSERT INTO Country VALUES('AW', N'Aruba')
-INSERT INTO Country VALUES('AU', N'Australia')
-INSERT INTO Country VALUES('AT', N'Austria')
-INSERT INTO Country VALUES('AZ', N'Azerbaijan')
-INSERT INTO Country VALUES('BS', N'Bahamas')
-INSERT INTO Country VALUES('BH', N'Bahrain')
-INSERT INTO Country VALUES('BD', N'Bangladesh')
-INSERT INTO Country VALUES('BB', N'Barbados')
-INSERT INTO Country VALUES('BY', N'Belarus')
-INSERT INTO Country VALUES('BE', N'Belgium')
-INSERT INTO Country VALUES('BZ', N'Belize')
-INSERT INTO Country VALUES('BJ', N'Benin')
-INSERT INTO Country VALUES('BM', N'Bermuda')
-INSERT INTO Country VALUES('BT', N'Bhutan')
-INSERT INTO Country VALUES('BO', N'Bolivia')
-INSERT INTO Country VALUES('BQ', N'Bonaire')
-INSERT INTO Country VALUES('BA', N'Bosnia and Herzegovina')
-INSERT INTO Country VALUES('BW', N'Botswana')
-INSERT INTO Country VALUES('BV', N'Bouvet Island')
-INSERT INTO Country VALUES('BR', N'Brazil')
-INSERT INTO Country VALUES('IO', N'British Indian Ocean Territory')
-INSERT INTO Country VALUES('BN', N'Brunei')
-INSERT INTO Country VALUES('BG', N'Bulgaria')
-INSERT INTO Country VALUES('BF', N'Burkina Faso')
-INSERT INTO Country VALUES('BI', N'Burundi')
-INSERT INTO Country VALUES('KH', N'Cambodia')
-INSERT INTO Country VALUES('CM', N'Cameroon')
-INSERT INTO Country VALUES('CA', N'Canada')
-INSERT INTO Country VALUES('CV', N'Cape Verde')
-INSERT INTO Country VALUES('KY', N'Cayman Islands')
-INSERT INTO Country VALUES('CF', N'Central African Republic')
-INSERT INTO Country VALUES('TD', N'Chad')
-INSERT INTO Country VALUES('CL', N'Chile')
-INSERT INTO Country VALUES('CN', N'China')
-INSERT INTO Country VALUES('CX', N'Christmas Island')
-INSERT INTO Country VALUES('CC', N'Cocos (Keeling) Islands')
-INSERT INTO Country VALUES('CO', N'Colombia')
-INSERT INTO Country VALUES('KM', N'Comoros')
-INSERT INTO Country VALUES('CG', N'Congo')
-INSERT INTO Country VALUES('CD', N'Congo (DRC)')
-INSERT INTO Country VALUES('CK', N'Cook Islands')
-INSERT INTO Country VALUES('CR', N'Costa Rica')
-INSERT INTO Country VALUES('HR', N'Croatia')
-INSERT INTO Country VALUES('CU', N'Cuba')
-INSERT INTO Country VALUES('CW', N'Cura?ao')
-INSERT INTO Country VALUES('CY', N'Cyprus')
-INSERT INTO Country VALUES('CZ', N'Czech Republic')
-INSERT INTO Country VALUES('DK', N'Denmark')
-INSERT INTO Country VALUES('DJ', N'Djibouti')
-INSERT INTO Country VALUES('DM', N'Dominica')
-INSERT INTO Country VALUES('DO', N'Dominican Republic')
-INSERT INTO Country VALUES('EC', N'Ecuador')
-INSERT INTO Country VALUES('EG', N'Egypt')
-INSERT INTO Country VALUES('SV', N'El Salvador')
-INSERT INTO Country VALUES('GQ', N'Equatorial Guinea')
-INSERT INTO Country VALUES('ER', N'Eritrea')
-INSERT INTO Country VALUES('EE', N'Estonia')
-INSERT INTO Country VALUES('ET', N'Ethiopia')
-INSERT INTO Country VALUES('FK', N'Falkland Islands (Islas Malvinas)')
-INSERT INTO Country VALUES('FO', N'Faroe Islands')
-INSERT INTO Country VALUES('FJ', N'Fiji Islands')
-INSERT INTO Country VALUES('FI', N'Finland')
-INSERT INTO Country VALUES('FR', N'France')
-INSERT INTO Country VALUES('GF', N'French Guiana')
-INSERT INTO Country VALUES('PF', N'French Polynesia')
-INSERT INTO Country VALUES('TF', N'French Southern and Antarctic Lands')
-INSERT INTO Country VALUES('GA', N'Gabon')
-INSERT INTO Country VALUES('GM', N'Gambia, The')
-INSERT INTO Country VALUES('GE', N'Georgia')
-INSERT INTO Country VALUES('DE', N'Germany')
-INSERT INTO Country VALUES('GH', N'Ghana')
-INSERT INTO Country VALUES('GI', N'Gibraltar')
-INSERT INTO Country VALUES('GR', N'Greece')
-INSERT INTO Country VALUES('GL', N'Greenland')
-INSERT INTO Country VALUES('GD', N'Grenada')
-INSERT INTO Country VALUES('GP', N'Guadeloupe')
-INSERT INTO Country VALUES('GU', N'Guam')
-INSERT INTO Country VALUES('GT', N'Guatemala')
-INSERT INTO Country VALUES('GG', N'Guernsey')
-INSERT INTO Country VALUES('GN', N'Guinea')
-INSERT INTO Country VALUES('GW', N'Guinea-Bissau')
-INSERT INTO Country VALUES('GY', N'Guyana')
-INSERT INTO Country VALUES('HT', N'Haiti')
-INSERT INTO Country VALUES('HM', N'Heard Island and McDonald Islands')
-INSERT INTO Country VALUES('HN', N'Honduras')
-INSERT INTO Country VALUES('HK', N'Hong Kong SAR')
-INSERT INTO Country VALUES('HU', N'Hungary')
-INSERT INTO Country VALUES('IS', N'Iceland')
-INSERT INTO Country VALUES('IN', N'India')
-INSERT INTO Country VALUES('ID', N'Indonesia')
-INSERT INTO Country VALUES('IR', N'Iran')
-INSERT INTO Country VALUES('IQ', N'Iraq')
-INSERT INTO Country VALUES('IE', N'Ireland')
-INSERT INTO Country VALUES('IM', N'Isle of Man')
-INSERT INTO Country VALUES('IL', N'Israel')
-INSERT INTO Country VALUES('IT', N'Italy')
-INSERT INTO Country VALUES('JM', N'Jamaica')
-INSERT INTO Country VALUES('SJ', N'Jan Mayen')
-INSERT INTO Country VALUES('JP', N'Japan')
-INSERT INTO Country VALUES('JE', N'Jersey')
-INSERT INTO Country VALUES('JO', N'Jordan')
-INSERT INTO Country VALUES('KZ', N'Kazakhstan')
-INSERT INTO Country VALUES('KE', N'Kenya')
-INSERT INTO Country VALUES('KI', N'Kiribati')
-INSERT INTO Country VALUES('KR', N'Korea')
-INSERT INTO Country VALUES('KW', N'Kuwait')
-INSERT INTO Country VALUES('KG', N'Kyrgyzstan')
-INSERT INTO Country VALUES('LA', N'Laos')
-INSERT INTO Country VALUES('LV', N'Latvia')
-INSERT INTO Country VALUES('LB', N'Lebanon')
-INSERT INTO Country VALUES('LS', N'Lesotho')
-INSERT INTO Country VALUES('LR', N'Liberia')
-INSERT INTO Country VALUES('LY', N'Libya')
-INSERT INTO Country VALUES('LI', N'Liechtenstein')
-INSERT INTO Country VALUES('LT', N'Lithuania')
-INSERT INTO Country VALUES('LU', N'Luxembourg')
-INSERT INTO Country VALUES('MO', N'Macao SAR')
-INSERT INTO Country VALUES('MK', N'Macedonia, Former Yugoslav Republic of')
-INSERT INTO Country VALUES('MG', N'Madagascar')
-INSERT INTO Country VALUES('MW', N'Malawi')
-INSERT INTO Country VALUES('MY', N'Malaysia')
-INSERT INTO Country VALUES('MV', N'Maldives')
-INSERT INTO Country VALUES('ML', N'Mali')
-INSERT INTO Country VALUES('MT', N'Malta')
-INSERT INTO Country VALUES('MH', N'Marshall Islands')
-INSERT INTO Country VALUES('MQ', N'Martinique')
-INSERT INTO Country VALUES('MR', N'Mauritania')
-INSERT INTO Country VALUES('MU', N'Mauritius')
-INSERT INTO Country VALUES('YT', N'Mayotte')
-INSERT INTO Country VALUES('MX', N'Mexico')
-INSERT INTO Country VALUES('FM', N'Micronesia')
-INSERT INTO Country VALUES('MD', N'Moldova')
-INSERT INTO Country VALUES('MC', N'Monaco')
-INSERT INTO Country VALUES('MN', N'Mongolia')
-INSERT INTO Country VALUES('ME', N'Montenegro')
-INSERT INTO Country VALUES('MS', N'Montserrat')
-INSERT INTO Country VALUES('MA', N'Morocco')
-INSERT INTO Country VALUES('MZ', N'Mozambique')
-INSERT INTO Country VALUES('MM', N'Myanmar')
-INSERT INTO Country VALUES('NA', N'Namibia')
-INSERT INTO Country VALUES('NR', N'Nauru')
-INSERT INTO Country VALUES('NP', N'Nepal')
-INSERT INTO Country VALUES('NL', N'Netherlands')
-INSERT INTO Country VALUES('NC', N'New Caledonia')
-INSERT INTO Country VALUES('NZ', N'New Zealand')
-INSERT INTO Country VALUES('NI', N'Nicaragua')
-INSERT INTO Country VALUES('NE', N'Niger')
-INSERT INTO Country VALUES('NG', N'Nigeria')
-INSERT INTO Country VALUES('NU', N'Niue')
-INSERT INTO Country VALUES('NF', N'Norfolk Island')
-INSERT INTO Country VALUES('KP', N'North Korea')
-INSERT INTO Country VALUES('MP', N'Northern Mariana Islands')
-INSERT INTO Country VALUES('NO', N'Norway')
-INSERT INTO Country VALUES('OM', N'Oman')
-INSERT INTO Country VALUES('PK', N'Pakistan')
-INSERT INTO Country VALUES('PW', N'Palau')
-INSERT INTO Country VALUES('PS', N'Palestinian Authority')
-INSERT INTO Country VALUES('PA', N'Panama')
-INSERT INTO Country VALUES('PG', N'Papua New Guinea')
-INSERT INTO Country VALUES('PY', N'Paraguay')
-INSERT INTO Country VALUES('PE', N'Peru')
-INSERT INTO Country VALUES('PH', N'Philippines')
-INSERT INTO Country VALUES('PN', N'Pitcairn Islands')
-INSERT INTO Country VALUES('PL', N'Poland')
-INSERT INTO Country VALUES('PT', N'Portugal')
-INSERT INTO Country VALUES('PR', N'Puerto Rico')
-INSERT INTO Country VALUES('QA', N'Qatar')
-INSERT INTO Country VALUES('CI', N'Republic of C?te d''Ivoire')
-INSERT INTO Country VALUES('RE', N'Reunion')
-INSERT INTO Country VALUES('RO', N'Romania')
-INSERT INTO Country VALUES('RU', N'Russia')
-INSERT INTO Country VALUES('RW', N'Rwanda')
-INSERT INTO Country VALUES('XS', N'Saba')
-INSERT INTO Country VALUES('WS', N'Samoa')
-INSERT INTO Country VALUES('SM', N'San Marino')
-INSERT INTO Country VALUES('ST', N'S?o Tom¨¦ and Pr¨ªncipe')
-INSERT INTO Country VALUES('SA', N'Saudi Arabia')
-INSERT INTO Country VALUES('SN', N'Senegal')
-INSERT INTO Country VALUES('RS', N'Serbia')
-INSERT INTO Country VALUES('SC', N'Seychelles')
-INSERT INTO Country VALUES('SL', N'Sierra Leone')
-INSERT INTO Country VALUES('SG', N'Singapore')
-INSERT INTO Country VALUES('XE', N'Sint Eustatius')
-INSERT INTO Country VALUES('SX', N'Sint Maarten')
-INSERT INTO Country VALUES('SK', N'Slovakia')
-INSERT INTO Country VALUES('SI', N'Slovenia')
-INSERT INTO Country VALUES('SB', N'Solomon Islands')
-INSERT INTO Country VALUES('SO', N'Somalia')
-INSERT INTO Country VALUES('ZA', N'South Africa')
-INSERT INTO Country VALUES('GS', N'South Georgia and the South Sandwich Islands')
-INSERT INTO Country VALUES('ES', N'Spain')
-INSERT INTO Country VALUES('LK', N'Sri Lanka')
-INSERT INTO Country VALUES('BL', N'St. Barth¨¦lemy')
-INSERT INTO Country VALUES('SH', N'St. Helena')
-INSERT INTO Country VALUES('KN', N'St. Kitts and Nevis')
-INSERT INTO Country VALUES('LC', N'St. Lucia')
-INSERT INTO Country VALUES('MF', N'St. Martin')
-INSERT INTO Country VALUES('PM', N'St. Pierre and Miquelon')
-INSERT INTO Country VALUES('VC', N'St. Vincent and the Grenadines')
-INSERT INTO Country VALUES('SD', N'Sudan')
-INSERT INTO Country VALUES('SR', N'Suriname')
-INSERT INTO Country VALUES('SZ', N'Swaziland')
-INSERT INTO Country VALUES('SE', N'Sweden')
-INSERT INTO Country VALUES('CH', N'Switzerland')
-INSERT INTO Country VALUES('SY', N'Syria')
-INSERT INTO Country VALUES('TW', N'Taiwan')
-INSERT INTO Country VALUES('TJ', N'Tajikistan')
-INSERT INTO Country VALUES('TZ', N'Tanzania')
-INSERT INTO Country VALUES('TH', N'Thailand')
-INSERT INTO Country VALUES('TL', N'Timor-Leste')
-INSERT INTO Country VALUES('TG', N'Togo')
-INSERT INTO Country VALUES('TK', N'Tokelau')
-INSERT INTO Country VALUES('TO', N'Tonga')
-INSERT INTO Country VALUES('TT', N'Trinidad and Tobago')
-INSERT INTO Country VALUES('TN', N'Tunisia')
-INSERT INTO Country VALUES('TR', N'Turkey')
-INSERT INTO Country VALUES('TM', N'Turkmenistan')
-INSERT INTO Country VALUES('TC', N'Turks and Caicos Islands')
-INSERT INTO Country VALUES('TV', N'Tuvalu')
-INSERT INTO Country VALUES('UG', N'Uganda')
-INSERT INTO Country VALUES('UA', N'Ukraine')
-INSERT INTO Country VALUES('AE', N'United Arab Emirates')
-INSERT INTO Country VALUES('UK', N'United Kingdom')
-INSERT INTO Country VALUES('US', N'United States')
-INSERT INTO Country VALUES('UM', N'United States Minor Outlying Islands')
-INSERT INTO Country VALUES('UY', N'Uruguay')
-INSERT INTO Country VALUES('UZ', N'Uzbekistan')
-INSERT INTO Country VALUES('VU', N'Vanuatu')
-INSERT INTO Country VALUES('VA', N'Vatican City')
-INSERT INTO Country VALUES('VE', N'Venezuela')
-INSERT INTO Country VALUES('VN', N'Vietnam')
-INSERT INTO Country VALUES('VG', N'Virgin Islands, British')
-INSERT INTO Country VALUES('VI', N'Virgin Islands, U.S.')
-INSERT INTO Country VALUES('WF', N'Wallis and Futuna')
-INSERT INTO Country VALUES('YE', N'Yemen')
-INSERT INTO Country VALUES('ZM', N'Zambia')
-INSERT INTO Country VALUES('ZW', N'Zimbabwe')
-PRINT 'Data inserted to dbo.Country...'
-GO
 
-
--- Stored procedure for user login
+-- Create stored procedures -----------------------------------------------------------------------
 CREATE PROCEDURE LoginVerification
    @username NVARCHAR(100), @password NVARCHAR(200)
 AS
@@ -638,86 +646,65 @@ AS
    delete Enrollment where StudentID=@STUDENTID and CourseID=@COURSEID
 GO
 
-IF (OBJECT_ID('InsertDeaprtment') IS NOT NULL)
-BEGIN
-   DROP PROCEDURE InsertDeaprtment
-END
-GO
 
+-- PK's stored procedures -------------------------------------------------------------------------
 CREATE PROCEDURE InsertDeaprtment
-	@departmentName NVARCHAR(200)
+   @departmentName NVARCHAR(200)
 AS
 BEGIN
-	INSERT Department(DepartmentName, ModifiedDate) VALUES (@departmentName, GETDATE())
-END
-GO
-
-IF (OBJECT_ID('InsertProgram') IS NOT NULL)
-BEGIN
-   DROP PROCEDURE InsertProgram
+   INSERT Department(DepartmentName, ModifiedDate) VALUES (@departmentName, GETDATE())
 END
 GO
 
 CREATE PROCEDURE InsertProgram
-	@programName NVARCHAR(200),
-	@programDescription NVARCHAR(MAX)
+   @programName NVARCHAR(200),
+   @programDescription NVARCHAR(MAX)
 AS
 BEGIN
-	INSERT Program(ProgramName, ProgramDescription, ModifiedDate) VALUES (@programName, @programDescription, GETDATE())
-END
-GO
-
-IF (OBJECT_ID('InsertAccount') IS NOT NULL)
-BEGIN
-   DROP PROCEDURE InsertAccount
+   INSERT Program(ProgramName, ProgramDescription, ModifiedDate) VALUES (@programName, @programDescription, GETDATE())
 END
 GO
 
 CREATE PROCEDURE InsertAccount
-	@loginUsername NVARCHAR(100),
-	@loginPassword NVARCHAR(255)
+   @loginUsername NVARCHAR(100),
+   @loginPassword NVARCHAR(255)
 AS
 BEGIN
-	INSERT Account(LoginUsername, LoginPassword) VALUES (@loginUsername, @loginPassword)
-END
-GO
-
-IF (OBJECT_ID('InsertEmployee') IS NOT NULL)
-BEGIN
-   DROP PROCEDURE InsertEmployee
+   INSERT Account(LoginUsername, LoginPassword) VALUES (@loginUsername, @loginPassword)
 END
 GO
 
 CREATE PROCEDURE InsertEmployee
-	@firstname		NVARCHAR(150),
-	@lastname		NVARCHAR(100),
-	@gender			BIT,
-	@dateOfBirth	DATETIME,
-	@address1		NVARCHAR(100),
-	@address2		NVARCHAR(100),
-	@city			NVARCHAR(100),
-	@postCode		NVARCHAR(20),
-	@stateProvince	NVARCHAR(80),
-	@countryCode	NVARCHAR(5),
-	@contactNumber  NVARCHAR(15),
-	@emailAddress	NVARCHAR(255),
-	@accountId		INT
+   @firstname      NVARCHAR(150),
+   @lastname       NVARCHAR(100),
+   @gender         BIT,
+   @dateOfBirth    DATETIME,
+   @address1       NVARCHAR(100),
+   @address2       NVARCHAR(100),
+   @city           NVARCHAR(100),
+   @postCode       NVARCHAR(20),
+   @stateProvince  NVARCHAR(80),
+   @countryCode    NVARCHAR(5),
+   @contactNumber  NVARCHAR(15),
+   @emailAddress   NVARCHAR(255),
+   @accountId      INT
 AS
 BEGIN
-	INSERT Employee(EmployeeFirstName, EmployeeLastName, Gender, DateOfBirth, Address1, Address2, City, PostCode, StateProvince, CountryCode, ContactNumber, Email, AccountID, ModifiedDate) 
-	VALUES (@firstname, @lastname, @gender, @dateOfBirth, @address1, @address2, @city, @postCode, @stateProvince, @countryCode, @contactNumber, @emailAddress, @accountId, GETDATE())
+   INSERT Employee(EmployeeFirstName, EmployeeLastName, Gender, DateOfBirth, Address1, Address2, City,
+                   PostCode, StateProvince, CountryCode, ContactNumber, Email, AccountID, ModifiedDate)
+         VALUES (@firstname, @lastname, @gender, @dateOfBirth, @address1, @address2, @city, @postCode,
+                 @stateProvince, @countryCode, @contactNumber, @emailAddress, @accountId, GETDATE())
 END
 GO
 
 
--- SP newly added by Edward ----------------------------------------------------------- 
+-- Edward's Stored Procedures ---------------------------------------------------------------------
 CREATE PROCEDURE [dbo].[GetAllCourseOfStaff]
    @STAFFID INT
 AS
    SELECT c.CourseID, c.CourseName, c.CourseCode, c.CourseDescription, c.StaffID,
          c.CreatedDate, c.ModifiedDate FROM Course c
          WHERE c.StaffID=@STAFFID
-
 GO
 
 CREATE PROCEDURE [dbo].[GetStudentEnrollmentByCourseID]
@@ -727,53 +714,59 @@ AS
 GO
 
 CREATE PROCEDURE [dbo].[InsertCourse]
-	@coursename nvarchar(200),
-	@coursecode nvarchar(60),
-	@coursedescription nvarchar(max),
-	@staffid int
-AS3
+   @coursename          nvarchar(200),
+   @coursecode          nvarchar(60),
+   @coursedescription   nvarchar(max),
+   @staffid             int
+AS
 BEGIN
-	INSERT Course(CourseName, CourseCode, CourseDescription, StaffID, CreatedDate, ModifiedDate) 
-	VALUES (@coursename, @coursecode, @coursedescription, @staffid, GETDATE(), GETDATE())
+   INSERT Course(CourseName, CourseCode, CourseDescription, StaffID, CreatedDate, ModifiedDate)
+   VALUES (@coursename, @coursecode, @coursedescription, @staffid, GETDATE(), GETDATE())
 END
 GO
 
 CREATE PROCEDURE [dbo].[UpdateCourse]
-	@courseid int,
-	@coursename nvarchar(200),
-	@coursecode nvarchar(60),
-	@coursedescription nvarchar(max)
+   @courseid            int,
+   @coursename          nvarchar(200),
+   @coursecode          nvarchar(60),
+   @coursedescription   nvarchar(max)
 AS
 BEGIN
-	UPDATE Course SET CourseName = @coursename, CourseCode = @coursecode,
-	CourseDescription = @coursedescription, ModifiedDate = GETDATE()
-	WHERE CourseID = @courseid
+   UPDATE Course SET CourseName = @coursename, CourseCode = @coursecode,
+   CourseDescription = @coursedescription, ModifiedDate = GETDATE()
+   WHERE CourseID = @courseid
 END
 GO
 
 CREATE PROCEDURE [dbo].[InsertStudent]
-	@FirstName NVARCHAR(150),
-   @LastName NVARCHAR(100),
-   @Gender BIT,
-   @DOB DATE,
-   @Address1 NVARCHAR(100),
-   @Address2 NVARCHAR(100),
-   @City NVARCHAR(100),
-   @PostCode NVARCHAR(20),
-   @StateProvince NVARCHAR(80),
-   @CountryCode NVARCHAR(5),
-   @ContactNumber NVARCHAR(15),
-   @Email NVARCHAR(255),
-   @AccountID int,
-   @ProgramID int
+   @FirstName        NVARCHAR(150),
+   @LastName         NVARCHAR(100),
+   @Gender           BIT,
+   @DOB              DATE,
+   @Address1         NVARCHAR(100),
+   @Address2         NVARCHAR(100),
+   @City             NVARCHAR(100),
+   @PostCode         NVARCHAR(20),
+   @StateProvince    NVARCHAR(80),
+   @CountryCode      NVARCHAR(5),
+   @ContactNumber    NVARCHAR(15),
+   @Email            NVARCHAR(255),
+   @AccountID        INT,
+   @ProgramID        INT
 AS
 BEGIN
-	INSERT Student(StudentFirstName, StudentLastName, Gender, DateOfBirth, Address1, Address2, City, PostCode, StateProvince, CountryCode, ContactNumber, Email, AccountID, ProgramID, CreatedDate, ModifiedDate) 
-	VALUES (@FirstName, @LastName, @Gender, @DOB, @Address1, @Address2, @City, @PostCode, @StateProvince, @CountryCode, @ContactNumber, @Email, @AccountID, @ProgramID, GETDATE(), GETDATE())
+   INSERT Student(StudentFirstName, StudentLastName, Gender, DateOfBirth, Address1, Address2, City, PostCode,
+                  StateProvince, CountryCode, ContactNumber, Email, AccountID, ProgramID, CreatedDate, ModifiedDate)
+      VALUES (@FirstName, @LastName, @Gender, @DOB, @Address1, @Address2, @City, @PostCode, @StateProvince,
+              @CountryCode, @ContactNumber, @Email, @AccountID, @ProgramID, GETDATE(), GETDATE())
 END
 GO
 
--------------------------------------------------------------------------------------------- End Edward
+---------------------------------------------------------------------------------------------------
+
+
+
+
 
 
 PRINT 'Stored procedures created'
@@ -785,188 +778,142 @@ SET NOCOUNT ON
 USE AMS_DATABASE;
 GO
 
+-- Remove tables
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'ProgramCourse'))
-BEGIN
    DROP TABLE dbo.ProgramCourse
-   PRINT 'Table ProgramCourse deleted.'
-END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'EmployeeDepartment'))
-BEGIN
    DROP TABLE dbo.EmployeeDepartment
-   PRINT 'Table EmployeeDepartment deleted.'
-END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'StudentCourse'))
-BEGIN
    DROP TABLE dbo.StudentCourse
-   PRINT 'Table StudentCourse deleted.'
-END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Department'))
-BEGIN
    DROP TABLE dbo.Department
-   PRINT 'Table Department deleted.'
-END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Course'))
-BEGIN
    DROP TABLE dbo.Course
-   PRINT 'Table Course deleted.'
-END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Student'))
-BEGIN
    DROP TABLE dbo.Student
-   PRINT 'Table Student deleted.'
-END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Program'))
-BEGIN
    DROP TABLE dbo.Program
-   PRINT 'Table Program deleted.'
-END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Employee'))
-BEGIN
    DROP TABLE dbo.Employee
-   PRINT 'Table Employee deleted.'
-END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Account'))
-BEGIN
    DROP TABLE dbo.Account
-   PRINT 'Table Account deleted.'
-END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Country'))
-BEGIN
    DROP TABLE dbo.Country
-   PRINT 'Table Country deleted.'
-END
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'RoleCategory'))
-BEGIN
    DROP TABLE dbo.RoleCategory
-   PRINT 'Table RoleCategory deleted.'
-END
+PRINT 'All tables are removed...'
+GO
 
 IF (OBJECT_ID('CourseMarksRule') IS NOT NULL)
-BEGIN
    DROP RULE CourseMarksRule
-   PRINT 'Rule CourseMarksRule deleted.'
-END
+PRINT 'Rule is removed...'
+GO
 
 IF (OBJECT_ID('DATETIMECREATED') IS NOT NULL)
-BEGIN
    DROP DEFAULT DATETIMECREATED
-   PRINT 'Default DATETIMECREATED deleted.'
-END
+PRINT 'Default is removed...'
 GO
 
 IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = 'Enrollment'))
-BEGIN
    DROP VIEW Enrollment
-   PRINT 'View Enrollment deleted.'
-END
 GO
 
+-- Drop all triggers ------------------------------------------------------
 IF (OBJECT_ID('InsertDeleteStudentCourse') IS NOT NULL)
-BEGIN
    DROP TRIGGER InsertDeleteStudentCourse
-   PRINT 'Trigger InsertDeleteStudentCourse deleted.'
-END
-GO
 
 IF (OBJECT_ID('UpdateStudentCourseScore') IS NOT NULL)
-BEGIN
    DROP TRIGGER UpdateStudentCourseScore
-   PRINT 'Trigger UpdateStudentCourseScore deleted.'
-END
-GO
 
 IF (OBJECT_ID('AvgScorePerCourse') IS NOT NULL)
-BEGIN
    DROP TRIGGER AvgScorePerCourse
-   PRINT 'Trigger AvgScorePerCourse deleted.'
-END
+PRINT 'Triggers are removed...'
 GO
 
+-- Drop all Stored Procedures ---------------------------------------------
 IF (OBJECT_ID('LoginVerification') IS NOT NULL)
-BEGIN
    DROP PROCEDURE LoginVerification
-   PRINT 'Stored procedure LoginVerification deleted.'
-END
-GO
 
 IF (OBJECT_ID('GetAllCountry') IS NOT NULL)
-BEGIN
    DROP PROCEDURE GetAllCountry
-   PRINT 'Stored procedure GetAllCountry deleted.'
-END
-GO
 
 IF (OBJECT_ID('GetUserPersonalDetail') IS NOT NULL)
-BEGIN
    DROP PROCEDURE GetUserPersonalDetail
-   PRINT 'Stored procedure GetUserPersonalDetail deleted.'
-END
-GO
 
 IF (OBJECT_ID('UpdateStudentProfile') IS NOT NULL)
-BEGIN
    DROP PROCEDURE UpdateStudentProfile
-   PRINT 'Stored procedure UpdateStudentProfile deleted.'
-END
-GO
 
 IF (OBJECT_ID('UpdateUserPassword') IS NOT NULL)
-BEGIN
    DROP PROCEDURE UpdateUserPassword
-   PRINT 'Stored procedure UpdateUserPassword deleted.'
-END
-GO
 
 IF (OBJECT_ID('GetAllCourse') IS NOT NULL)
-BEGIN
    DROP PROCEDURE GetAllCourse
-   PRINT 'Stored procedure GetAllCourse deleted.'
-END
-GO
 
 IF (OBJECT_ID('GetStudentEnrollment') IS NOT NULL)
-BEGIN
    DROP PROCEDURE GetStudentEnrollment
-   PRINT 'Stored procedure GetStudentEnrollment deleted.'
-END
-GO
 
 IF (OBJECT_ID('EnrolStudentCourse') IS NOT NULL)
-BEGIN
    DROP PROCEDURE EnrolStudentCourse
-   PRINT 'Stored procedure EnrolStudentCourse deleted.'
-END
-GO
 
 IF (OBJECT_ID('RemoveStudentCourse') IS NOT NULL)
-BEGIN
    DROP PROCEDURE RemoveStudentCourse
-   PRINT 'Stored procedure RemoveStudentCourse deleted.'
-END
-GO
 
 IF (OBJECT_ID('GetAllCourseOfProgram') IS NOT NULL)
-BEGIN
    DROP PROCEDURE GetAllCourseOfProgram
-   PRINT 'Stored procedure GetAllCourseOfProgram deleted.'
-END
+
+-- PK's Stored Procedures -------------------------------------------------------------------------
+IF (OBJECT_ID('InsertDeaprtment') IS NOT NULL)
+   DROP PROCEDURE InsertDeaprtment
+
+IF (OBJECT_ID('InsertProgram') IS NOT NULL)
+   DROP PROCEDURE InsertProgram
+
+IF (OBJECT_ID('InsertAccount') IS NOT NULL)
+   DROP PROCEDURE InsertAccount
+
+IF (OBJECT_ID('InsertEmployee') IS NOT NULL)
+   DROP PROCEDURE InsertEmployee
+
+
+-- Edward's Stored Procedures ---------------------------------------------------------------------
+IF (OBJECT_ID('InsertStudent') IS NOT NULL)
+   DROP PROCEDURE InsertStudent
+
+IF (OBJECT_ID('UpdateCourse') IS NOT NULL)
+   DROP PROCEDURE UpdateCourse
+
+IF (OBJECT_ID('InsertCourse') IS NOT NULL)
+   DROP PROCEDURE InsertCourse
+
+IF (OBJECT_ID('GetStudentEnrollmentByCourseID') IS NOT NULL)
+   DROP PROCEDURE GetStudentEnrollmentByCourseID
+
+IF (OBJECT_ID('GetAllCourseOfStaff') IS NOT NULL)
+   DROP PROCEDURE GetAllCourseOfStaff
+
+
+
+
+
+
+PRINT 'All stored procedures are removed...'
 GO
 
 
 
 
 
-
+-- Remove entire database
 USE master
 GO
 IF (EXISTS (SELECT * FROM sys.databases WHERE name = 'AMS_DATABASE'))
