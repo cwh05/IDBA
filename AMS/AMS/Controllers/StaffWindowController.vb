@@ -1,8 +1,10 @@
 ﻿Imports System.Transactions
+Imports System.Data.Objects
 
 Public Class StaffWindowController
 
     Private db As New AMSEntities()
+
     Public Function GetAllCourseByStaff(ByRef staffID As Int32) As List(Of Course)
         Try
             Dim list As New List(Of Course)
@@ -76,10 +78,8 @@ Public Class StaffWindowController
         Using transaction As New TransactionScope()
 
             Try
-                Dim test As Int32
-
-                'test = db.InsertAccount(account.LoginUsername, account.LoginPassword)
-
+                db.InsertStudent(account.LoginPassword, student.StudentFirstName, student.StudentLastName, student.Gender, student.DateOfBirth, student.Address1, student.Address2, student.City, _
+                                 student.PostCode, student.StateProvince, student.CountryCode, student.ContactNumber, student.Email, student.ProgramID)
 
                 db.SaveChanges()
                 transaction.Complete()

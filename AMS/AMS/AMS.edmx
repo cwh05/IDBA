@@ -488,6 +488,7 @@
           <Parameter Name="programDescription" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="InsertStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loginPassword" Type="nvarchar" Mode="In" />
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
           <Parameter Name="LastName" Type="nvarchar" Mode="In" />
           <Parameter Name="Gender" Type="bit" Mode="In" />
@@ -500,7 +501,6 @@
           <Parameter Name="CountryCode" Type="nvarchar" Mode="In" />
           <Parameter Name="ContactNumber" Type="nvarchar" Mode="In" />
           <Parameter Name="Email" Type="nvarchar" Mode="In" />
-          <Parameter Name="AccountID" Type="int" Mode="In" />
           <Parameter Name="ProgramID" Type="int" Mode="In" />
         </Function>
         <Function Name="LoginVerification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -658,6 +658,22 @@
           <FunctionImport Name="InsertAccount">
             <Parameter Name="loginUsername" Mode="In" Type="String" />
             <Parameter Name="loginPassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertStudent">
+            <Parameter Name="loginPassword" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="Boolean" />
+            <Parameter Name="DOB" Mode="In" Type="DateTime" />
+            <Parameter Name="Address1" Mode="In" Type="String" />
+            <Parameter Name="Address2" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="PostCode" Mode="In" Type="String" />
+            <Parameter Name="StateProvince" Mode="In" Type="String" />
+            <Parameter Name="CountryCode" Mode="In" Type="String" />
+            <Parameter Name="ContactNumber" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="ProgramID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
@@ -1325,6 +1341,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InsertAccount" FunctionName="Model.Store.InsertAccount" >
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertStudent" FunctionName="Model.Store.InsertStudent" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

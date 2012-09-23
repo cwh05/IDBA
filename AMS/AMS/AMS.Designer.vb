@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("96c79a80-60bc-42dd-a759-99f80cf0da50")>
+<Assembly: EdmSchemaAttribute("10243a1b-5205-482a-a5b6-a82d3bca02fb")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -670,6 +670,126 @@ Public Partial Class AMSEntities
         End If
 
         Return MyBase.ExecuteFunction("InsertAccount", loginUsernameParameter, loginPasswordParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="loginPassword">No Metadata Documentation available.</param>
+    ''' <param name="firstName">No Metadata Documentation available.</param>
+    ''' <param name="lastName">No Metadata Documentation available.</param>
+    ''' <param name="gender">No Metadata Documentation available.</param>
+    ''' <param name="dOB">No Metadata Documentation available.</param>
+    ''' <param name="address1">No Metadata Documentation available.</param>
+    ''' <param name="address2">No Metadata Documentation available.</param>
+    ''' <param name="city">No Metadata Documentation available.</param>
+    ''' <param name="postCode">No Metadata Documentation available.</param>
+    ''' <param name="stateProvince">No Metadata Documentation available.</param>
+    ''' <param name="countryCode">No Metadata Documentation available.</param>
+    ''' <param name="contactNumber">No Metadata Documentation available.</param>
+    ''' <param name="email">No Metadata Documentation available.</param>
+    ''' <param name="programID">No Metadata Documentation available.</param>
+    Public Function InsertStudent(loginPassword As Global.System.String, firstName As Global.System.String, lastName As Global.System.String, gender As Nullable(Of Global.System.Boolean), dOB As Nullable(Of Global.System.DateTime), address1 As Global.System.String, address2 As Global.System.String, city As Global.System.String, postCode As Global.System.String, stateProvince As Global.System.String, countryCode As Global.System.String, contactNumber As Global.System.String, email As Global.System.String, programID As Nullable(Of Global.System.Int32)) As Integer
+        Dim loginPasswordParameter As ObjectParameter
+        If (loginPassword IsNot Nothing)
+            loginPasswordParameter = New ObjectParameter("loginPassword", loginPassword)
+        Else
+            loginPasswordParameter = New ObjectParameter("loginPassword", GetType(Global.System.String))
+        End If
+
+        Dim firstNameParameter As ObjectParameter
+        If (firstName IsNot Nothing)
+            firstNameParameter = New ObjectParameter("FirstName", firstName)
+        Else
+            firstNameParameter = New ObjectParameter("FirstName", GetType(Global.System.String))
+        End If
+
+        Dim lastNameParameter As ObjectParameter
+        If (lastName IsNot Nothing)
+            lastNameParameter = New ObjectParameter("LastName", lastName)
+        Else
+            lastNameParameter = New ObjectParameter("LastName", GetType(Global.System.String))
+        End If
+
+        Dim genderParameter As ObjectParameter
+        If (gender.HasValue)
+            genderParameter = New ObjectParameter("Gender", gender)
+        Else
+            genderParameter = New ObjectParameter("Gender", GetType(Global.System.Boolean))
+        End If
+
+        Dim dOBParameter As ObjectParameter
+        If (dOB.HasValue)
+            dOBParameter = New ObjectParameter("DOB", dOB)
+        Else
+            dOBParameter = New ObjectParameter("DOB", GetType(Global.System.DateTime))
+        End If
+
+        Dim address1Parameter As ObjectParameter
+        If (address1 IsNot Nothing)
+            address1Parameter = New ObjectParameter("Address1", address1)
+        Else
+            address1Parameter = New ObjectParameter("Address1", GetType(Global.System.String))
+        End If
+
+        Dim address2Parameter As ObjectParameter
+        If (address2 IsNot Nothing)
+            address2Parameter = New ObjectParameter("Address2", address2)
+        Else
+            address2Parameter = New ObjectParameter("Address2", GetType(Global.System.String))
+        End If
+
+        Dim cityParameter As ObjectParameter
+        If (city IsNot Nothing)
+            cityParameter = New ObjectParameter("City", city)
+        Else
+            cityParameter = New ObjectParameter("City", GetType(Global.System.String))
+        End If
+
+        Dim postCodeParameter As ObjectParameter
+        If (postCode IsNot Nothing)
+            postCodeParameter = New ObjectParameter("PostCode", postCode)
+        Else
+            postCodeParameter = New ObjectParameter("PostCode", GetType(Global.System.String))
+        End If
+
+        Dim stateProvinceParameter As ObjectParameter
+        If (stateProvince IsNot Nothing)
+            stateProvinceParameter = New ObjectParameter("StateProvince", stateProvince)
+        Else
+            stateProvinceParameter = New ObjectParameter("StateProvince", GetType(Global.System.String))
+        End If
+
+        Dim countryCodeParameter As ObjectParameter
+        If (countryCode IsNot Nothing)
+            countryCodeParameter = New ObjectParameter("CountryCode", countryCode)
+        Else
+            countryCodeParameter = New ObjectParameter("CountryCode", GetType(Global.System.String))
+        End If
+
+        Dim contactNumberParameter As ObjectParameter
+        If (contactNumber IsNot Nothing)
+            contactNumberParameter = New ObjectParameter("ContactNumber", contactNumber)
+        Else
+            contactNumberParameter = New ObjectParameter("ContactNumber", GetType(Global.System.String))
+        End If
+
+        Dim emailParameter As ObjectParameter
+        If (email IsNot Nothing)
+            emailParameter = New ObjectParameter("Email", email)
+        Else
+            emailParameter = New ObjectParameter("Email", GetType(Global.System.String))
+        End If
+
+        Dim programIDParameter As ObjectParameter
+        If (programID.HasValue)
+            programIDParameter = New ObjectParameter("ProgramID", programID)
+        Else
+            programIDParameter = New ObjectParameter("ProgramID", GetType(Global.System.Int32))
+        End If
+
+        Return MyBase.ExecuteFunction("InsertStudent", loginPasswordParameter, firstNameParameter, lastNameParameter, genderParameter, dOBParameter, address1Parameter, address2Parameter, cityParameter, postCodeParameter, stateProvinceParameter, countryCodeParameter, contactNumberParameter, emailParameter, programIDParameter)
 
     End Function
 

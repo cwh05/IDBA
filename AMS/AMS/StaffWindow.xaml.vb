@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Controls.Primitives
+Imports System.Text.RegularExpressions
 
 Public Class StaffWindow
 
@@ -44,7 +45,7 @@ Public Class StaffWindow
 
         Try
             'retrieve all courses record
-            courseList = controller.GetAllCourseByStaff(CUInt(StaffUsername))
+            courseList = controller.GetAllCourseByStaff(CUInt(StaffUsername.Substring(1)))
             listboxControl.ItemsSource = courseList
 
             listboxControl.Items.Refresh()
@@ -147,8 +148,12 @@ Public Class StaffWindow
                 account.LoginUsername = controller.GeNewStudentID()
                 account.LoginPassword = txtPassword.Text
 
-                controller.InsertStudent(newStud, account)
-                'controller
+                If controller.InsertStudent(newStud, account) Then
+                    MsgBox("Student '" & newStud.StudentLastName & "' has been added successfully!", MsgBoxStyle.Information, "Congratulation")
+
+                    ClearAllField()
+                End If
+
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
@@ -159,49 +164,63 @@ Public Class StaffWindow
 
     Private Function validateStudent() As Boolean
 
+        Dim numberRE As New Regex("\d+")
+        Dim emailRE As New Regex("^\w+([+-.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
 
         If txtFirstName.Text.Length = 0 Then
-            MsgBox("Please fill in first name field.", MsgBoxStyle.Information)
+            MsgBox("Please fill in first name field.", MsgBoxStyle.Exclamation)
             txtFirstName.Focus()
             Return False
         ElseIf txtLastName.Text.Length = 0 Then
-            MsgBox("Please fill in last name field.", MsgBoxStyle.Information)
+            MsgBox("Please fill in last name field.", MsgBoxStyle.Exclamation)
             txtLastName.Focus()
             Return False
         ElseIf Not (radioGenderMale.IsChecked Or radioGenderFemale.IsChecked) Then
-            MsgBox("Please select your gender.", MsgBoxStyle.Information)
+            MsgBox("Please select your gender.", MsgBoxStyle.Exclamation)
             radioGenderMale.Focus()
             Return False
         ElseIf IsNothing(datePickerDateofBirth.SelectedDate) Then
-            MsgBox("Please select date of birth.", MsgBoxStyle.Information)
+            MsgBox("Please select date of birth.", MsgBoxStyle.Exclamation)
             datePickerDateofBirth.Focus()
             Return False
         ElseIf txtContactNumber.Text.Length = 0 Then
-            MsgBox("Please fill in contact number field.", MsgBoxStyle.Information)
+            MsgBox("Please fill in contact number field.", MsgBoxStyle.Exclamation)
+            txtContactNumber.Focus()
+            Return False
+        ElseIf Not numberRE.IsMatch(txtContactNumber.Text) Then
+            MsgBox("Contact number must be numerical value.", MsgBoxStyle.Exclamation)
             txtContactNumber.Focus()
             Return False
         ElseIf txtEmail.Text.Length = 0 Then
-            MsgBox("Please fill in email field.", MsgBoxStyle.Information)
+            MsgBox("Please fill in email field.", MsgBoxStyle.Exclamation)
+            txtEmail.Focus()
+            Return False
+        ElseIf Not emailRE.IsMatch(txtEmail.Text) Then
+            MsgBox("Email format error.", MsgBoxStyle.Exclamation)
             txtEmail.Focus()
             Return False
         ElseIf txtAddress1.Text.Length = 0 Then
-            MsgBox("Please fill in addressline 1 field.", MsgBoxStyle.Information)
+            MsgBox("Please fill in addressline 1 field.", MsgBoxStyle.Exclamation)
             txtAddress1.Focus()
             Return False
         ElseIf txtCity.Text.Length = 0 Then
-            MsgBox("Please fill in city field.", MsgBoxStyle.Information)
+            MsgBox("Please fill in city field.", MsgBoxStyle.Exclamation)
             txtCity.Focus()
             Return False
         ElseIf txtPostCode.Text.Length = 0 Then
-            MsgBox("Please fill in postcode field.", MsgBoxStyle.Information)
+            MsgBox("Please fill in postcode field.", MsgBoxStyle.Exclamation)
+            txtPostCode.Focus()
+            Return False
+        ElseIf Not numberRE.IsMatch(txtPostCode.Text) Then
+            MsgBox("Postcode must be numerical value.", MsgBoxStyle.Exclamation)
             txtPostCode.Focus()
             Return False
         ElseIf txtState.Text.Length = 0 Then
-            MsgBox("Please fill in state province field.", MsgBoxStyle.Information)
+            MsgBox("Please fill in state province field.", MsgBoxStyle.Exclamation)
             txtState.Focus()
             Return False
         ElseIf txtPassword.Text.Length = 0 Then
-            MsgBox("Password field cannot be empty.", MsgBoxStyle.Information)
+            MsgBox("Password field cannot be empty.", MsgBoxStyle.Exclamation)
             txtPassword.Focus()
             Return False
         End If
@@ -212,6 +231,28 @@ Public Class StaffWindow
     Private Sub datePickerDateofBirth_SelectedDateChanged(sender As System.Object, e As System.Windows.Controls.SelectionChangedEventArgs) Handles datePickerDateofBirth.SelectedDateChanged
 
         txtPassword.Text = datePickerDateofBirth.Text
+
+    End Sub
+
+    Private Sub ClearAllField()
+        txtFirstName.Text = Nothing
+        txtLastName.Text = Nothing
+        datePickerDateofBirth.SelectedDate = Nothing
+        txtContactNumber.Text = Nothing
+        txtEmail.Text = Nothing
+        txtAddress1.Text = Nothing
+        txtAddress2.Text = Nothing
+        txtCity.Text = Nothing
+        txtPostCode.Text = Nothing
+        txtState.Text = Nothing
+        comboboxCountry.SelectedIndex = 0
+        comboboxProgram.SelectedIndex = 0
+        If radioGenderMale.IsChecked Then
+            radioGenderMale.IsChecked = False
+        Else
+            radioGenderFemale.IsChecked = False
+        End If
+        txtPassword.Text = Nothing
 
     End Sub
 End Class
