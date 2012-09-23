@@ -3,21 +3,27 @@
     Private amsEntities As AMSEntities = New AMSEntities()
 
     Public Sub CreateDepartment(ByRef department As Department)
-        amsEntities.AddToDepartments(department)
-        amsEntities.SaveChanges()
+        amsEntities.InsertDepartment(department.DepartmentName)
+        MsgBox("Insertion is successful!")
     End Sub
 
     Public Sub CreateProgram(ByRef program As Program)
-        program.ProgramID = amsEntities.Programs.Count + 99
-        amsEntities.AddToPrograms(program)
-        amsEntities.SaveChanges()
+        amsEntities.InsertProgram(program.ProgramName, program.ProgramDescription)
     End Sub
 
-    Public Sub CreateAccount(ByRef account As Account, ByRef employee As Employee)
-        amsEntities.AddToEmployees(employee)
-        amsEntities.AddToAccounts(account)
-        employee.Account = account
-        amsEntities.SaveChanges()
+    Public Sub CreateAccount(ByRef employee As Employee)
+        amsEntities.InsertEmployee(employee.EmployeeFirstName, _
+                                   employee.EmployeeLastName, _
+                                   employee.Gender, employee.DateOfBirth, _
+                                   employee.Address1, employee.Address2, _
+                                   employee.City, _
+                                   employee.PostCode, _
+                                   employee.StateProvince, _
+                                   employee.Country.CountryCode, _
+                                   employee.ContactNumber, _
+                                   employee.Email, _
+                                   employee.Account.LoginPassword, _
+                                   employee.RoleID)
     End Sub
 
     Public Sub AssginProgramManage(ByRef program As Program, ByRef employee As Employee)

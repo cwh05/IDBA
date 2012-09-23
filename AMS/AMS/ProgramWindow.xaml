@@ -63,7 +63,7 @@
                 HorizontalAlignment="Left" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
                 Click="btnMenu_Click">
-            <Image Source="Resources/Images/group.png" 
+            <Image Source="Resources/Images/viewCourses.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
                    Width="24" Height="24"></Image>
@@ -76,7 +76,7 @@
                 HorizontalAlignment="Left" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
                 Click="btnMenu_Click">
-            <Image Source="Resources/Images/group.png" 
+            <Image Source="Resources/Images/viewCourses.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
                    Width="24" Height="24"></Image>

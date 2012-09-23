@@ -650,7 +650,7 @@ GO
 
 
 -- PK's stored procedures -------------------------------------------------------------------------
-CREATE PROCEDURE InsertDeaprtment
+CREATE PROCEDURE InsertDepartment
    @departmentName NVARCHAR(200)
 AS
 BEGIN
@@ -677,25 +677,34 @@ END
 GO
 
 CREATE PROCEDURE InsertEmployee
-   @firstname      NVARCHAR(150),
-   @lastname       NVARCHAR(100),
-   @gender         BIT,
-   @dateOfBirth    DATETIME,
-   @address1       NVARCHAR(100),
-   @address2       NVARCHAR(100),
-   @city           NVARCHAR(100),
-   @postCode       NVARCHAR(20),
-   @stateProvince  NVARCHAR(80),
-   @countryCode    NVARCHAR(5),
-   @contactNumber  NVARCHAR(15),
-   @emailAddress   NVARCHAR(255),
-   @accountId      INT
+   @firstname		NVARCHAR(150),
+   @lastname		NVARCHAR(100),
+   @gender			BIT,
+   @dateOfBirth		DATETIME,
+   @address1		NVARCHAR(100),
+   @address2		NVARCHAR(100),
+   @city			NVARCHAR(100),
+   @postCode		NVARCHAR(20),
+   @stateProvince	NVARCHAR(80),
+   @countryCode		NVARCHAR(5),
+   @contactNumber	NVARCHAR(15),
+   @emailAddress	NVARCHAR(255),
+   @loginPassword	NVARCHAR(255),
+   @roleId			TINYINT
 AS
 BEGIN
-   INSERT Employee(EmployeeFirstName, EmployeeLastName, Gender, DateOfBirth, Address1, Address2, City,
-                   PostCode, StateProvince, CountryCode, ContactNumber, Email, AccountID, ModifiedDate)
-         VALUES (@firstname, @lastname, @gender, @dateOfBirth, @address1, @address2, @city, @postCode,
-                 @stateProvince, @countryCode, @contactNumber, @emailAddress, @accountId, GETDATE())
+	DECLARE @AccountID INT
+	DECLARE @loginUsername NVARCHAR(100)
+	
+	INSERT Employee(EmployeeFirstName, EmployeeLastName, Gender, DateOfBirth, Address1, Address2, City,PostCode, StateProvince, CountryCode, ContactNumber, Email, ModifiedDate, RoleID)
+	VALUES (@firstname, @lastname, @gender, @dateOfBirth, @address1, @address2, @city, @postCode, @stateProvince, @countryCode, @contactNumber, @emailAddress, GETDATE(), @roleId)
+
+	SET @loginUsername = 'e' + CAST(SCOPE_IDENTITY() AS varchar(10))
+	INSERT Account(LoginUsername, LoginPassword) VALUES (@loginUsername, @loginPassword)
+	
+	SET @AccountID = SCOPE_IDENTITY()
+	UPDATE Student SET AccountID = @AccountID
+	WHERE StudentID = SUBSTRING(@loginUsername, 2, 10)
 END
 GO
 
@@ -883,8 +892,8 @@ IF (OBJECT_ID('GetAllCourseOfProgram') IS NOT NULL)
    DROP PROCEDURE GetAllCourseOfProgram
 
 -- PK's Stored Procedures -------------------------------------------------------------------------
-IF (OBJECT_ID('InsertDeaprtment') IS NOT NULL)
-   DROP PROCEDURE InsertDeaprtment
+IF (OBJECT_ID('InsertDepartment') IS NOT NULL)
+   DROP PROCEDURE InsertDepartment
 
 IF (OBJECT_ID('InsertProgram') IS NOT NULL)
    DROP PROCEDURE InsertProgram

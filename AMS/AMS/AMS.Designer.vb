@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("10243a1b-5205-482a-a5b6-a82d3bca02fb")>
+<Assembly: EdmSchemaAttribute("7f8616cd-e639-44b0-81ba-f12e238b133e")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -652,30 +652,6 @@ Public Partial Class AMSEntities
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    ''' <param name="loginUsername">No Metadata Documentation available.</param>
-    ''' <param name="loginPassword">No Metadata Documentation available.</param>
-    Public Function InsertAccount(loginUsername As Global.System.String, loginPassword As Global.System.String) As Integer
-        Dim loginUsernameParameter As ObjectParameter
-        If (loginUsername IsNot Nothing)
-            loginUsernameParameter = New ObjectParameter("loginUsername", loginUsername)
-        Else
-            loginUsernameParameter = New ObjectParameter("loginUsername", GetType(Global.System.String))
-        End If
-
-        Dim loginPasswordParameter As ObjectParameter
-        If (loginPassword IsNot Nothing)
-            loginPasswordParameter = New ObjectParameter("loginPassword", loginPassword)
-        Else
-            loginPasswordParameter = New ObjectParameter("loginPassword", GetType(Global.System.String))
-        End If
-
-        Return MyBase.ExecuteFunction("InsertAccount", loginUsernameParameter, loginPasswordParameter)
-
-    End Function
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
     ''' <param name="loginPassword">No Metadata Documentation available.</param>
     ''' <param name="firstName">No Metadata Documentation available.</param>
     ''' <param name="lastName">No Metadata Documentation available.</param>
@@ -790,6 +766,166 @@ Public Partial Class AMSEntities
         End If
 
         Return MyBase.ExecuteFunction("InsertStudent", loginPasswordParameter, firstNameParameter, lastNameParameter, genderParameter, dOBParameter, address1Parameter, address2Parameter, cityParameter, postCodeParameter, stateProvinceParameter, countryCodeParameter, contactNumberParameter, emailParameter, programIDParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="departmentName">No Metadata Documentation available.</param>
+    Public Function InsertDepartment(departmentName As Global.System.String) As Integer
+        Dim departmentNameParameter As ObjectParameter
+        If (departmentName IsNot Nothing)
+            departmentNameParameter = New ObjectParameter("departmentName", departmentName)
+        Else
+            departmentNameParameter = New ObjectParameter("departmentName", GetType(Global.System.String))
+        End If
+
+        Return MyBase.ExecuteFunction("InsertDepartment", departmentNameParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="programName">No Metadata Documentation available.</param>
+    ''' <param name="programDescription">No Metadata Documentation available.</param>
+    Public Function InsertProgram(programName As Global.System.String, programDescription As Global.System.String) As Integer
+        Dim programNameParameter As ObjectParameter
+        If (programName IsNot Nothing)
+            programNameParameter = New ObjectParameter("programName", programName)
+        Else
+            programNameParameter = New ObjectParameter("programName", GetType(Global.System.String))
+        End If
+
+        Dim programDescriptionParameter As ObjectParameter
+        If (programDescription IsNot Nothing)
+            programDescriptionParameter = New ObjectParameter("programDescription", programDescription)
+        Else
+            programDescriptionParameter = New ObjectParameter("programDescription", GetType(Global.System.String))
+        End If
+
+        Return MyBase.ExecuteFunction("InsertProgram", programNameParameter, programDescriptionParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="firstname">No Metadata Documentation available.</param>
+    ''' <param name="lastname">No Metadata Documentation available.</param>
+    ''' <param name="gender">No Metadata Documentation available.</param>
+    ''' <param name="dateOfBirth">No Metadata Documentation available.</param>
+    ''' <param name="address1">No Metadata Documentation available.</param>
+    ''' <param name="address2">No Metadata Documentation available.</param>
+    ''' <param name="city">No Metadata Documentation available.</param>
+    ''' <param name="postCode">No Metadata Documentation available.</param>
+    ''' <param name="stateProvince">No Metadata Documentation available.</param>
+    ''' <param name="countryCode">No Metadata Documentation available.</param>
+    ''' <param name="contactNumber">No Metadata Documentation available.</param>
+    ''' <param name="emailAddress">No Metadata Documentation available.</param>
+    ''' <param name="loginPassword">No Metadata Documentation available.</param>
+    ''' <param name="roleId">No Metadata Documentation available.</param>
+    Public Function InsertEmployee(firstname As Global.System.String, lastname As Global.System.String, gender As Nullable(Of Global.System.Boolean), dateOfBirth As Nullable(Of Global.System.DateTime), address1 As Global.System.String, address2 As Global.System.String, city As Global.System.String, postCode As Global.System.String, stateProvince As Global.System.String, countryCode As Global.System.String, contactNumber As Global.System.String, emailAddress As Global.System.String, loginPassword As Global.System.String, roleId As Nullable(Of Global.System.Byte)) As Integer
+        Dim firstnameParameter As ObjectParameter
+        If (firstname IsNot Nothing)
+            firstnameParameter = New ObjectParameter("firstname", firstname)
+        Else
+            firstnameParameter = New ObjectParameter("firstname", GetType(Global.System.String))
+        End If
+
+        Dim lastnameParameter As ObjectParameter
+        If (lastname IsNot Nothing)
+            lastnameParameter = New ObjectParameter("lastname", lastname)
+        Else
+            lastnameParameter = New ObjectParameter("lastname", GetType(Global.System.String))
+        End If
+
+        Dim genderParameter As ObjectParameter
+        If (gender.HasValue)
+            genderParameter = New ObjectParameter("gender", gender)
+        Else
+            genderParameter = New ObjectParameter("gender", GetType(Global.System.Boolean))
+        End If
+
+        Dim dateOfBirthParameter As ObjectParameter
+        If (dateOfBirth.HasValue)
+            dateOfBirthParameter = New ObjectParameter("dateOfBirth", dateOfBirth)
+        Else
+            dateOfBirthParameter = New ObjectParameter("dateOfBirth", GetType(Global.System.DateTime))
+        End If
+
+        Dim address1Parameter As ObjectParameter
+        If (address1 IsNot Nothing)
+            address1Parameter = New ObjectParameter("address1", address1)
+        Else
+            address1Parameter = New ObjectParameter("address1", GetType(Global.System.String))
+        End If
+
+        Dim address2Parameter As ObjectParameter
+        If (address2 IsNot Nothing)
+            address2Parameter = New ObjectParameter("address2", address2)
+        Else
+            address2Parameter = New ObjectParameter("address2", GetType(Global.System.String))
+        End If
+
+        Dim cityParameter As ObjectParameter
+        If (city IsNot Nothing)
+            cityParameter = New ObjectParameter("city", city)
+        Else
+            cityParameter = New ObjectParameter("city", GetType(Global.System.String))
+        End If
+
+        Dim postCodeParameter As ObjectParameter
+        If (postCode IsNot Nothing)
+            postCodeParameter = New ObjectParameter("postCode", postCode)
+        Else
+            postCodeParameter = New ObjectParameter("postCode", GetType(Global.System.String))
+        End If
+
+        Dim stateProvinceParameter As ObjectParameter
+        If (stateProvince IsNot Nothing)
+            stateProvinceParameter = New ObjectParameter("stateProvince", stateProvince)
+        Else
+            stateProvinceParameter = New ObjectParameter("stateProvince", GetType(Global.System.String))
+        End If
+
+        Dim countryCodeParameter As ObjectParameter
+        If (countryCode IsNot Nothing)
+            countryCodeParameter = New ObjectParameter("countryCode", countryCode)
+        Else
+            countryCodeParameter = New ObjectParameter("countryCode", GetType(Global.System.String))
+        End If
+
+        Dim contactNumberParameter As ObjectParameter
+        If (contactNumber IsNot Nothing)
+            contactNumberParameter = New ObjectParameter("contactNumber", contactNumber)
+        Else
+            contactNumberParameter = New ObjectParameter("contactNumber", GetType(Global.System.String))
+        End If
+
+        Dim emailAddressParameter As ObjectParameter
+        If (emailAddress IsNot Nothing)
+            emailAddressParameter = New ObjectParameter("emailAddress", emailAddress)
+        Else
+            emailAddressParameter = New ObjectParameter("emailAddress", GetType(Global.System.String))
+        End If
+
+        Dim loginPasswordParameter As ObjectParameter
+        If (loginPassword IsNot Nothing)
+            loginPasswordParameter = New ObjectParameter("loginPassword", loginPassword)
+        Else
+            loginPasswordParameter = New ObjectParameter("loginPassword", GetType(Global.System.String))
+        End If
+
+        Dim roleIdParameter As ObjectParameter
+        If (roleId.HasValue)
+            roleIdParameter = New ObjectParameter("roleId", roleId)
+        Else
+            roleIdParameter = New ObjectParameter("roleId", GetType(Global.System.Byte))
+        End If
+
+        Return MyBase.ExecuteFunction("InsertEmployee", firstnameParameter, lastnameParameter, genderParameter, dateOfBirthParameter, address1Parameter, address2Parameter, cityParameter, postCodeParameter, stateProvinceParameter, countryCodeParameter, contactNumberParameter, emailAddressParameter, loginPasswordParameter, roleIdParameter)
 
     End Function
 

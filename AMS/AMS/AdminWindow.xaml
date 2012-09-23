@@ -206,46 +206,41 @@
                        Foreground="Red">personal detail</Label>
 
                     <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontWeight="Bold" Content="EMPLOYEE ID" />
-                    <Label Name="labelEmployeeID" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-                           VerticalContentAlignment="Center" Margin="20,5,0,5" />
+                       FontWeight="Bold" Content="FIRSTNAME"  />
+                    <TextBox Name="txtFirstName" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                             MaxLines="1" AllowDrop="False" MaxLength="100"
+                             Margin="20,5,0,5"/>
 
                     <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontWeight="Bold" Content="FIRSTNAME"  />
-                    <TextBox Name="txtFirstName" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                       FontWeight="Bold" Content="LASTNAME" />
+                    <TextBox Name="txtLastName" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
                              MaxLines="1" AllowDrop="False" MaxLength="100"
                              Margin="20,5,0,5"/>
 
                     <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontWeight="Bold" Content="LASTNAME" />
-                    <TextBox Name="txtLastName" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
-                             MaxLines="1" AllowDrop="False" MaxLength="100"
-                             Margin="20,5,0,5"/>
-
-                    <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold" Content="GENDER"/>
-                    <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Margin="20,5,0,5">
+                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="20,5,0,5">
                         <RadioButton Name="radioGenderMale" VerticalContentAlignment="Center" Content="Male" Margin="0,0,5,0" />
                         <RadioButton Name="radioGenderFemale" VerticalContentAlignment="Center" Content="Female" />
                     </StackPanel>
 
-                    <Label Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold" Content="DATE OF BIRTH" />
-                    <DatePicker Name="datePickerDateofBirth" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
+                    <DatePicker Name="datePickerDateofBirth" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
                                 HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" 
                                 SelectedDate="{Binding DateOfBirth}"
                                 Margin="20,5,0,5"/>
 
-                    <Label Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    <Label Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold" Content="CONTACT NUMBER" VerticalContentAlignment="Center" />
-                    <TextBox Name="txtContactNumber" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
+                    <TextBox Name="txtContactNumber" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
                              VerticalContentAlignment="Center" 
                              MaxLines="1" AllowDrop="False" MaxLength="15" Text="{Binding ContactNumber}" 
                              Margin="20,5,0,5"/>
 
-                    <Label Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    <Label Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold" Content="EMAIL" VerticalContentAlignment="Center" />
-                    <TextBox Name="txtEmail" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"
+                    <TextBox Name="txtEmail" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
                              VerticalContentAlignment="Center" 
                              MaxLines="1" AllowDrop="False" MaxLength="255"  
                              Margin="20,5,0,5"
@@ -306,16 +301,16 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <Label Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2"
+                    <Label Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2"
                        Margin="0,0,0,10"
                        FontWeight="Normal" 
                        FontSize="25"
                        Foreground="Red">security</Label>
 
-                    <Label Grid.Row="10" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    <Label Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold" Content="ROLE"/>
                     <ComboBox Name="comboboxRole" 
-                         Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="2"
+                         Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2"
                          Width="250" Margin="20,5,0,5">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -326,9 +321,9 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <Label Grid.Row="11" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    <Label Grid.Row="10" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold" Content="PASSWORD"/>
-                    <PasswordBox Name="txtPassword" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"
+                    <PasswordBox Name="txtPassword" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2"
                                  MaxLength="100" Margin="20,5,0,5" 
                             ContextMenu="{x:Null}" 
                             Controls:TextboxHelper.Watermark="Password"

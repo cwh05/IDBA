@@ -64,7 +64,7 @@
         </Button>
         <Label Grid.Column="1" Grid.Row="1" 
                HorizontalAlignment="Left" VerticalAlignment="Center" 
-               FontSize="24">assessment information</Label>
+               FontSize="24">assessment info</Label>
         <Button Name="btnViewCourseEnrolment"
                 Grid.Column="0" Grid.Row="2" Width="55" Height="55"
                 HorizontalAlignment="Left" 
@@ -77,7 +77,7 @@
         </Button>
         <Label Grid.Column="1" Grid.Row="2" 
                HorizontalAlignment="Left" VerticalAlignment="Center" 
-               FontSize="24">view course enrolment</Label>
+               FontSize="24">course enrolments</Label>
 
         <Button Name="btnCourseDetail"
                 Grid.Column="0" Grid.Row="3" Width="55" Height="55"

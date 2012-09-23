@@ -72,7 +72,7 @@
       <HintPath>bin\Debug\AMS.exe</HintPath>
     </Reference>
     <Reference Include="DLLResource">
-      <HintPath>..\DLLResource\DLLResource\bin\Debug\DLLResource.dll</HintPath>
+      <HintPath>..\DLLResource\DLLResource\obj\Debug\DLLResource.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro">
       <HintPath>..\packages\MahApps.Metro.0.9.0.0\lib\net40\MahApps.Metro.dll</HintPath>

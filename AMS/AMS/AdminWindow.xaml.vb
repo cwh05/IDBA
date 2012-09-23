@@ -29,22 +29,36 @@ Public Class AdminWindow : Inherits MetroWindow
     End Sub
 
     Private Sub btnSaveDepartment(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
-        Dim department = New Department()
-        department.DepartmentName = txtDepartmentName.Text
-        adminWindowController.CreateDepartment(department)
+        Dim department = New Department With {.DepartmentName = txtDepartmentName.Text}
+        adminWindowController.CreateDepartment(Department)
     End Sub
 
     Private Sub btnSaveProgram(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
-        Dim program = New Program()
-        program.ProgramName = txtProgramName.Text
-        program.ProgramDescription = txtProgramDescription.Text
+        Dim program = New Program With {
+            .ProgramName = txtProgramName.Text,
+            .ProgramDescription = txtProgramDescription.Text
+        }
         adminWindowController.CreateProgram(program)
     End Sub
 
     Private Sub btnSaveAccount(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
-        Dim account = New Account()
-        Dim employee = New Employee()
+        Dim employee = New Employee With {
+            .EmployeeFirstName = txtFirstName.Text,
+            .EmployeeLastName = txtLastName.Text,
+            .City = txtCity.Text,
+            .Email = txtEmail.Text,
+            .Address1 = txtAddress1.Text,
+            .Address2 = txtAddress2.Text,
+            .PostCode = txtPostCode.Text,
+            .StateProvince = txtState.Text,
+            .ContactNumber = txtContactNumber.Text,
+            .DateOfBirth = datePickerDateofBirth.SelectedDate,
+            .Country = CType(comboboxCountry.SelectedItem, Country),
+            .Gender = True,
+            .Account = New Account With {.LoginPassword = txtPassword.Password},
+            .RoleID = CType(comboboxRole.SelectedItem, RoleCategory).RoleID
+        }
         'assgin value to the account and employee
-        adminWindowController.CreateAccount(account, employee)
+        adminWindowController.CreateAccount(employee)
     End Sub
 End Class

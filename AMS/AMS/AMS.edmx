@@ -54,11 +54,11 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="EmployeeDepartment" EntitySet="EmployeeDepartment" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProgramCo__Cours__47DBAE45" Association="Model.Store.FK__ProgramCo__Cours__47DBAE45">
+          <AssociationSet Name="FK__ProgramCo__Cours__30F848ED" Association="Model.Store.FK__ProgramCo__Cours__30F848ED">
             <End Role="Course" EntitySet="Course" />
             <End Role="ProgramCourse" EntitySet="ProgramCourse" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProgramCo__Progr__46E78A0C" Association="Model.Store.FK__ProgramCo__Progr__46E78A0C">
+          <AssociationSet Name="FK__ProgramCo__Progr__300424B4" Association="Model.Store.FK__ProgramCo__Progr__300424B4">
             <End Role="Program" EntitySet="Program" />
             <End Role="ProgramCourse" EntitySet="ProgramCourse" />
           </AssociationSet>
@@ -286,7 +286,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProgramCo__Cours__47DBAE45">
+        <Association Name="FK__ProgramCo__Cours__30F848ED">
           <End Role="Course" Type="Model.Store.Course" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -300,7 +300,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProgramCo__Progr__46E78A0C">
+        <Association Name="FK__ProgramCo__Progr__300424B4">
           <End Role="Program" Type="Model.Store.Program" Multiplicity="1" />
           <End Role="ProgramCourse" Type="Model.Store.ProgramCourse" Multiplicity="*" />
           <ReferentialConstraint>
@@ -465,7 +465,7 @@
           <Parameter Name="coursedescription" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="staffid" Type="int" Mode="In" />
         </Function>
-        <Function Name="InsertDeaprtment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="InsertDepartment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="departmentName" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="InsertEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -481,7 +481,8 @@
           <Parameter Name="countryCode" Type="nvarchar" Mode="In" />
           <Parameter Name="contactNumber" Type="nvarchar" Mode="In" />
           <Parameter Name="emailAddress" Type="nvarchar" Mode="In" />
-          <Parameter Name="accountId" Type="int" Mode="In" />
+          <Parameter Name="loginPassword" Type="nvarchar" Mode="In" />
+          <Parameter Name="roleId" Type="tinyint" Mode="In" />
         </Function>
         <Function Name="InsertProgram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="programName" Type="nvarchar" Mode="In" />
@@ -655,10 +656,6 @@
             <Parameter Name="coursecode" Mode="In" Type="String" />
             <Parameter Name="coursedescription" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="InsertAccount">
-            <Parameter Name="loginUsername" Mode="In" Type="String" />
-            <Parameter Name="loginPassword" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="InsertStudent">
             <Parameter Name="loginPassword" Mode="In" Type="String" />
             <Parameter Name="FirstName" Mode="In" Type="String" />
@@ -674,6 +671,29 @@
             <Parameter Name="ContactNumber" Mode="In" Type="String" />
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="ProgramID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertDepartment">
+          <Parameter Name="departmentName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertProgram">
+            <Parameter Name="programName" Mode="In" Type="String" />
+            <Parameter Name="programDescription" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertEmployee">
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+            <Parameter Name="gender" Mode="In" Type="Boolean" />
+            <Parameter Name="dateOfBirth" Mode="In" Type="DateTime" />
+            <Parameter Name="address1" Mode="In" Type="String" />
+            <Parameter Name="address2" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="postCode" Mode="In" Type="String" />
+            <Parameter Name="stateProvince" Mode="In" Type="String" />
+            <Parameter Name="countryCode" Mode="In" Type="String" />
+            <Parameter Name="contactNumber" Mode="In" Type="String" />
+            <Parameter Name="emailAddress" Mode="In" Type="String" />
+            <Parameter Name="loginPassword" Mode="In" Type="String" />
+            <Parameter Name="roleId" Mode="In" Type="Byte" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
@@ -1087,13 +1107,6 @@
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
               </MappingFragment>
             </EntityTypeMapping>
-            <EntityTypeMapping TypeName="Model.Department">
-              <ModificationFunctionMapping>
-                <InsertFunction FunctionName="Model.Store.InsertDeaprtment" >
-                  <ScalarProperty Name="DepartmentName" ParameterName="departmentName" />
-                </InsertFunction>
-              </ModificationFunctionMapping>
-            </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="Model.Employee">
@@ -1339,9 +1352,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="InsertAccount" FunctionName="Model.Store.InsertAccount" >
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InsertStudent" FunctionName="Model.Store.InsertStudent" />
+          <FunctionImportMapping FunctionImportName="InsertDepartment" FunctionName="Model.Store.InsertDepartment" />
+          <FunctionImportMapping FunctionImportName="InsertProgram" FunctionName="Model.Store.InsertProgram" />
+          <FunctionImportMapping FunctionImportName="InsertEmployee" FunctionName="Model.Store.InsertEmployee" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
