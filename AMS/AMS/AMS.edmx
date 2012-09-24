@@ -43,6 +43,8 @@
       [Enrollment].[CourseID] AS [CourseID], 
       [Enrollment].[CourseName] AS [CourseName], 
       [Enrollment].[CourseCode] AS [CourseCode], 
+      [Enrollment].[ProgramID] AS [ProgramID], 
+      [Enrollment].[ProgramName] AS [ProgramName], 
       [Enrollment].[Marks] AS [Marks]
       FROM [dbo].[Enrollment] AS [Enrollment]</DefiningQuery>
           </EntitySet>
@@ -250,6 +252,8 @@
             <PropertyRef Name="CourseID" />
             <PropertyRef Name="CourseName" />
             <PropertyRef Name="CourseCode" />
+            <PropertyRef Name="ProgramID" />
+            <PropertyRef Name="ProgramName" />
           </Key>
           <Property Name="StudentID" Type="int" Nullable="false" />
           <Property Name="StudentFirstName" Type="nvarchar" Nullable="false" MaxLength="150" />
@@ -258,6 +262,8 @@
           <Property Name="CourseID" Type="int" Nullable="false" />
           <Property Name="CourseName" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="CourseCode" Type="nvarchar" Nullable="false" MaxLength="60" />
+          <Property Name="ProgramID" Type="int" Nullable="false" />
+          <Property Name="ProgramName" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="Marks" Type="float" />
         </EntityType>
         <Association Name="FK__EmployeeD__Depar__2D27B809">
@@ -849,6 +855,8 @@
             <PropertyRef Name="CourseID" />
             <PropertyRef Name="CourseName" />
             <PropertyRef Name="CourseCode" />
+            <PropertyRef Name="ProgramID" />
+            <PropertyRef Name="ProgramName" />
           </Key>
           <Property Type="Int32" Name="StudentID" Nullable="false" />
           <Property Type="String" Name="StudentFirstName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
@@ -858,6 +866,8 @@
           <Property Type="String" Name="CourseName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="CourseCode" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Type="Double" Name="Marks" />
+          <Property Type="Int32" Name="ProgramID" Nullable="false" />
+          <Property Type="String" Name="ProgramName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="fk_EmployeeAccount">
           <End Type="Model.Account" Role="Account" Multiplicity="0..1" />
@@ -1152,14 +1162,6 @@
                 <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
               </MappingFragment>
             </EntityTypeMapping>
-            <EntityTypeMapping TypeName="Model.Program">
-              <ModificationFunctionMapping>
-                <InsertFunction FunctionName="Model.Store.InsertProgram" >
-                <ScalarProperty Name="ProgramDescription" ParameterName="programDescription" />
-                  <ScalarProperty Name="ProgramName" ParameterName="programName" />
-                </InsertFunction>
-              </ModificationFunctionMapping>
-            </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RoleCategories">
             <EntityTypeMapping TypeName="Model.RoleCategory">
@@ -1234,6 +1236,8 @@
           <EntitySetMapping Name="Enrollments">
             <EntityTypeMapping TypeName="Model.Enrollment">
               <MappingFragment StoreEntitySet="Enrollment">
+                <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
                 <ScalarProperty Name="Marks" ColumnName="Marks" />
                 <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
                 <ScalarProperty Name="CourseName" ColumnName="CourseName" />

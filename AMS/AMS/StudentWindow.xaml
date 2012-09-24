@@ -2,8 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    Title="Student" Height="560" Width="700" WindowStartupLocation="CenterScreen"
-        Icon="/AMS;component/Resources/Images/programIcon.ico" ResizeMode="NoResize">
+    Title="Student" Height="560" Width="700" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

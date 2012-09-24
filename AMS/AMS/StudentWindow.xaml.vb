@@ -194,7 +194,7 @@ Public Class StudentWindow
                                                         txtEmail.Text, CInt(StudentUsername.Substring(1)), Nothing, Nothing, Nothing)
 
                 ElseIf newPassword.Equals(confirmPassword) Then
-                    Dim dll As New DLLResource.EncryptionProvider()
+                    Dim dll As New AMS.Utilities.EncryptionProvider()
 
                     'update new password with profile details
                     fail = Not controller.UpdateProfile(txtFirstName.Text, txtLastName.Text, gender, dob.SelectedDate,

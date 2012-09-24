@@ -1,6 +1,6 @@
-﻿Imports System.Text
+﻿Imports System.IO
+Imports System.Text
 Imports System.Security.Cryptography
-Imports System.IO
 
 Public Class EncryptionProvider
 

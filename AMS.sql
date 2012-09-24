@@ -196,10 +196,20 @@ GO
 
 CREATE VIEW Enrollment
 AS
-   SELECT s.StudentID, s.StudentFirstName, s.StudentLastName, s.Email, c.CourseID,
-      c.CourseName, c.CourseCode, sc.Marks FROM StudentCourse sc
-      INNER JOIN Student s ON s.StudentID = sc.StudentID
-      INNER JOIN Course c ON c.CourseID = sc.CourseID
+   SELECT	Student.StudentID, 
+			Student.StudentFirstName, 
+			Student.StudentLastName, 
+			Student.Email, 
+			Course.CourseID,
+			Course.CourseName, 
+			Course.CourseCode,
+			Program.ProgramID,
+			Program.ProgramName,
+			StudentCourse.Marks 
+   FROM StudentCourse
+   INNER JOIN Student ON Student.StudentID = StudentCourse.StudentID
+   INNER JOIN Course ON Course.CourseID = StudentCourse.CourseID
+   INNER JOIN Program ON Student.ProgramID = Program.ProgramID
 GO
 PRINT 'View created...'
 GO

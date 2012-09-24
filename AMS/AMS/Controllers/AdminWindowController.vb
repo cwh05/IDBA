@@ -4,7 +4,6 @@
 
     Public Sub CreateDepartment(ByRef department As Department)
         amsEntities.InsertDepartment(department.DepartmentName)
-        MsgBox("Insertion is successful!")
     End Sub
 
     Public Sub CreateProgram(ByRef program As Program)
@@ -26,8 +25,7 @@
                                    employee.RoleID)
     End Sub
 
-    Public Sub AssginProgramManage(ByRef program As Program, ByRef employee As Employee)
-        program.Employee = employee
+    Public Sub AssginProgramManager(ByRef program As Program)
         amsEntities.SaveChanges()
     End Sub
 
@@ -39,8 +37,9 @@
     End Function
 
     Public Function GetAllEmployeeForLookUp() As IEnumerable(Of Employee)
-        Dim employeeList = From employees In amsEntities.Employees
-                           Order By employees.EmployeeFirstName
+        Dim employeeList = From employees In amsEntities.Employees _
+                           Where employees.RoleCategory.RoleTitle <> "Program Manager" _
+                           Order By employees.EmployeeFirstName _
                            Select employees
         Return employeeList
     End Function

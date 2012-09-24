@@ -16,7 +16,11 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
+<<<<<<< HEAD
 <Assembly: EdmSchemaAttribute("d31de91f-5ec5-40f7-9906-d6ed1784b04a")>
+=======
+<Assembly: EdmSchemaAttribute("5a883645-725a-41dc-ba8c-f6718d3b2227")>
+>>>>>>> Update view and change project name from DLLResource to AMS.Utilities
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -2317,7 +2321,9 @@ Public Partial Class Enrollment
     ''' <param name="courseID">Initial value of the CourseID property.</param>
     ''' <param name="courseName">Initial value of the CourseName property.</param>
     ''' <param name="courseCode">Initial value of the CourseCode property.</param>
-    Public Shared Function CreateEnrollment(studentID As Global.System.Int32, studentFirstName As Global.System.String, studentLastName As Global.System.String, email As Global.System.String, courseID As Global.System.Int32, courseName As Global.System.String, courseCode As Global.System.String) As Enrollment
+    ''' <param name="programID">Initial value of the ProgramID property.</param>
+    ''' <param name="programName">Initial value of the ProgramName property.</param>
+    Public Shared Function CreateEnrollment(studentID As Global.System.Int32, studentFirstName As Global.System.String, studentLastName As Global.System.String, email As Global.System.String, courseID As Global.System.Int32, courseName As Global.System.String, courseCode As Global.System.String, programID As Global.System.Int32, programName As Global.System.String) As Enrollment
         Dim enrollment as Enrollment = New Enrollment
         enrollment.StudentID = studentID
         enrollment.StudentFirstName = studentFirstName
@@ -2326,6 +2332,8 @@ Public Partial Class Enrollment
         enrollment.CourseID = courseID
         enrollment.CourseName = courseName
         enrollment.CourseCode = courseCode
+        enrollment.ProgramID = programID
+        enrollment.ProgramName = programName
         Return enrollment
     End Function
 
@@ -2544,6 +2552,60 @@ Public Partial Class Enrollment
     End Sub
 
     Private Partial Sub OnMarksChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property ProgramID() As Global.System.Int32
+        Get
+            Return _ProgramID
+        End Get
+        Set
+            If (_ProgramID <> Value) Then
+                OnProgramIDChanging(value)
+                ReportPropertyChanging("ProgramID")
+                _ProgramID = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("ProgramID")
+                OnProgramIDChanged()
+            End If
+        End Set
+    End Property
+
+    Private _ProgramID As Global.System.Int32
+    Private Partial Sub OnProgramIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnProgramIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property ProgramName() As Global.System.String
+        Get
+            Return _ProgramName
+        End Get
+        Set
+            If (_ProgramName <> Value) Then
+                OnProgramNameChanging(value)
+                ReportPropertyChanging("ProgramName")
+                _ProgramName = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("ProgramName")
+                OnProgramNameChanged()
+            End If
+        End Set
+    End Property
+
+    Private _ProgramName As Global.System.String
+    Private Partial Sub OnProgramNameChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnProgramNameChanged()
     End Sub
 
     #End Region

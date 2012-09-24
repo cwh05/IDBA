@@ -7,10 +7,10 @@
     </ProductVersion>
     <SchemaVersion>
     </SchemaVersion>
-    <ProjectGuid>{44591F70-9E8B-40C2-B9D8-CD6B051BBC07}</ProjectGuid>
+    <ProjectGuid>{CF1434D5-33D9-4561-8B5D-AE7428930172}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>DLLResource</RootNamespace>
-    <AssemblyName>DLLResource</AssemblyName>
+    <RootNamespace>AMS.Utilities</RootNamespace>
+    <AssemblyName>AMS.Utilities</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -21,7 +21,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>DLLResource.xml</DocumentationFile>
+    <DocumentationFile>AMS.Utilities.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -30,7 +30,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>DLLResource.xml</DocumentationFile>
+    <DocumentationFile>AMS.Utilities.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>

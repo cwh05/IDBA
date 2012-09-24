@@ -42,7 +42,7 @@
                 Grid.Column="0" Grid.Row="0" Width="55" Height="55" 
                 HorizontalAlignment="Center" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnMenu_Click">
+                Click="btnMenuClick">
             <Image Source="Resources/Images/organization.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
@@ -55,7 +55,7 @@
                 Grid.Column="0" Grid.Row="1" Width="55" Height="55"
                 HorizontalAlignment="Left" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnMenu_Click">
+                Click="btnMenuClick">
             <Image Source="Resources/Images/package.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
@@ -68,7 +68,7 @@
                 Grid.Column="0" Grid.Row="2" Width="55" Height="55"
                 HorizontalAlignment="Left" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnMenu_Click">
+                Click="btnMenuClick">
             <Image Source="Resources/Images/add_user.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
@@ -81,7 +81,7 @@
                 Grid.Column="0" Grid.Row="3" Width="55" Height="55"
                 HorizontalAlignment="Left" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Click="btnMenu_Click">
+                Click="btnMenuClick">
             <Image Source="Resources/Images/manager.png" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
@@ -118,7 +118,7 @@
                          Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
                          Width="250" Margin="20,0,0,0">
                     </TextBox>
-                    <Button Grid.Column="1" Grid.Row="3" Margin="20,20,0,0" Click="btnSaveDepartment">save</Button>
+                    <Button Grid.Column="1" Grid.Row="3" Margin="20,20,0,0" Click="btnSaveDepartmentClick">save</Button>
                     <Button Grid.Column="2" Grid.Row="3" Margin="0,20,0,0">cancel</Button>
                 </Grid>
             </TabItem>
@@ -156,7 +156,7 @@
                          Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"
                          Width="250" Height="150" Margin="20,5,0,5">
                     </TextBox>
-                    <Button Grid.Column="1" Grid.Row="5" Margin="20,20,0,0" Click="btnSaveProgram">save</Button>
+                    <Button Grid.Column="1" Grid.Row="5" Margin="20,20,0,0" Click="btnSaveProgramClick">save</Button>
                     <Button Grid.Column="2" Grid.Row="5" Margin="0,20,0,0">cancel</Button>
                 </Grid>
             </TabItem>
@@ -338,11 +338,11 @@
                             Controls:TextboxHelper.ClearTextButton="False"/>
 
                     <Button Content="save" Grid.Row="18" Grid.Column="2" HorizontalAlignment="Right" 
-                            Click="btnSaveAccount"  VerticalAlignment="Top" Width="80" Margin="0,0,10,0"/>
+                            Click="btnSaveAccountClick"  VerticalAlignment="Top" Width="80" Margin="0,0,10,0"/>
                 </Grid>
             </TabItem>
             <TabItem IsHitTestVisible="False">
-                <Grid Name="gridAssignPM" Margin="20,-35,20,0">
+                <Grid Name="gridAssignPM" Margin="20,-35,20,0" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -351,7 +351,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="450"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -361,39 +361,81 @@
                        FontWeight="Normal" 
                        FontSize="45"
                        Foreground="Red">assign pm</Label>
-                    <Label Grid.Column="0" Grid.Row="1" 
-                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontWeight="Bold">STAFF</Label>
-                    <ComboBox Name="comboboxStaff" 
-                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
-                         Width="250" Margin="20,5,0,5">
-                        <ComboBox.ItemTemplate>
+                    
+                    <Label Grid.Column="0" Grid.Row="1"
+                       Margin="0,0,0,5"
+                       FontWeight="Normal" 
+                       FontSize="25"
+                       Foreground="Red">staff</Label>
+                    
+                    <ListBox Name="listboxStaff" Grid.Column="0" Grid.Row="2" Width="300">
+                        <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding ProgramName}" ToolTip="{Binding ProgramName}" />
-                                </StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding EmployeeFirstName}"
+                                               FontSize="22" FontWeight="DemiBold" Margin="10,10,5,10"></TextBlock>
+                                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding EmployeeLastName}"
+                                               FontSize="22" FontWeight="DemiBold" Margin="15,10,5,10"></TextBlock>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Email}"
+                                               FontSize="13" FontWeight="Light" Margin="10,0,5,10"></TextBlock>
+                                </Grid>
                             </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
-                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontWeight="Bold" Margin="100,5,0,5" Opacity="0.4">ASSIGN TO</Label>
-                    <Label Grid.Column="0" Grid.Row="3" 
-                       HorizontalAlignment="Left" VerticalAlignment="Top"
-                       FontWeight="Bold">PROGRAM</Label>
-                    <ComboBox Name="comboboxProgram" 
-                         Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"
-                         Width="250" Margin="20,5,0,5">
-                        <ComboBox.ItemTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <StackPanel Grid.Column="1" Grid.Row="2">
+                        <Button Name="btnAssignProgramManager"
+                                Width="55" Height="55" Margin="20,20,20,10"
+                                HorizontalAlignment="Left"
+                                Style="{DynamicResource MetroCircleButtonStyle}"
+                                Click="btnAssignProgramManagerClick">
+                                        <Image Source="Resources/Images/right.png" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" 
+                                   Width="24" Height="24"></Image>
+                        </Button>
+                        <Label FontWeight="DemiBold" FontSize="13" Opacity="0.5" Margin="10,0,0,10">ASSIGN TO</Label>
+                    </StackPanel>
+                    
+                    <Label Grid.Column="2" Grid.Row="1"
+                       Margin="0,0,0,5"
+                       FontWeight="Normal" 
+                       FontSize="25"
+                       Foreground="Red">program</Label>
+
+                    <ListBox Name="listboxProgram" Grid.Column="2" Grid.Row="2" Width="300">
+                        <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding ProgramName}" ToolTip="{Binding ProgramName}" />
-                                </StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding ProgramName}"
+                                               FontSize="22" FontWeight="DemiBold" Margin="10,10,5,10"></TextBlock>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding ProgramDescription}"
+                                               FontSize="13" FontWeight="Light" Margin="10,0,5,10" ></TextBlock>
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Manage by"
+                                               FontSize="13" FontWeight="Light" Margin="10,0,3,10" ></TextBlock>
+                                    <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Employee.EmployeeFirstName}"
+                                               FontSize="13" FontWeight="Light" Margin="0,0,5,10"></TextBlock>
+                                </Grid>
                             </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <Button Grid.Column="1" Grid.Row="5" Margin="20,20,0,0">save</Button>
-                    <Button Grid.Column="2" Grid.Row="5" Margin="0,20,0,0">cancel</Button>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -49,8 +49,10 @@ Class LoginWindow : Inherits MetroWindow
         
 
         '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
-        Dim window As New AdminWindow
+        Dim window As New AdminWindow(txtUsername.Text)
         window.Show()
+        Dim window2 As New ProgramWindow()
+        window2.Show()
         Dim window3 = New StudentWindow(txtUsername.Text)
         window3.Show()
         Dim window4 = New StaffWindow(txtUsername.Text)
