@@ -16,11 +16,9 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<<<<<<< HEAD
-<Assembly: EdmSchemaAttribute("d31de91f-5ec5-40f7-9906-d6ed1784b04a")>
-=======
-<Assembly: EdmSchemaAttribute("5a883645-725a-41dc-ba8c-f6718d3b2227")>
->>>>>>> Update view and change project name from DLLResource to AMS.Utilities
+
+<Assembly: EdmSchemaAttribute("5a883645-725a-41dc-ba8c-f6718d3b2227")> 
+
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
