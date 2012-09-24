@@ -1,21 +1,44 @@
 ﻿Imports System.Threading
+Imports System.ComponentModel
 
 Public Class SplashWindow
 
-    Private Sub Window_Loaded(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
-        'start thread to update temperature
-        Dim temperatureThread As New Thread(New ThreadStart(AddressOf UpdateTemperature))
-        temperatureThread.Name = "TemperatureThread"
-        temperatureThread.IsBackground = True
-        temperatureThread.SetApartmentState(ApartmentState.MTA)
-        temperatureThread.Start()
+    Private Sub SplashWindow_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles Me.Closing
+        GC.Collect()
+
+        'forward to login window
+        Dim login As New LoginWindow
+        login.Show()
 
     End Sub
 
-    Private Sub UpdateTemperature()
-        'invoke delegate method
-        Me.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
-                                  New Action(AddressOf TemperatureChanged))
+    Private Sub SplashWindow_ContentRendered(sender As Object, e As System.EventArgs) Handles Me.ContentRendered
+        ' run background thread to get weather information
+        Dim bw As New BackgroundWorker()
+
+        'add event handlers
+        AddHandler bw.DoWork, AddressOf bw_DoWork
+        AddHandler bw.RunWorkerCompleted, AddressOf bw_RunWorkerCompleted
+
+        'run background worker
+        bw.WorkerSupportsCancellation = True
+        bw.RunWorkerAsync()
+
+    End Sub
+
+    Private Sub bw_DoWork(sender As Object, ByVal e As DoWorkEventArgs)
+        TemperatureChanged()
+    End Sub
+
+    Private Sub bw_RunWorkerCompleted(sender As Object, ByVal e As RunWorkerCompletedEventArgs)
+        CType(sender, BackgroundWorker).CancelAsync()
+        CType(sender, BackgroundWorker).Dispose()
+        Me.Close()
+
+    End Sub
+
+    Private Sub Window_Loaded(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
+
     End Sub
 
     Private Sub TemperatureChanged()
@@ -35,12 +58,6 @@ Public Class SplashWindow
             CType(Application.Current, Application).WeatherRelativeHumidity = String.Empty
             CType(Application.Current, Application).WeatherWind = String.Empty
 
-        Finally
-            Dim login As New LoginWindow
-            login.Show()
-
-            Me.Close()
-            GC.Collect()
         End Try
     End Sub
 

@@ -77,6 +77,9 @@
     <Reference Include="MahApps.Metro">
       <HintPath>..\packages\MahApps.Metro.0.9.0.0\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="Mindscape.WpfElements">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Mindscape\WPF Elements\Bin\Mindscape.WpfElements.dll</HintPath>
+    </Reference>
     <Reference Include="System.Activities" />
     <Reference Include="System.Activities.Presentation" />
     <Reference Include="System.Core" />
@@ -216,6 +219,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
