@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("7f8616cd-e639-44b0-81ba-f12e238b133e")>
+<Assembly: EdmSchemaAttribute("d31de91f-5ec5-40f7-9906-d6ed1784b04a")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -926,6 +926,38 @@ Public Partial Class AMSEntities
         End If
 
         Return MyBase.ExecuteFunction("InsertEmployee", firstnameParameter, lastnameParameter, genderParameter, dateOfBirthParameter, address1Parameter, address2Parameter, cityParameter, postCodeParameter, stateProvinceParameter, countryCodeParameter, contactNumberParameter, emailAddressParameter, loginPasswordParameter, roleIdParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="courseID">No Metadata Documentation available.</param>
+    ''' <param name="studentID">No Metadata Documentation available.</param>
+    ''' <param name="marks">No Metadata Documentation available.</param>
+    Public Function UpdateStudentMarks(courseID As Nullable(Of Global.System.Int32), studentID As Nullable(Of Global.System.Int32), marks As Nullable(Of Global.System.Double)) As ObjectResult(Of Global.System.String)
+        Dim courseIDParameter As ObjectParameter
+        If (courseID.HasValue)
+            courseIDParameter = New ObjectParameter("CourseID", courseID)
+        Else
+            courseIDParameter = New ObjectParameter("CourseID", GetType(Global.System.Int32))
+        End If
+
+        Dim studentIDParameter As ObjectParameter
+        If (studentID.HasValue)
+            studentIDParameter = New ObjectParameter("StudentID", studentID)
+        Else
+            studentIDParameter = New ObjectParameter("StudentID", GetType(Global.System.Int32))
+        End If
+
+        Dim marksParameter As ObjectParameter
+        If (marks.HasValue)
+            marksParameter = New ObjectParameter("Marks", marks)
+        Else
+            marksParameter = New ObjectParameter("Marks", GetType(Global.System.Double))
+        End If
+
+        Return MyBase.ExecuteFunction(Of Global.System.String)("UpdateStudentMarks", courseIDParameter, studentIDParameter, marksParameter)
 
     End Function
 

@@ -518,6 +518,11 @@
           <Parameter Name="coursecode" Type="nvarchar" Mode="In" />
           <Parameter Name="coursedescription" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="UpdateStudentMarks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+          <Parameter Name="StudentID" Type="int" Mode="In" />
+          <Parameter Name="Marks" Type="float" Mode="In" />
+        </Function>
         <Function Name="UpdateStudentProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
           <Parameter Name="LastName" Type="nvarchar" Mode="In" />
@@ -694,6 +699,11 @@
             <Parameter Name="emailAddress" Mode="In" Type="String" />
             <Parameter Name="loginPassword" Mode="In" Type="String" />
             <Parameter Name="roleId" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateStudentMarks" ReturnType="Collection(String)">
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="StudentID" Mode="In" Type="Int32" />
+            <Parameter Name="Marks" Mode="In" Type="Double" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
@@ -1211,6 +1221,15 @@
                 <ScalarProperty Name="StudentID" ColumnName="StudentID" />
               </MappingFragment>
             </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Model.StudentCourse">
+              <ModificationFunctionMapping>
+                <UpdateFunction FunctionName="Model.Store.UpdateStudentMarks">
+                  <ScalarProperty Name="Marks" ParameterName="Marks" Version="Current" />
+                  <ScalarProperty Name="StudentID" ParameterName="StudentID" Version="Current" />
+                  <ScalarProperty Name="CourseID" ParameterName="CourseID" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Enrollments">
             <EntityTypeMapping TypeName="Model.Enrollment">
@@ -1353,9 +1372,10 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InsertStudent" FunctionName="Model.Store.InsertStudent" />
-          <FunctionImportMapping FunctionImportName="InsertDepartment" FunctionName="Model.Store.InsertDepartment" />
           <FunctionImportMapping FunctionImportName="InsertProgram" FunctionName="Model.Store.InsertProgram" />
           <FunctionImportMapping FunctionImportName="InsertEmployee" FunctionName="Model.Store.InsertEmployee" />
+          <FunctionImportMapping FunctionImportName="UpdateStudentMarks" FunctionName="Model.Store.UpdateStudentMarks" >
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

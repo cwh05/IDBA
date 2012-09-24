@@ -230,19 +230,22 @@ AS
    END
 GO
 
-CREATE TRIGGER AvgScorePerCourse ON StudentCourse
+CREATE TRIGGER [dbo].[AvgScorePerCourse] ON [dbo].[StudentCourse]
    FOR INSERT, UPDATE
 AS
    DECLARE @v INT
    DECLARE @cid INT
+
    BEGIN
       SET @cid = (SELECT CourseID FROM INSERTED)
       SET @v = (SELECT COUNT(StudentID) FROM Enrollment WHERE CourseID = @cid
                      AND Marks IS NOT NULL)
 
       IF (@v % 5) = 0
-         SELECT AVG(Marks) AS 'Average' FROM Enrollment WHERE CourseID = @cid
+         SELECT CAST(AVG(Marks) AS varchar(10)) AS 'Average' FROM Enrollment WHERE CourseID = @cid
                AND Marks IS NOT NULL
+      ELSE
+		 SELECT '-1.0' AS 'Average'
    END
 GO
 PRINT 'Triggers created...'
@@ -779,6 +782,17 @@ BEGIN
 	SET @AccountID = SCOPE_IDENTITY()
 	UPDATE Student SET AccountID = @AccountID
 	WHERE StudentID = SUBSTRING(@loginUsername, 2, 10)
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateStudentMarks]
+   @CourseID int,
+   @StudentID int,
+   @Marks float
+AS
+BEGIN
+   UPDATE StudentCourse SET Marks = @Marks
+   WHERE CourseID = @CourseID and StudentID = @StudentID
 END
 GO
 

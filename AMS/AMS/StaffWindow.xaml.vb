@@ -9,6 +9,8 @@ Public Class StaffWindow
     Private enrollCourseList As List(Of Enrollment) = New List(Of Enrollment)
     Private editable As Boolean
 
+    Dim emailRE As New Regex("^\w+([+-.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
+
     Public Sub New(ByRef username As String)
         ' This call is required by the designer.
         InitializeComponent()
@@ -21,6 +23,9 @@ Public Class StaffWindow
         'set weather temperature
         If CType(Application.Current, Application).WeatherTemperature <> String.Empty Then
             lblTemperatureContent.Content = CType(Application.Current, Application).WeatherTemperature
+            lblTemperatureContent.ToolTip = "Relative Humidity: " & CType(Application.Current, Application).WeatherRelativeHumidity &
+                    vbNewLine & "Wind: " & CType(Application.Current, Application).WeatherWind
+
         End If
 
     End Sub
@@ -158,9 +163,7 @@ Public Class StaffWindow
 
     Private Function validateStudent() As Boolean
 
-        Dim numberRE As New Regex("\d+")
-        Dim emailRE As New Regex("^\w+([+-.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
-
+        
         If txtFirstName.Text.Length = 0 Then
             MsgBox("Please fill in first name field.", MsgBoxStyle.Exclamation)
             txtFirstName.Focus()
@@ -181,7 +184,7 @@ Public Class StaffWindow
             MsgBox("Please fill in contact number field.", MsgBoxStyle.Exclamation)
             txtContactNumber.Focus()
             Return False
-        ElseIf Not numberRE.IsMatch(txtContactNumber.Text) Then
+        ElseIf Not IsNumeric(txtContactNumber.Text) Then
             MsgBox("Contact number must be numerical value.", MsgBoxStyle.Exclamation)
             txtContactNumber.Focus()
             Return False
@@ -205,7 +208,7 @@ Public Class StaffWindow
             MsgBox("Please fill in postcode field.", MsgBoxStyle.Exclamation)
             txtPostCode.Focus()
             Return False
-        ElseIf Not numberRE.IsMatch(txtPostCode.Text) Then
+        ElseIf Not IsNumeric(txtPostCode.Text) Then
             MsgBox("Postcode must be numerical value.", MsgBoxStyle.Exclamation)
             txtPostCode.Focus()
             Return False
@@ -267,8 +270,30 @@ Public Class StaffWindow
 
     Private Sub assessmentInfoStudentListboxControl_MouseDoubleClick(sender As System.Object, e As System.Windows.Input.MouseButtonEventArgs) Handles assessmentInfoStudentListboxControl.MouseDoubleClick
 
+        Dim dialog As New MyCustomDialog
 
-        MsgBox(assessmentInfoStudentListboxControl.SelectedValue)
+        dialog.ShowDialog()
+
+        If IsNothing(dialog.ResponseText) Or dialog.ResponseText.Length = 0 Then
+            MsgBox("Please fill in the marks.", MsgBoxStyle.Exclamation)
+        ElseIf Not IsNumeric(dialog.ResponseText) Then
+            MsgBox("Please enter numerical value only.", MsgBoxStyle.Exclamation)
+        ElseIf (CInt(dialog.ResponseText) > 100 Or CInt(dialog.ResponseText) < 0) Then
+            MsgBox("Please enter value in range [0-100].", MsgBoxStyle.Exclamation)
+        Else
+            Try
+                If controller.UpdateStudentMark(assessmentInfoListboxControl.SelectedValue, assessmentInfoStudentListboxControl.SelectedValue, dialog.ResponseText) Then
+                    If (CInt(dialog.ResponseText) <> -1) Then
+                        txtAverage.Text = dialog.ResponseText
+                    End If
+                End If
+                
+                updateStudentListBox(assessmentInfoListboxControl, assessmentInfoStudentListboxControl)
+
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
+            End Try
+        End If
     End Sub
 
 End Class

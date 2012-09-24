@@ -72,6 +72,22 @@ Public Class StaffWindowController
         Return False
     End Function
 
+    Public Function UpdateStudentMark(ByVal courseid As Integer, ByVal studentid As Integer, ByRef marks As Double) As Boolean
+
+        Try
+
+            For Each f As String In db.UpdateStudentMarks(courseid, studentid, marks)
+                db.SaveChanges()
+                marks = CDbl(f)
+                Return True
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
+        End Try
+
+        Return False
+    End Function
+
     Public Function InsertStudent(ByVal student As Student, ByVal account As Account) As Boolean
 
 

@@ -122,6 +122,9 @@
     <Compile Include="LogoutUserControl.xaml.vb">
       <DependentUpon>LogoutUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyCustomDialog.xaml.vb">
+      <DependentUpon>MyCustomDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ProgramWindow.xaml.vb">
       <DependentUpon>ProgramWindow.xaml</DependentUpon>
     </Compile>
@@ -163,6 +166,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="LogoutUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyCustomDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -327,12 +334,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\SplashScreen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WCFService\WCFService\WCFService.vbproj">
-      <Project>{B34D2573-A57C-4183-B0FC-C92435B788AC}</Project>
-      <Name>WCFService</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

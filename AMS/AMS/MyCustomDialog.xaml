@@ -1,0 +1,10 @@
+﻿<Window x:Class="MyCustomDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="AMS" Height="190" Width="232" ResizeMode="CanMinimize">
+    <StackPanel>
+        <TextBlock Text="Enter marks" FontSize="15" FontWeight="Bold" />
+        <TextBox x:Name="ResponseTextBox"></TextBox>
+        <Button Content="OK" Name="Button1" />
+    </StackPanel>
+</Window>
