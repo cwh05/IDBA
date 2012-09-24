@@ -72,7 +72,7 @@
       <HintPath>bin\Debug\AMS.exe</HintPath>
     </Reference>
     <Reference Include="DLLResource">
-      <HintPath>..\..\DLLResource\DLLResource\bin\Debug\DLLResource.dll</HintPath>
+      <HintPath>..\DLLResource\DLLResource\bin\Debug\DLLResource.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro">
       <HintPath>..\packages\MahApps.Metro.0.9.0.0\lib\net40\MahApps.Metro.dll</HintPath>
@@ -327,6 +327,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\SplashScreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WCFService\WCFService\WCFService.vbproj">
+      <Project>{B34D2573-A57C-4183-B0FC-C92435B788AC}</Project>
+      <Name>WCFService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
