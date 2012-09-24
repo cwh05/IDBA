@@ -230,39 +230,101 @@
             <TabItem IsHitTestVisible="False">
                 <Grid Name="gridAssessmentInfo" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                        Margin="0,0,0,20"
                        FontWeight="Normal" 
                        FontSize="45"
-                       Foreground="Red">new program</Label>
-                    <Label Grid.Column="0" Grid.Row="1" 
-                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontWeight="Bold">NAME</Label>
-                    <TextBox Name="txtProgramName" 
-                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
-                         Width="250" Margin="20,5,0,5">
-                    </TextBox>
-                    <Label Grid.Column="0" Grid.Row="2" 
-                       HorizontalAlignment="Left" VerticalAlignment="Top"
-                       FontWeight="Bold">DESCRIPTION</Label>
-                    <TextBox Name="txtProgramDescription" 
-                         Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"
-                         Width="250" Height="150" Margin="20,5,0,5">
-                    </TextBox>
-                    <Button Grid.Column="1" Grid.Row="5" Margin="20,20,0,0">save</Button>
-                    <Button Grid.Column="2" Grid.Row="5" Margin="0,20,0,0">cancel</Button>
+                       Foreground="Red">assessment information</Label>
+
+                    <Label Grid.Column="0" Grid.Row="1"
+                       Margin="0,0,0,10"
+                       FontWeight="Normal" 
+                       FontSize="25"
+                       Foreground="Red">select course</Label>
+
+                    <ListBox Name="assessmentInfoListboxControl" Width="250" Height="300" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0"
+                             VerticalContentAlignment="Center" VerticalAlignment="Top"
+                             SelectedValuePath="CourseID" ItemContainerStyle="{StaticResource lbi}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="250"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Margin="1,0,0,3">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Course Code: " FontSize="13"  />
+                                            <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
+                                                           TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
+                                                           TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Label Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
+                       Margin="0,0,0,10"
+                       FontWeight="Normal" 
+                       FontSize="25"
+                       Foreground="Red">student</Label>
+
+                    <ListBox Name="assessmentInfoStudentListboxControl" Width="300" Height="300" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1"
+                             VerticalContentAlignment="Center"  VerticalAlignment="Top" Grid.ColumnSpan="2"  ToolTip="Double click to edit"
+                             SelectedValuePath="StudentID" ItemContainerStyle="{StaticResource lbi}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="80"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Margin="1,0,0,3">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Student ID: " FontSize="13"  />
+                                            <TextBlock Text="{Binding StudentID}" FontSize="13" Foreground="DarkOrange" 
+                                                           TextWrapping="Wrap" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Firstname: " FontSize="13"  />
+                                            <TextBlock Text="{Binding StudentFirstName}" FontSize="13" Foreground="Green" 
+                                                           TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Lastname: " FontSize="13"  />
+                                            <TextBlock Text="{Binding StudentLastName}" FontSize="13" Foreground="DarkBlue" 
+                                                           TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Margin="1,10,0,3">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Marks: " FontSize="13"  />
+                                            <TextBlock Text="{Binding Marks}" FontSize="15" FontWeight="Bold"
+                                                           TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </TabItem>
             <TabItem IsHitTestVisible="False">
@@ -325,7 +387,7 @@
 
                     <ListBox Name="studentListboxControl" Width="300" Height="300" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1"
                              VerticalContentAlignment="Center"  VerticalAlignment="Top" Grid.ColumnSpan="2"
-                             SelectedValuePath="CourseID" ItemContainerStyle="{StaticResource lbi}">
+                             SelectedValuePath="StudentID" ItemContainerStyle="{StaticResource lbi}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -347,18 +409,11 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Lastname: " FontSize="13"  />
-                                            <TextBlock Text="{Binding StudentLastName}" FontSize="13" Foreground="Green" 
+                                            <TextBlock Text="{Binding StudentLastName}" FontSize="13" Foreground="DarkBlue" 
                                                            TextWrapping="Wrap" />
                                         </StackPanel>
                                     </StackPanel>
-                                    
-                                    <StackPanel Grid.Column="1" Margin="1,10,0,3">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Marks: " FontSize="13"  />
-                                            <TextBlock Text="{Binding Marks}" FontSize="15" FontWeight="Bold"
-                                                           TextWrapping="Wrap" />
-                                        </StackPanel>
-                                    </StackPanel>
+
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

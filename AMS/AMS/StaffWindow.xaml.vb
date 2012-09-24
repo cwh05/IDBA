@@ -32,6 +32,7 @@ Public Class StaffWindow
                 tabContent.SelectedIndex = 1
             Case "btnAssessmentInfo"
                 tabContent.SelectedIndex = 2
+                ViewCourseEnrolment(assessmentInfoListboxControl)
             Case "btnViewCourseEnrolment"
                 tabContent.SelectedIndex = 3
                 ViewCourseEnrolment(viewCourseListboxControl)
@@ -57,19 +58,12 @@ Public Class StaffWindow
 
     Private Sub viewCourseListboxControl_SelectionChanged(sender As System.Object, e As System.Windows.Controls.SelectionChangedEventArgs) Handles viewCourseListboxControl.SelectionChanged
 
-        Try
-            'retrieve all courses record
-            If viewCourseListboxControl.SelectedIndex >= 0 Then
-                enrollCourseList = controller.GetStudentEnrollmentByCourseID(CUInt(viewCourseListboxControl.SelectedValue.ToString))
-                studentListboxControl.ItemsSource = enrollCourseList
+        updateStudentListBox(viewCourseListboxControl, studentListboxControl)
+    End Sub
 
-                studentListboxControl.Items.Refresh()
-            End If
+    Private Sub assessmentInfoListboxControl_SelectionChanged(sender As System.Object, e As System.Windows.Controls.SelectionChangedEventArgs) Handles assessmentInfoListboxControl.SelectionChanged
 
-
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
-        End Try
+        updateStudentListBox(assessmentInfoListboxControl, assessmentInfoStudentListboxControl)
     End Sub
 
     Private Sub courseDetailListboxControl_SelectionChanged(sender As System.Object, e As System.Windows.Controls.SelectionChangedEventArgs) Handles courseDetailListboxControl.SelectionChanged
@@ -255,4 +249,26 @@ Public Class StaffWindow
         txtPassword.Text = Nothing
 
     End Sub
+
+    Private Sub updateStudentListBox(inputLB As ListBox, outputLB As ListBox)
+        Try
+            'retrieve all courses record
+            If inputLB.SelectedIndex >= 0 Then
+                enrollCourseList = controller.GetStudentEnrollmentByCourseID(CUInt(inputLB.SelectedValue.ToString))
+                outputLB.ItemsSource = enrollCourseList
+
+                outputLB.Items.Refresh()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
+        End Try
+    End Sub
+
+    Private Sub assessmentInfoStudentListboxControl_MouseDoubleClick(sender As System.Object, e As System.Windows.Input.MouseButtonEventArgs) Handles assessmentInfoStudentListboxControl.MouseDoubleClick
+
+
+        MsgBox(assessmentInfoStudentListboxControl.SelectedValue)
+    End Sub
+
 End Class
