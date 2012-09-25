@@ -9,6 +9,7 @@
 
         ' Add any initialization after the InitializeComponent() call.
         DataContext = programWindowController.GetEnrollmentByProgram()
+        comboboxCourse.ItemsSource = programWindowController.GetCourseForLookup()
     End Sub
 
     Public Sub New(ByRef username As String)

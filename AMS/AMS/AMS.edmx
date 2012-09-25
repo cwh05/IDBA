@@ -1342,6 +1342,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsertDepartment" FunctionName="Model.Store.InsertDepartment" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

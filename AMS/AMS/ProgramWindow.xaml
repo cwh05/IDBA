@@ -100,6 +100,8 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                        Margin="0,0,0,20"
@@ -194,8 +196,8 @@
             <TabItem>
                 <Grid Name="gridCourseEnrolment" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="145"></ColumnDefinition>
+                        <ColumnDefinition Width="455"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -213,6 +215,43 @@
                        FontWeight="Normal" 
                        FontSize="45"
                        Foreground="Red">course enrolment</Label>
+                    <Label Grid.Column="0" Grid.Row="1" Width="150"
+                       Margin="0,0,0,5"
+                       FontWeight="Normal" 
+                       FontSize="35">COURSE</Label>
+                    <ComboBox Name="comboboxCourse" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Height="40" Margin="0,0,0,0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock FontSize="16" FontWeight="DemiBold" Margin="10,5,5,10" Text="{Binding CourseName}" ToolTip="{Binding CourseName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <DataGrid Name="datagridCourse" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Height="380" 
+                              ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Padding" Value="5"></Setter>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                            <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                                <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="No." Width="40" Binding="{Binding StudentID}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Firstname" Width="120" Binding="{Binding StudentFirstName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Lastname" Width="120" Binding="{Binding StudentLastName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Email" Width="150" Binding="{Binding Email}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Program" Width="170" Binding="{Binding ProgramName}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>
