@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow x:Class="ProgramWindow"
+﻿<Controls:MetroWindow xmlns:ms="clr-namespace:Mindscape.WpfElements;assembly=Mindscape.WpfElements"  x:Class="ProgramWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -87,7 +87,7 @@
         
         <TabControl Name="tabContent" Grid.Column="2" Grid.RowSpan="8">
             <TabItem>
-                <Grid Name="gridProgramInfo" Margin="20,-35,20,0">
+                <Grid Name="gridProgram" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -98,19 +98,30 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                        Margin="0,0,0,20"
                        FontWeight="Normal" 
                        FontSize="45"
-                       Foreground="Red">program info</Label>
+                       Foreground="Red">new program</Label>
                     <Label Grid.Column="0" Grid.Row="1" 
                        HorizontalAlignment="Left" VerticalAlignment="Center"
                        FontWeight="Bold">NAME</Label>
-                    <TextBox Name="txtDepartmentName" 
-                         Grid.Column="1" Grid.Row="1"
-                         Width="250" Margin="20,0,0,0">
+                    <TextBox Name="txtProgramName" 
+                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
+                         Width="250" Margin="20,5,0,5">
                     </TextBox>
+                    <Label Grid.Column="0" Grid.Row="2" 
+                       HorizontalAlignment="Left" VerticalAlignment="Top"
+                       FontWeight="Bold">DESCRIPTION</Label>
+                    <TextBox Name="txtProgramDescription" 
+                         Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"
+                         Width="250" Height="150" Margin="20,5,0,5">
+                    </TextBox>
+                    <Button Grid.Column="1" Grid.Row="5" Margin="20,20,0,0" Click="btnSaveProgramClick">save</Button>
+                    <Button Grid.Column="2" Grid.Row="5" Margin="0,20,0,0">cancel</Button>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -130,13 +141,6 @@
                        FontWeight="Normal" 
                        FontSize="45"
                        Foreground="Red">assign staff</Label>
-                    <Label Grid.Column="0" Grid.Row="1" 
-                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontWeight="Bold">NAME</Label>
-                    <TextBox Name="txtProgramName" 
-                         Grid.Column="1" Grid.Row="1"
-                         Width="250" Margin="20,0,0,0">
-                    </TextBox>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -161,6 +165,30 @@
                        FontWeight="Normal" 
                        FontSize="45"
                        Foreground="Red">program enrolment</Label>
+                    <DataGrid Name="datagridProgram" Grid.Column="0" Grid.Row="1" Height="380" 
+                              ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Padding" Value="5"></Setter>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                            <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                                <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="No." Width="40" Binding="{Binding StudentID}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Firstname" Width="120" Binding="{Binding StudentFirstName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Lastname" Width="120" Binding="{Binding StudentLastName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Email" Width="150" Binding="{Binding Email}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Program" Width="170" Binding="{Binding ProgramName}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem>

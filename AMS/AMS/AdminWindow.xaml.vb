@@ -98,7 +98,7 @@ Public Class AdminWindow : Inherits MetroWindow
 
     Public Sub ClearProgramForm()
         txtProgramName.Text = String.Empty
-        txtProgramName.Text = String.Empty
+        txtProgramDescription.Text = String.Empty
     End Sub
 
     Public Sub ClearEmployeeForm()

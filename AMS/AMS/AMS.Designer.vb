@@ -16,9 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-
-<Assembly: EdmSchemaAttribute("5a883645-725a-41dc-ba8c-f6718d3b2227")> 
-
+<Assembly: EdmSchemaAttribute("a7a8fa8f-d63c-4dbb-872a-633d597e78b5")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -2316,22 +2314,12 @@ Public Partial Class Enrollment
     ''' <param name="studentFirstName">Initial value of the StudentFirstName property.</param>
     ''' <param name="studentLastName">Initial value of the StudentLastName property.</param>
     ''' <param name="email">Initial value of the Email property.</param>
-    ''' <param name="courseID">Initial value of the CourseID property.</param>
-    ''' <param name="courseName">Initial value of the CourseName property.</param>
-    ''' <param name="courseCode">Initial value of the CourseCode property.</param>
-    ''' <param name="programID">Initial value of the ProgramID property.</param>
-    ''' <param name="programName">Initial value of the ProgramName property.</param>
-    Public Shared Function CreateEnrollment(studentID As Global.System.Int32, studentFirstName As Global.System.String, studentLastName As Global.System.String, email As Global.System.String, courseID As Global.System.Int32, courseName As Global.System.String, courseCode As Global.System.String, programID As Global.System.Int32, programName As Global.System.String) As Enrollment
+    Public Shared Function CreateEnrollment(studentID As Global.System.Int32, studentFirstName As Global.System.String, studentLastName As Global.System.String, email As Global.System.String) As Enrollment
         Dim enrollment as Enrollment = New Enrollment
         enrollment.StudentID = studentID
         enrollment.StudentFirstName = studentFirstName
         enrollment.StudentLastName = studentLastName
         enrollment.Email = email
-        enrollment.CourseID = courseID
-        enrollment.CourseName = courseName
-        enrollment.CourseCode = courseCode
-        enrollment.ProgramID = programID
-        enrollment.ProgramName = programName
         Return enrollment
     End Function
 
@@ -2449,25 +2437,23 @@ Public Partial Class Enrollment
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
     <DataMemberAttribute()>
-    Public Property CourseID() As Global.System.Int32
+    Public Property CourseID() As Nullable(Of Global.System.Int32)
         Get
             Return _CourseID
         End Get
         Set
-            If (_CourseID <> Value) Then
-                OnCourseIDChanging(value)
-                ReportPropertyChanging("CourseID")
-                _CourseID = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("CourseID")
-                OnCourseIDChanged()
-            End If
+            OnCourseIDChanging(value)
+            ReportPropertyChanging("CourseID")
+            _CourseID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("CourseID")
+            OnCourseIDChanged()
         End Set
     End Property
 
-    Private _CourseID As Global.System.Int32
-    Private Partial Sub OnCourseIDChanging(value As Global.System.Int32)
+    Private _CourseID As Nullable(Of Global.System.Int32)
+    Private Partial Sub OnCourseIDChanging(value As Nullable(Of Global.System.Int32))
     End Sub
 
     Private Partial Sub OnCourseIDChanged()
@@ -2476,20 +2462,18 @@ Public Partial Class Enrollment
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
     <DataMemberAttribute()>
     Public Property CourseName() As Global.System.String
         Get
             Return _CourseName
         End Get
         Set
-            If (_CourseName <> Value) Then
-                OnCourseNameChanging(value)
-                ReportPropertyChanging("CourseName")
-                _CourseName = StructuralObject.SetValidValue(value, false)
-                ReportPropertyChanged("CourseName")
-                OnCourseNameChanged()
-            End If
+            OnCourseNameChanging(value)
+            ReportPropertyChanging("CourseName")
+            _CourseName = StructuralObject.SetValidValue(value, true)
+            ReportPropertyChanged("CourseName")
+            OnCourseNameChanged()
         End Set
     End Property
 
@@ -2503,20 +2487,18 @@ Public Partial Class Enrollment
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
     <DataMemberAttribute()>
     Public Property CourseCode() As Global.System.String
         Get
             Return _CourseCode
         End Get
         Set
-            If (_CourseCode <> Value) Then
-                OnCourseCodeChanging(value)
-                ReportPropertyChanging("CourseCode")
-                _CourseCode = StructuralObject.SetValidValue(value, false)
-                ReportPropertyChanged("CourseCode")
-                OnCourseCodeChanged()
-            End If
+            OnCourseCodeChanging(value)
+            ReportPropertyChanging("CourseCode")
+            _CourseCode = StructuralObject.SetValidValue(value, true)
+            ReportPropertyChanged("CourseCode")
+            OnCourseCodeChanged()
         End Set
     End Property
 
@@ -2525,6 +2507,56 @@ Public Partial Class Enrollment
     End Sub
 
     Private Partial Sub OnCourseCodeChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
+    <DataMemberAttribute()>
+    Public Property ProgramID() As Nullable(Of Global.System.Int32)
+        Get
+            Return _ProgramID
+        End Get
+        Set
+            OnProgramIDChanging(value)
+            ReportPropertyChanging("ProgramID")
+            _ProgramID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("ProgramID")
+            OnProgramIDChanged()
+        End Set
+    End Property
+
+    Private _ProgramID As Nullable(Of Global.System.Int32)
+    Private Partial Sub OnProgramIDChanging(value As Nullable(Of Global.System.Int32))
+    End Sub
+
+    Private Partial Sub OnProgramIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
+    <DataMemberAttribute()>
+    Public Property ProgramName() As Global.System.String
+        Get
+            Return _ProgramName
+        End Get
+        Set
+            OnProgramNameChanging(value)
+            ReportPropertyChanging("ProgramName")
+            _ProgramName = StructuralObject.SetValidValue(value, true)
+            ReportPropertyChanged("ProgramName")
+            OnProgramNameChanged()
+        End Set
+    End Property
+
+    Private _ProgramName As Global.System.String
+    Private Partial Sub OnProgramNameChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnProgramNameChanged()
     End Sub
 
     ''' <summary>
@@ -2550,60 +2582,6 @@ Public Partial Class Enrollment
     End Sub
 
     Private Partial Sub OnMarksChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property ProgramID() As Global.System.Int32
-        Get
-            Return _ProgramID
-        End Get
-        Set
-            If (_ProgramID <> Value) Then
-                OnProgramIDChanging(value)
-                ReportPropertyChanging("ProgramID")
-                _ProgramID = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("ProgramID")
-                OnProgramIDChanged()
-            End If
-        End Set
-    End Property
-
-    Private _ProgramID As Global.System.Int32
-    Private Partial Sub OnProgramIDChanging(value As Global.System.Int32)
-    End Sub
-
-    Private Partial Sub OnProgramIDChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property ProgramName() As Global.System.String
-        Get
-            Return _ProgramName
-        End Get
-        Set
-            If (_ProgramName <> Value) Then
-                OnProgramNameChanging(value)
-                ReportPropertyChanging("ProgramName")
-                _ProgramName = StructuralObject.SetValidValue(value, false)
-                ReportPropertyChanged("ProgramName")
-                OnProgramNameChanged()
-            End If
-        End Set
-    End Property
-
-    Private _ProgramName As Global.System.String
-    Private Partial Sub OnProgramNameChanging(value As Global.System.String)
-    End Sub
-
-    Private Partial Sub OnProgramNameChanged()
     End Sub
 
     #End Region
