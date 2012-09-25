@@ -274,26 +274,30 @@ Public Class StaffWindow
 
         dialog.ShowDialog()
 
-        If IsNothing(dialog.ResponseText) Or dialog.ResponseText.Length = 0 Then
-            MsgBox("Please fill in the marks.", MsgBoxStyle.Exclamation)
-        ElseIf Not IsNumeric(dialog.ResponseText) Then
-            MsgBox("Please enter numerical value only.", MsgBoxStyle.Exclamation)
-        ElseIf (CInt(dialog.ResponseText) > 100 Or CInt(dialog.ResponseText) < 0) Then
-            MsgBox("Please enter value in range [0-100].", MsgBoxStyle.Exclamation)
-        Else
-            Try
-                If controller.UpdateStudentMark(assessmentInfoListboxControl.SelectedValue, assessmentInfoStudentListboxControl.SelectedValue, dialog.ResponseText) Then
-                    If (CInt(dialog.ResponseText) <> -1) Then
-                        txtAverage.Text = dialog.ResponseText
-                    End If
-                End If
-                
-                updateStudentListBox(assessmentInfoListboxControl, assessmentInfoStudentListboxControl)
+        If dialog.MyReturnResult = 1 Then
 
-            Catch ex As Exception
-                MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
-            End Try
+            If IsNothing(dialog.ResponseText) Or dialog.ResponseText.Length = 0 Then
+                MsgBox("Please fill in the marks.", MsgBoxStyle.Exclamation)
+            ElseIf Not IsNumeric(dialog.ResponseText) Then
+                MsgBox("Please enter numerical value only.", MsgBoxStyle.Exclamation)
+            ElseIf (CInt(dialog.ResponseText) > 100 Or CInt(dialog.ResponseText) < 0) Then
+                MsgBox("Please enter value in range [0-100].", MsgBoxStyle.Exclamation)
+            Else
+                Try
+                    If controller.UpdateStudentMark(assessmentInfoListboxControl.SelectedValue, assessmentInfoStudentListboxControl.SelectedValue, dialog.ResponseText) Then
+                        If (CInt(dialog.ResponseText) <> -1) Then
+                            txtAverage.Text = dialog.ResponseText
+                        End If
+                    End If
+
+                    updateStudentListBox(assessmentInfoListboxControl, assessmentInfoStudentListboxControl)
+
+                Catch ex As Exception
+                    MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
+                End Try
+            End If
         End If
+
     End Sub
 
 End Class
