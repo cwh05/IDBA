@@ -1,4 +1,4 @@
-USE master
+ï»¿USE master
 GO
 
 -- Create database
@@ -456,7 +456,7 @@ BEGIN
    INSERT INTO Country VALUES('XS', N'Saba')
    INSERT INTO Country VALUES('WS', N'Samoa')
    INSERT INTO Country VALUES('SM', N'San Marino')
-   INSERT INTO Country VALUES('ST', N'S?o Tom¨¦ and Pr¨ªncipe')
+   INSERT INTO Country VALUES('ST', N'S?o TomÃ© and PrÃ­ncipe')
    INSERT INTO Country VALUES('SA', N'Saudi Arabia')
    INSERT INTO Country VALUES('SN', N'Senegal')
    INSERT INTO Country VALUES('RS', N'Serbia')
@@ -473,7 +473,7 @@ BEGIN
    INSERT INTO Country VALUES('GS', N'South Georgia and the South Sandwich Islands')
    INSERT INTO Country VALUES('ES', N'Spain')
    INSERT INTO Country VALUES('LK', N'Sri Lanka')
-   INSERT INTO Country VALUES('BL', N'St. Barth¨¦lemy')
+   INSERT INTO Country VALUES('BL', N'St. BarthÃ©lemy')
    INSERT INTO Country VALUES('SH', N'St. Helena')
    INSERT INTO Country VALUES('KN', N'St. Kitts and Nevis')
    INSERT INTO Country VALUES('LC', N'St. Lucia')
