@@ -151,19 +151,6 @@ CREATE TABLE dbo.ProgramCourse
    ProgramID INT NOT NULL FOREIGN KEY REFERENCES Program(ProgramID),
    CourseID INT NOT NULL FOREIGN KEY REFERENCES Course(CourseID) ON DELETE CASCADE
 );
-
-/*
--- Table for storing average score in a particular course
-CREATE TABLE dbo.CourseScore
-(
-   CourseScoreID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-   CourseID INT NOT NULL,
-   AvgMarks FLOAT NOT NULL,
-   CreatedDate SMALLDATETIME NOT NULL,
-   CONSTRAINT fk_CourseScore FOREIGN KEY(CourseID) REFERENCES Course(CourseID)
-);
-GO
-*/
 PRINT 'Tables created...'
 GO
 
@@ -196,20 +183,20 @@ GO
 
 CREATE VIEW Enrollment
 AS
-SELECT     dbo.Student.StudentID, 
-		   dbo.Student.StudentFirstName, 
-		   dbo.Student.StudentLastName, 
-		   dbo.Student.Email, 
-		   dbo.Course.CourseID, 
-		   dbo.Course.CourseName, 
-           dbo.Course.CourseCode, 
-           dbo.Program.ProgramID, 
-           dbo.Program.ProgramName, 
-           dbo.StudentCourse.Marks
-FROM       dbo.Student 
-		   LEFT OUTER JOIN dbo.StudentCourse ON dbo.Student.StudentID = dbo.StudentCourse.StudentID 
-		   LEFT OUTER JOIN dbo.Course ON dbo.Course.CourseID = dbo.StudentCourse.CourseID 
-           LEFT OUTER JOIN dbo.Program ON dbo.Student.ProgramID = dbo.Program.ProgramID
+SELECT   dbo.Student.StudentID,
+         dbo.Student.StudentFirstName,
+         dbo.Student.StudentLastName,
+         dbo.Student.Email,
+         dbo.Course.CourseID,
+         dbo.Course.CourseName,
+         dbo.Course.CourseCode,
+         dbo.Program.ProgramID,
+         dbo.Program.ProgramName,
+         dbo.StudentCourse.Marks
+FROM dbo.Student
+   LEFT OUTER JOIN dbo.StudentCourse ON dbo.Student.StudentID = dbo.StudentCourse.StudentID
+   LEFT OUTER JOIN dbo.Course ON dbo.Course.CourseID = dbo.StudentCourse.CourseID
+   LEFT OUTER JOIN dbo.Program ON dbo.Student.ProgramID = dbo.Program.ProgramID
 GO
 PRINT 'View created...'
 GO
@@ -255,7 +242,7 @@ AS
          SELECT CAST(AVG(Marks) AS varchar(10)) AS 'Average' FROM Enrollment WHERE CourseID = @cid
                AND Marks IS NOT NULL
       ELSE
-		 SELECT '-1.0' AS 'Average'
+         SELECT '-1.0' AS 'Average'
    END
 GO
 PRINT 'Triggers created...'
@@ -270,7 +257,7 @@ BEGIN
 
    -- Insert data into Country Table
    INSERT INTO Country VALUES('AF', N'Afghanistan')
-   INSERT INTO Country VALUES('AX', N'?land Islands')
+   INSERT INTO Country VALUES('AX', N'Åland Islands')
    INSERT INTO Country VALUES('AL', N'Albania')
    INSERT INTO Country VALUES('DZ', N'Algeria')
    INSERT INTO Country VALUES('AS', N'American Samoa')
@@ -325,7 +312,7 @@ BEGIN
    INSERT INTO Country VALUES('CR', N'Costa Rica')
    INSERT INTO Country VALUES('HR', N'Croatia')
    INSERT INTO Country VALUES('CU', N'Cuba')
-   INSERT INTO Country VALUES('CW', N'Cura?ao')
+   INSERT INTO Country VALUES('CW', N'Curaçao')
    INSERT INTO Country VALUES('CY', N'Cyprus')
    INSERT INTO Country VALUES('CZ', N'Czech Republic')
    INSERT INTO Country VALUES('DK', N'Denmark')
@@ -448,7 +435,7 @@ BEGIN
    INSERT INTO Country VALUES('PT', N'Portugal')
    INSERT INTO Country VALUES('PR', N'Puerto Rico')
    INSERT INTO Country VALUES('QA', N'Qatar')
-   INSERT INTO Country VALUES('CI', N'Republic of C?te d''Ivoire')
+   INSERT INTO Country VALUES('CI', N'Republic of Côte d''Ivoire')
    INSERT INTO Country VALUES('RE', N'Reunion')
    INSERT INTO Country VALUES('RO', N'Romania')
    INSERT INTO Country VALUES('RU', N'Russia')
@@ -456,7 +443,7 @@ BEGIN
    INSERT INTO Country VALUES('XS', N'Saba')
    INSERT INTO Country VALUES('WS', N'Samoa')
    INSERT INTO Country VALUES('SM', N'San Marino')
-   INSERT INTO Country VALUES('ST', N'S?o Tomé and Príncipe')
+   INSERT INTO Country VALUES('ST', N'São Tomé and Príncipe')
    INSERT INTO Country VALUES('SA', N'Saudi Arabia')
    INSERT INTO Country VALUES('SN', N'Senegal')
    INSERT INTO Country VALUES('RS', N'Serbia')
@@ -580,29 +567,28 @@ CREATE PROCEDURE GetUserPersonalDetail
    @StudentUsername NVARCHAR(100)
 AS
    SELECT s.StudentFirstName, s.StudentLastName, s.Gender, s.DateOfBirth,
-      s.Address1, s.Address2, s.City, s.PostCode, s.StateProvince,
-      s.ContactNumber, s.Email, c.CountryCode
-      --,a.LoginUsername
+          s.Address1, s.Address2, s.City, s.PostCode, s.StateProvince,
+          s.ContactNumber, s.Email, c.CountryCode
       FROM Student s
-      INNER JOIN Account a ON s.AccountID = a.AccountID
-      INNER JOIN Country c ON s.CountryCode = c.CountryCode
-      WHERE a.LoginUsername = @StudentUsername
+         INNER JOIN Account a ON s.AccountID = a.AccountID
+         INNER JOIN Country c ON s.CountryCode = c.CountryCode
+         WHERE a.LoginUsername = @StudentUsername
 GO
 
 CREATE PROCEDURE UpdateStudentProfile
-   @FirstName NVARCHAR(150),
-   @LastName NVARCHAR(100),
-   @Gender BIT,
-   @DOB DATE,
-   @Address1 NVARCHAR(100),
-   @Address2 NVARCHAR(100),
-   @City NVARCHAR(100),
-   @PostCode NVARCHAR(20),
-   @StateProvince NVARCHAR(80),
-   @CountryCode NVARCHAR(5),
-   @ContactNumber NVARCHAR(15),
-   @Email NVARCHAR(255),
-   @StudentID INT
+   @FirstName      NVARCHAR(150),
+   @LastName       NVARCHAR(100),
+   @Gender         BIT,
+   @DOB            DATE,
+   @Address1       NVARCHAR(100),
+   @Address2       NVARCHAR(100),
+   @City           NVARCHAR(100),
+   @PostCode       NVARCHAR(20),
+   @StateProvince  NVARCHAR(80),
+   @CountryCode    NVARCHAR(5),
+   @ContactNumber  NVARCHAR(15),
+   @Email          NVARCHAR(255),
+   @StudentID      INT
 AS
    BEGIN
       UPDATE Student SET StudentFirstName = @FirstName, StudentLastName = @LastName,
@@ -672,7 +658,7 @@ END
 GO
 
 CREATE PROCEDURE InsertProgram
-   @programName NVARCHAR(200),
+   @programName        NVARCHAR(200),
    @programDescription NVARCHAR(MAX)
 AS
 BEGIN
@@ -690,34 +676,36 @@ END
 GO
 
 CREATE PROCEDURE InsertEmployee
-   @firstname		NVARCHAR(150),
-   @lastname		NVARCHAR(100),
-   @gender			BIT,
-   @dateOfBirth		DATETIME,
-   @address1		NVARCHAR(100),
-   @address2		NVARCHAR(100),
-   @city			NVARCHAR(100),
-   @postCode		NVARCHAR(20),
-   @stateProvince	NVARCHAR(80),
-   @countryCode		NVARCHAR(5),
-   @contactNumber	NVARCHAR(15),
-   @emailAddress	NVARCHAR(255),
-   @loginPassword	NVARCHAR(255),
-   @roleId			TINYINT
+   @firstname      NVARCHAR(150),
+   @lastname       NVARCHAR(100),
+   @gender         BIT,
+   @dateOfBirth    DATETIME,
+   @address1       NVARCHAR(100),
+   @address2       NVARCHAR(100),
+   @city           NVARCHAR(100),
+   @postCode       NVARCHAR(20),
+   @stateProvince  NVARCHAR(80),
+   @countryCode    NVARCHAR(5),
+   @contactNumber  NVARCHAR(15),
+   @emailAddress   NVARCHAR(255),
+   @loginPassword  NVARCHAR(255),
+   @roleId         TINYINT
 AS
 BEGIN
-	DECLARE @AccountID INT
-	DECLARE @loginUsername NVARCHAR(100)
-	
-	INSERT Employee(EmployeeFirstName, EmployeeLastName, Gender, DateOfBirth, Address1, Address2, City,PostCode, StateProvince, CountryCode, ContactNumber, Email, ModifiedDate, RoleID)
-	VALUES (@firstname, @lastname, @gender, @dateOfBirth, @address1, @address2, @city, @postCode, @stateProvince, @countryCode, @contactNumber, @emailAddress, GETDATE(), @roleId)
+   DECLARE @AccountID INT
+   DECLARE @loginUsername NVARCHAR(100)
 
-	SET @loginUsername = 'e' + CAST(SCOPE_IDENTITY() AS varchar(10))
-	INSERT Account(LoginUsername, LoginPassword) VALUES (@loginUsername, @loginPassword)
-	
-	SET @AccountID = SCOPE_IDENTITY()
-	UPDATE Student SET AccountID = @AccountID
-	WHERE StudentID = SUBSTRING(@loginUsername, 2, 10)
+   INSERT Employee(EmployeeFirstName, EmployeeLastName, Gender, DateOfBirth, Address1, Address2, City,PostCode,
+                   StateProvince, CountryCode, ContactNumber, Email, ModifiedDate, RoleID)
+      VALUES (@firstname, @lastname, @gender, @dateOfBirth, @address1, @address2, @city, @postCode,
+              @stateProvince, @countryCode, @contactNumber, @emailAddress, GETDATE(), @roleId)
+
+   SET @loginUsername = 'e' + CAST(SCOPE_IDENTITY() AS varchar(10))
+   INSERT Account(LoginUsername, LoginPassword) VALUES (@loginUsername, @loginPassword)
+
+   SET @AccountID = SCOPE_IDENTITY()
+   UPDATE Student SET AccountID = @AccountID
+      WHERE StudentID = SUBSTRING(@loginUsername, 2, 10)
 END
 GO
 
@@ -745,7 +733,7 @@ CREATE PROCEDURE [dbo].[InsertCourse]
 AS
 BEGIN
    INSERT Course(CourseName, CourseCode, CourseDescription, StaffID, CreatedDate, ModifiedDate)
-   VALUES (@coursename, @coursecode, @coursedescription, @staffid, GETDATE(), GETDATE())
+      VALUES (@coursename, @coursecode, @coursedescription, @staffid, GETDATE(), GETDATE())
 END
 GO
 
@@ -757,60 +745,57 @@ CREATE PROCEDURE [dbo].[UpdateCourse]
 AS
 BEGIN
    UPDATE Course SET CourseName = @coursename, CourseCode = @coursecode,
-   CourseDescription = @coursedescription, ModifiedDate = GETDATE()
-   WHERE CourseID = @courseid
+      CourseDescription = @coursedescription, ModifiedDate = GETDATE()
+      WHERE CourseID = @courseid
 END
 GO
 
 CREATE PROCEDURE [dbo].[InsertStudent]
-	
-	@loginPassword NVARCHAR(255),
-	@FirstName NVARCHAR(150),
-   @LastName NVARCHAR(100),
-   @Gender BIT,
-   @DOB DATE,
-   @Address1 NVARCHAR(100),
-   @Address2 NVARCHAR(100),
-   @City NVARCHAR(100),
-   @PostCode NVARCHAR(20),
-   @StateProvince NVARCHAR(80),
-   @CountryCode NVARCHAR(5),
-   @ContactNumber NVARCHAR(15),
-   @Email NVARCHAR(255),
-   @ProgramID int
+   @loginPassword    NVARCHAR(255),
+   @FirstName        NVARCHAR(150),
+   @LastName         NVARCHAR(100),
+   @Gender           BIT,
+   @DOB              DATE,
+   @Address1         NVARCHAR(100),
+   @Address2         NVARCHAR(100),
+   @City             NVARCHAR(100),
+   @PostCode         NVARCHAR(20),
+   @StateProvince    NVARCHAR(80),
+   @CountryCode      NVARCHAR(5),
+   @ContactNumber    NVARCHAR(15),
+   @Email            NVARCHAR(255),
+   @ProgramID        INT
 AS
 BEGIN
-	DECLARE @AccountID int
-	DECLARE @loginUsername NVARCHAR(100)
-	
-	INSERT Student(StudentFirstName, StudentLastName, Gender, DateOfBirth, Address1, Address2, City, PostCode, StateProvince, CountryCode, ContactNumber, Email, AccountID, ProgramID, CreatedDate, ModifiedDate) 
-	VALUES (@FirstName, @LastName, @Gender, @DOB, @Address1, @Address2, @City, @PostCode, @StateProvince, @CountryCode, @ContactNumber, @Email, 1, @ProgramID, GETDATE(), GETDATE())
-	
-	SET @loginUsername = 's' + CAST(SCOPE_IDENTITY() AS varchar(10))
-	INSERT Account(LoginUsername, LoginPassword) VALUES (@loginUsername, @loginPassword)
-	
-	SET @AccountID = SCOPE_IDENTITY()
-	UPDATE Student SET AccountID = @AccountID
-	WHERE StudentID = SUBSTRING(@loginUsername, 2, 10)
+   DECLARE @AccountID int
+   DECLARE @loginUsername NVARCHAR(100)
+
+   INSERT Student(StudentFirstName, StudentLastName, Gender, DateOfBirth, Address1, Address2, City, PostCode,
+                  StateProvince, CountryCode, ContactNumber, Email, AccountID, ProgramID, CreatedDate, ModifiedDate)
+      VALUES (@FirstName, @LastName, @Gender, @DOB, @Address1, @Address2, @City, @PostCode, @StateProvince,
+              @CountryCode, @ContactNumber, @Email, 1, @ProgramID, GETDATE(), GETDATE())
+
+   SET @loginUsername = 's' + CAST(SCOPE_IDENTITY() AS varchar(10))
+   INSERT Account(LoginUsername, LoginPassword) VALUES (@loginUsername, @loginPassword)
+
+   SET @AccountID = SCOPE_IDENTITY()
+   UPDATE Student SET AccountID = @AccountID
+      WHERE StudentID = SUBSTRING(@loginUsername, 2, 10)
 END
 GO
 
 CREATE PROCEDURE [dbo].[UpdateStudentMarks]
-   @CourseID int,
-   @StudentID int,
-   @Marks float
+   @CourseID   int,
+   @StudentID  int,
+   @Marks      float
 AS
 BEGIN
    UPDATE StudentCourse SET Marks = @Marks
-   WHERE CourseID = @CourseID and StudentID = @StudentID
+      WHERE CourseID = @CourseID and StudentID = @StudentID
 END
 GO
 
 ---------------------------------------------------------------------------------------------------
-
-
-
-
 
 
 PRINT 'Stored procedures created'
@@ -945,16 +930,11 @@ IF (OBJECT_ID('GetStudentEnrollmentByCourseID') IS NOT NULL)
 IF (OBJECT_ID('GetAllCourseOfStaff') IS NOT NULL)
    DROP PROCEDURE GetAllCourseOfStaff
 
-
-
-
-
+IF (OBJECT_ID('UpdateStudentMarks') IS NOT NULL)
+   DROP PROCEDURE UpdateStudentMarks
 
 PRINT 'All stored procedures are removed...'
 GO
-
-
-
 
 
 -- Remove entire database
