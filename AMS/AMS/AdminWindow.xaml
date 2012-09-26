@@ -100,8 +100,8 @@
                 <Grid Name="gridDepartment" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -119,18 +119,18 @@
                        FontWeight="Bold">NAME</Label>
                     <TextBox Name="txtDepartmentName" 
                          Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
-                         Width="250" Margin="20,0,0,0">
+                          Margin="20,0,0,0">
                     </TextBox>
                     <Button Grid.Column="1" Grid.Row="3" Margin="20,20,0,0" Click="btnSaveDepartmentClick">save</Button>
-                    <Button Grid.Column="2" Grid.Row="3" Margin="0,20,0,0">cancel</Button>
+                    <Button Grid.Column="2" Grid.Row="3" Margin="0,20,0,0">clear</Button>
                 </Grid>
             </TabItem>
             <TabItem IsHitTestVisible="False">
                 <Grid Name="gridProgram" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -150,17 +150,17 @@
                        FontWeight="Bold">NAME</Label>
                     <TextBox Name="txtProgramName" 
                          Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
-                         Width="250" Margin="20,5,0,5">
+                         Margin="20,5,0,5">
                     </TextBox>
                     <Label Grid.Column="0" Grid.Row="2" 
                        HorizontalAlignment="Left" VerticalAlignment="Top"
                        FontWeight="Bold">DESCRIPTION</Label>
                     <TextBox Name="txtProgramDescription" 
                          Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"
-                         Width="250" Height="150" Margin="20,5,0,5">
+                         Height="150" Margin="20,5,0,5">
                     </TextBox>
-                    <Button Grid.Column="1" Grid.Row="5" Margin="20,20,0,0" Click="btnSaveProgramClick">save</Button>
-                    <Button Grid.Column="2" Grid.Row="5" Margin="0,20,0,0">cancel</Button>
+                    <Button Grid.Column="1" Grid.Row="5" Margin="20,10,0,0" Click="btnSaveProgramClick">save</Button>
+                    <Button Grid.Column="2" Grid.Row="5" Margin="0,10,0,0">clear</Button>
                 </Grid>
             </TabItem>
             <TabItem IsHitTestVisible="False">

@@ -41,7 +41,7 @@
 
     Public Function GetAllEmployeeForLookUp() As IEnumerable(Of Employee)
         Dim employeeList = From employees In amsEntities.Employees _
-                           Where employees.RoleCategory.RoleTitle <> "Program Manager" _
+                           Where employees.RoleCategory.RoleTitle = "Program Manager" _
                            Order By employees.EmployeeFirstName _
                            Select employees
         Return employeeList
