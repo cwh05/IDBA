@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow x:Class="AdminWindow"
+﻿<Controls:MetroWindow x:Class="AdminWindow" xmlns:ams="clr-namespace:AMS"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -90,7 +90,10 @@
         <Label Grid.Column="1" Grid.Row="3" 
                HorizontalAlignment="Left" VerticalAlignment="Center" 
                FontSize="24">assign pm</Label>
-        
+
+        <ams:LogoutUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Height="55" />
+        <Label Grid.Column="1" Grid.Row="5" Content="logout" FontSize="24" HorizontalAlignment="Left" Margin="0,8,0,0" />
+
         <TabControl Name="tabContent" Grid.Column="2" Grid.RowSpan="12">
             <TabItem IsHitTestVisible="False"/>
             <TabItem IsHitTestVisible="False">

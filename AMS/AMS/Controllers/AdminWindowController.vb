@@ -11,6 +11,9 @@
     End Sub
 
     Public Sub CreateAccount(ByRef employee As Employee)
+
+        Dim encryptor As AMS.Utilities.EncryptionProvider = New AMS.Utilities.EncryptionProvider()
+
         amsEntities.InsertEmployee(employee.EmployeeFirstName, _
                                    employee.EmployeeLastName, _
                                    employee.Gender, employee.DateOfBirth, _
@@ -21,7 +24,7 @@
                                    employee.Country.CountryCode, _
                                    employee.ContactNumber, _
                                    employee.Email, _
-                                   employee.Account.LoginPassword, _
+                                   encryptor.Encrypt(employee.Account.LoginPassword), _
                                    employee.RoleID)
     End Sub
 
