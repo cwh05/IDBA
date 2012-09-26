@@ -726,14 +726,18 @@ AS
 GO
 
 CREATE PROCEDURE [dbo].[InsertCourse]
-   @coursename          nvarchar(200),
-   @coursecode          nvarchar(60),
-   @coursedescription   nvarchar(max),
-   @staffid             int
+   @courseName          nvarchar(200),
+   @courseCode          nvarchar(60),
+   @courseDescription   nvarchar(max),
+   @programId           INT
 AS
 BEGIN
-   INSERT Course(CourseName, CourseCode, CourseDescription, StaffID, CreatedDate, ModifiedDate)
-      VALUES (@coursename, @coursecode, @coursedescription, @staffid, GETDATE(), GETDATE())
+   DECLARE @courseId AS INT
+   INSERT Course(CourseName, CourseCode, CourseDescription, CreatedDate, ModifiedDate)
+   VALUES (@coursename, @coursecode, @coursedescription, GETDATE(), GETDATE())
+   
+   SET @courseId = SCOPE_IDENTITY()
+   INSERT ProgramCourse(ProgramID, CourseID) VALUES (@programId, @courseId)
 END
 GO
 

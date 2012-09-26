@@ -461,10 +461,10 @@
           <Parameter Name="loginPassword" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="InsertCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="coursename" Type="nvarchar" Mode="In" />
-          <Parameter Name="coursecode" Type="nvarchar" Mode="In" />
-          <Parameter Name="coursedescription" Type="nvarchar(max)" Mode="In" />
-          <Parameter Name="staffid" Type="int" Mode="In" />
+          <Parameter Name="courseName" Type="nvarchar" Mode="In" />
+          <Parameter Name="courseCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="courseDescription" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="programId" Type="int" Mode="In" />
         </Function>
         <Function Name="InsertDepartment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="departmentName" Type="nvarchar" Mode="In" />
@@ -701,6 +701,12 @@
             <Parameter Name="Marks" Mode="In" Type="Double" />
           </FunctionImport>
           <EntitySet Name="Enrollments" EntityType="Model.Enrollment" />
+          <FunctionImport Name="InsertCourse">
+            <Parameter Name="courseName" Mode="In" Type="String" />
+            <Parameter Name="courseCode" Mode="In" Type="String" />
+            <Parameter Name="courseDescription" Mode="In" Type="String" />
+            <Parameter Name="programId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -1343,6 +1349,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="InsertDepartment" FunctionName="Model.Store.InsertDepartment" />
+          <FunctionImportMapping FunctionImportName="InsertCourse" FunctionName="Model.Store.InsertCourse" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
