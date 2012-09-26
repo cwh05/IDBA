@@ -704,8 +704,8 @@ BEGIN
    INSERT Account(LoginUsername, LoginPassword) VALUES (@loginUsername, @loginPassword)
 
    SET @AccountID = SCOPE_IDENTITY()
-   UPDATE Student SET AccountID = @AccountID
-      WHERE StudentID = SUBSTRING(@loginUsername, 2, 10)
+   UPDATE Employee SET AccountID = @AccountID
+      WHERE EmployeeID = SUBSTRING(@loginUsername, 2, 10)
 END
 GO
 
