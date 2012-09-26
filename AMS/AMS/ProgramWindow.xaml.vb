@@ -1,7 +1,6 @@
 ﻿Public Class ProgramWindow
 
     Private programWindowController As ProgramWindowController = New ProgramWindowController()
-    Private programModelContainer As ProgramWindowModel = New ProgramWindowModel()
 
     Public Sub New()
 
@@ -9,23 +8,31 @@
         InitializeComponent()
 
         txtCourseName.IsReadOnly = True
+        txtCourseCode.IsReadOnly = True
         txtCourseDescription.IsReadOnly = True
         btnClearCourse.IsEnabled = False
         btnSaveCourse.IsEnabled = False
 
         ' Add any initialization after the InitializeComponent() call.
-        comboboxProgram.ItemsSource = programWindowController.GetProgramByUsername("e1")
+        Dim programList = programWindowController.GetProgramByUsername("e1")
+
+        comboboxProgram.ItemsSource = programList
+        comboboxProgramStaff.ItemsSource = programList
+        comboboxProgramCourse.ItemsSource = programList
+        comboboxProgramEnrollment.ItemsSource = programList
+
         comboboxProgram.SelectedIndex = 0
+        comboboxProgramStaff.SelectedIndex = 0
+        comboboxProgramCourse.SelectedIndex = 0
+        comboboxProgramEnrollment.SelectedIndex = 0
 
         Dim program = CType(comboboxProgram.SelectedItem, Program)
-        listboxCourseInProgram.ItemsSource = program.Courses
+        If program IsNot Nothing Then
+            listboxCourseProgram.ItemsSource = program.Courses
+            listboxCourse.ItemsSource = program.Courses
+        End If
 
         listboxStaff.ItemsSource = programWindowController.GetEmpolyeeByStaffRole()
-        comboboxCourse.ItemsSource = programWindowController.GetCourseForLookup()
-        comboboxCourse.SelectedIndex = 0
-
-        datagridCourse.ItemsSource = programWindowController.GetEnrollmentByCourse(CType(comboboxCourse.SelectedItem, Course).CourseID)
-        datagridProgram.ItemsSource = programWindowController.GetEnrollmentByProgram()
     End Sub
 
     Public Sub New(ByRef username As String)
@@ -34,12 +41,6 @@
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-
-        comboboxCourse.ItemsSource = programWindowController.GetCourseForLookup()
-        comboboxCourse.SelectedIndex = 0
-
-        datagridCourse.ItemsSource = programWindowController.GetEnrollmentByCourse(CType(comboboxCourse.SelectedItem, Course).CourseID)
-        datagridProgram.ItemsSource = programWindowController.GetEnrollmentByProgram()
     End Sub
 
     Private Sub btnMenu_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
@@ -74,9 +75,14 @@
 
         Dim program = CType(comboboxProgram.SelectedItem, Program)
 
-        programWindowController.CreateCourse(course, program)
-        program.Courses.Load()
-        listboxCourseInProgram.ItemsSource = program.Courses
+        If program IsNot Nothing Then
+            programWindowController.CreateCourse(course, program)
+            program.Courses.Load()
+        Else
+            MsgBox("Program is not selected, please select program.")
+        End If
+        
+        ClearCourseForm()
     End Sub
 
     Public Sub ClearProgramForm()
@@ -85,27 +91,27 @@
     End Sub
 
     Public Sub ClearCourseForm()
-        txtProgramName.Text = String.Empty
-        txtProgramDescription.Text = String.Empty
-        txtCourseName.IsReadOnly = True
-        txtCourseDescription.IsReadOnly = True
-        btnClearCourse.IsEnabled = False
-        btnSaveCourse.IsEnabled = False
+        txtCourseName.Text = String.Empty
+        txtCourseCode.Text = String.Empty
+        txtCourseDescription.Text = String.Empty
     End Sub
 
     Private Sub comboboxCourse_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs)
-        datagridCourse.ItemsSource = programWindowController.GetEnrollmentByCourse(CType(comboboxCourse.SelectedItem, Course).CourseID)
-        datagridProgram.ItemsSource = programWindowController.GetEnrollmentByProgram()
+        If comboboxCourse.SelectedItem IsNot Nothing Then
+            datagridCourse.ItemsSource = programWindowController.GetEnrollmentByCourse(CType(comboboxCourse.SelectedItem, Course).CourseID)
+        End If
     End Sub
 
     Private Sub comboboxProgram_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs)
-        Dim selectedProgram = CType(comboboxProgram.SelectedItem, Program)
-        txtProgramName.Text = selectedProgram.ProgramName
-        txtProgramDescription.Text = selectedProgram.ProgramDescription
+        Dim program = CType(comboboxProgram.SelectedItem, Program)
+        txtProgramName.Text = program.ProgramName
+        txtProgramDescription.Text = program.ProgramDescription
+        listboxCourseProgram.ItemsSource = program.Courses
     End Sub
 
     Private Sub btnAddCoures_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         txtCourseName.IsReadOnly = False
+        txtCourseCode.IsReadOnly = False
         txtCourseDescription.IsReadOnly = False
         btnClearCourse.IsEnabled = True
         btnSaveCourse.IsEnabled = True
@@ -113,13 +119,45 @@
 
     Private Sub btnClearCourse_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         txtCourseName.IsReadOnly = True
+        txtCourseCode.IsReadOnly = True
         txtCourseDescription.IsReadOnly = True
         btnClearCourse.IsEnabled = False
         btnSaveCourse.IsEnabled = False
+        ClearCourseForm()
     End Sub
-End Class
 
-Public Class ProgramWindowModel
-    Public Property EnrollmentByProgram() As IEnumerable(Of Enrollment)
-    Public Property EnrollmentByCourse() As IEnumerable(Of Enrollment)
+    Private Sub btnClearProgram_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+        ClearProgramForm()
+    End Sub
+
+    Private Sub comboboxProgramEnrollment_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs)
+        Dim program = CType(comboboxProgramEnrollment.SelectedItem, Program)
+        datagridProgram.ItemsSource = programWindowController.GetEnrollmentByProgram(program.ProgramID)
+    End Sub
+
+    Private Sub comboboxProgramCourse_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs)
+        Dim program = CType(comboboxProgramCourse.SelectedItem, Program)
+        comboboxCourse.ItemsSource = program.Courses
+        comboboxCourse.SelectedIndex = 0
+    End Sub
+
+    Private Sub btnAssignStaffToCourse_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+        If listboxStaff.SelectedItem IsNot Nothing And listboxCourse.SelectedItem IsNot Nothing Then
+            Dim staff = CType(listboxStaff.SelectedItem, Employee)
+            Dim course = CType(listboxCourse.SelectedItem, Course)
+            programWindowController.AssginStaffToCourse(staff, course)
+
+            Dim program = CType(comboboxProgramStaff.SelectedItem, Program)
+            program.Courses.Load()
+        Else
+            MsgBox("Please select both staff and course before assign.")
+        End If
+    End Sub
+
+    Private Sub comboboxProgramStaff_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs)
+        If comboboxProgramStaff.SelectedItem IsNot Nothing Then
+            Dim program = CType(comboboxProgramStaff.SelectedItem, Program)
+            listboxCourse.ItemsSource = program.Courses
+        End If
+    End Sub
 End Class

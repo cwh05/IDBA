@@ -519,6 +519,13 @@
           <Parameter Name="coursecode" Type="nvarchar" Mode="In" />
           <Parameter Name="coursedescription" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="UpdateCourseWithStaffID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="courseid" Type="int" Mode="In" />
+          <Parameter Name="coursename" Type="nvarchar" Mode="In" />
+          <Parameter Name="coursecode" Type="nvarchar" Mode="In" />
+          <Parameter Name="coursedescription" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="staffId" Type="int" Mode="In" />
+        </Function>
         <Function Name="UpdateStudentProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
           <Parameter Name="LastName" Type="nvarchar" Mode="In" />
@@ -650,12 +657,6 @@
           <FunctionImport Name="GetStudentEnrollmentByCourseID" ReturnType="Collection(Model.GetStudentEnrollmentByCourseID_Result)">
           <Parameter Name="COURSEID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="UpdateCourse">
-            <Parameter Name="courseid" Mode="In" Type="Int32" />
-            <Parameter Name="coursename" Mode="In" Type="String" />
-            <Parameter Name="coursecode" Mode="In" Type="String" />
-            <Parameter Name="coursedescription" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="InsertStudent">
             <Parameter Name="loginPassword" Mode="In" Type="String" />
             <Parameter Name="FirstName" Mode="In" Type="String" />
@@ -706,6 +707,12 @@
             <Parameter Name="courseCode" Mode="In" Type="String" />
             <Parameter Name="courseDescription" Mode="In" Type="String" />
             <Parameter Name="programId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateCourse">
+            <Parameter Name="courseid" Mode="In" Type="Int32" />
+            <Parameter Name="coursename" Mode="In" Type="String" />
+            <Parameter Name="coursecode" Mode="In" Type="String" />
+            <Parameter Name="coursedescription" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
@@ -1100,7 +1107,8 @@
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="Model.Course">
               <ModificationFunctionMapping>
-                <UpdateFunction FunctionName="Model.Store.UpdateCourse" >
+                <UpdateFunction FunctionName="Model.Store.UpdateCourseWithStaffID" >
+                  <ScalarProperty Name="StaffID" ParameterName="staffId" Version="Current" />
                   <ScalarProperty Name="CourseDescription" ParameterName="coursedescription" Version="Current" />
                   <ScalarProperty Name="CourseCode" ParameterName="coursecode" Version="Current" />
                   <ScalarProperty Name="CourseName" ParameterName="coursename" Version="Current" />
@@ -1315,7 +1323,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="UpdateCourse" FunctionName="Model.Store.UpdateCourse" />
           <FunctionImportMapping FunctionImportName="GetAllCourseOfStaff" FunctionName="Model.Store.GetAllCourseOfStaff">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Model.GetAllCourseOfStaff_Result">
@@ -1350,6 +1357,7 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="InsertDepartment" FunctionName="Model.Store.InsertDepartment" />
           <FunctionImportMapping FunctionImportName="InsertCourse" FunctionName="Model.Store.InsertCourse" />
+          <FunctionImportMapping FunctionImportName="UpdateCourse" FunctionName="Model.Store.UpdateCourse" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

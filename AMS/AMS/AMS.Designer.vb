@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("63d003d5-7467-4008-9d1e-04c4b3e23494")>
+<Assembly: EdmSchemaAttribute("8e836b63-6d01-40fb-8573-30a578ccc89f")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -612,46 +612,6 @@ Public Partial Class AMSEntities
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    ''' <param name="courseid">No Metadata Documentation available.</param>
-    ''' <param name="coursename">No Metadata Documentation available.</param>
-    ''' <param name="coursecode">No Metadata Documentation available.</param>
-    ''' <param name="coursedescription">No Metadata Documentation available.</param>
-    Public Function UpdateCourse(courseid As Nullable(Of Global.System.Int32), coursename As Global.System.String, coursecode As Global.System.String, coursedescription As Global.System.String) As Integer
-        Dim courseidParameter As ObjectParameter
-        If (courseid.HasValue)
-            courseidParameter = New ObjectParameter("courseid", courseid)
-        Else
-            courseidParameter = New ObjectParameter("courseid", GetType(Global.System.Int32))
-        End If
-
-        Dim coursenameParameter As ObjectParameter
-        If (coursename IsNot Nothing)
-            coursenameParameter = New ObjectParameter("coursename", coursename)
-        Else
-            coursenameParameter = New ObjectParameter("coursename", GetType(Global.System.String))
-        End If
-
-        Dim coursecodeParameter As ObjectParameter
-        If (coursecode IsNot Nothing)
-            coursecodeParameter = New ObjectParameter("coursecode", coursecode)
-        Else
-            coursecodeParameter = New ObjectParameter("coursecode", GetType(Global.System.String))
-        End If
-
-        Dim coursedescriptionParameter As ObjectParameter
-        If (coursedescription IsNot Nothing)
-            coursedescriptionParameter = New ObjectParameter("coursedescription", coursedescription)
-        Else
-            coursedescriptionParameter = New ObjectParameter("coursedescription", GetType(Global.System.String))
-        End If
-
-        Return MyBase.ExecuteFunction("UpdateCourse", courseidParameter, coursenameParameter, coursecodeParameter, coursedescriptionParameter)
-
-    End Function
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
     ''' <param name="loginPassword">No Metadata Documentation available.</param>
     ''' <param name="firstName">No Metadata Documentation available.</param>
     ''' <param name="lastName">No Metadata Documentation available.</param>
@@ -998,6 +958,46 @@ Public Partial Class AMSEntities
         End If
 
         Return MyBase.ExecuteFunction("InsertCourse", courseNameParameter, courseCodeParameter, courseDescriptionParameter, programIdParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="courseid">No Metadata Documentation available.</param>
+    ''' <param name="coursename">No Metadata Documentation available.</param>
+    ''' <param name="coursecode">No Metadata Documentation available.</param>
+    ''' <param name="coursedescription">No Metadata Documentation available.</param>
+    Public Function UpdateCourse(courseid As Nullable(Of Global.System.Int32), coursename As Global.System.String, coursecode As Global.System.String, coursedescription As Global.System.String) As Integer
+        Dim courseidParameter As ObjectParameter
+        If (courseid.HasValue)
+            courseidParameter = New ObjectParameter("courseid", courseid)
+        Else
+            courseidParameter = New ObjectParameter("courseid", GetType(Global.System.Int32))
+        End If
+
+        Dim coursenameParameter As ObjectParameter
+        If (coursename IsNot Nothing)
+            coursenameParameter = New ObjectParameter("coursename", coursename)
+        Else
+            coursenameParameter = New ObjectParameter("coursename", GetType(Global.System.String))
+        End If
+
+        Dim coursecodeParameter As ObjectParameter
+        If (coursecode IsNot Nothing)
+            coursecodeParameter = New ObjectParameter("coursecode", coursecode)
+        Else
+            coursecodeParameter = New ObjectParameter("coursecode", GetType(Global.System.String))
+        End If
+
+        Dim coursedescriptionParameter As ObjectParameter
+        If (coursedescription IsNot Nothing)
+            coursedescriptionParameter = New ObjectParameter("coursedescription", coursedescription)
+        Else
+            coursedescriptionParameter = New ObjectParameter("coursedescription", GetType(Global.System.String))
+        End If
+
+        Return MyBase.ExecuteFunction("UpdateCourse", courseidParameter, coursenameParameter, coursecodeParameter, coursedescriptionParameter)
 
     End Function
 

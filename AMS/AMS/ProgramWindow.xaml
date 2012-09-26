@@ -2,7 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    Title="Program Manager" Height="757" Width="1134" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    Title="Program Manager" Height="750" Width="1200" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -88,7 +88,7 @@
         <ams:LogoutUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Height="55" />
         <Label Grid.Column="1" Grid.Row="5" Content="logout" FontSize="24" HorizontalAlignment="Left" Margin="0,8,0,0" />
 
-        <TabControl Name="tabContent" Grid.Column="2" Grid.RowSpan="8" Margin="0,0,0,-196">
+        <TabControl Name="tabContent" Grid.Column="2" Grid.RowSpan="8" Margin="0,0,0,-258">
             <TabItem IsHitTestVisible="False"/>
             <TabItem IsHitTestVisible="False">
                 <Grid Name="gridProgram" Margin="20,-35,20,0">
@@ -120,7 +120,7 @@
                        FontSize="45"
                        Foreground="Red">program info</Label>
 
-                    <Label Grid.Row="1" Width="116"
+                    <Label Grid.Row="1" Width="115"
                        Margin="0,0,67,5"
                        FontWeight="DemiBold">SELECT PROGRAM</Label>
                     <ComboBox Name="comboboxProgram" Margin="20,0,0,5" Grid.Column="1"  Grid.Row="1" Grid.ColumnSpan="4" SelectionChanged="comboboxProgram_SelectionChanged">
@@ -153,8 +153,8 @@
                          Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2"
                          Width="250" Height="100" Margin="20,5,0,5">
                     </TextBox>
-                    <Button Grid.Column="1" Grid.Row="6" Margin="20,5,0,0" Click="btnSaveProgram_Click">save</Button>
-                    <Button Grid.Column="2" Grid.Row="6" Margin="0,5,0,0">clear</Button>
+                    <Button Name="btnSaveProgram" Grid.Column="1" Grid.Row="6" Margin="20,5,0,0" Click="btnSaveProgram_Click">save</Button>
+                    <Button Name="btnClearProgram" Grid.Column="2" Grid.Row="6" Margin="0,5,0,0" Click="btnClearProgram_Click">clear</Button>
 
                     <Label Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
                        Margin="0,0,0,5"
@@ -207,7 +207,8 @@
                        FontSize="25"
                        Foreground="Red">courses in program</Label>
 
-                    <ListBox Name="listboxCourseInProgram" Grid.Column="4" Grid.Row="3" Grid.RowSpan="10" Width="300">
+                    <ListBox Name="listboxCourseProgram" Grid.Column="4" Grid.Row="3" Grid.RowSpan="10" 
+                             Width="300" Height="400" Margin="0,-50,0,0">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -220,9 +221,9 @@
                                         <RowDefinition></RowDefinition>
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding ProgramName}"
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding CourseName}"
                                                FontSize="22" FontWeight="DemiBold" Margin="10,10,5,10"></TextBlock>
-                                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding ProgramDescription}"
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding CourseDescription}"
                                                FontSize="13" FontWeight="Light" Margin="10,0,5,10" ></TextBlock>
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Manage by"
                                                FontSize="13" FontWeight="Light" Margin="10,0,3,10" ></TextBlock>
@@ -245,8 +246,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="450"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="500"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
@@ -254,14 +255,29 @@
                        Margin="0,0,0,20"
                        FontWeight="Normal" 
                        FontSize="45"
-                       Foreground="Red">assign pm</Label>
-
-                    <StackPanel Grid.Column="1" Grid.Row="2">
-                        <Button Name="btnAssignProgramManager"
+                       Foreground="Red">assign staff</Label>
+                    <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Orientation="Horizontal">
+                        <Label Grid.Row="1" Width="115"
+                           Margin="0,0,10,0"
+                           FontWeight="DemiBold">SELECT PROGRAM</Label>
+                        <ComboBox Name="comboboxProgramStaff" Margin="5,0,0,0" Width="615"
+                                  Grid.Column="1"  Grid.Row="1" Grid.ColumnSpan="4" 
+                                  SelectionChanged="comboboxProgramStaff_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding ProgramName}" ToolTip="{Binding ProgramName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="3">
+                        <Button Name="btnAssignStaffToCourse"
                                 Width="55" Height="55" Margin="20,20,20,10"
                                 HorizontalAlignment="Left"
                                 Style="{DynamicResource MetroCircleButtonStyle}"
-                                >
+                                Click="btnAssignStaffToCourse_Click">
                             <Image Source="Resources/Images/right.png" 
                                    HorizontalAlignment="Center" 
                                    VerticalAlignment="Center" 
@@ -270,13 +286,13 @@
                         <Label FontWeight="DemiBold" FontSize="13" Opacity="0.5" Margin="10,0,0,10">ASSIGN TO</Label>
                     </StackPanel>
 
-                    <Label Grid.Column="0" Grid.Row="1"
+                    <Label Grid.Column="2" Grid.Row="2"
                        Margin="0,0,0,5"
                        FontWeight="Normal" 
                        FontSize="25"
                        Foreground="Red">course</Label>
 
-                    <ListBox Name="listboxCourse" Grid.Column="0" Grid.Row="2" Width="300">
+                    <ListBox Name="listboxCourse" Grid.Column="2" Grid.Row="3" Width="325">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -289,9 +305,9 @@
                                         <RowDefinition></RowDefinition>
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding ProgramName}"
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding CourseName}"
                                                FontSize="22" FontWeight="DemiBold" Margin="10,10,5,10"></TextBlock>
-                                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding ProgramDescription}"
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding CourseDescription}"
                                                FontSize="13" FontWeight="Light" Margin="10,0,5,10" ></TextBlock>
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Manage by"
                                                FontSize="13" FontWeight="Light" Margin="10,0,3,10" ></TextBlock>
@@ -301,13 +317,13 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Label Grid.Column="2" Grid.Row="1"
+                    <Label Grid.Column="0" Grid.Row="2"
                        Margin="0,0,0,5"
                        FontWeight="Normal" 
                        FontSize="25"
                        Foreground="Red">staff</Label>
 
-                    <ListBox Name="listboxStaff" Grid.Column="2" Grid.Row="2" Width="300">
+                    <ListBox Name="listboxStaff" Grid.Column="0" Grid.Row="3" Width="325">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -325,7 +341,7 @@
                                     <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding EmployeeLastName}"
                                                FontSize="22" FontWeight="DemiBold" Margin="10,10,5,10" ></TextBlock>
                                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Email}"
-                                               FontSize="13" FontWeight="Light" Margin="0,0,5,10"></TextBlock>
+                                               FontSize="13" FontWeight="Light" Margin="10,0,5,10"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -336,7 +352,7 @@
                 <Grid Name="gridProgramEnrolment" Margin="20,-35,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="455"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -354,7 +370,19 @@
                        FontWeight="Normal" 
                        FontSize="45"
                        Foreground="Red">program enrolment</Label>
-                    <DataGrid Name="datagridProgram" Grid.Column="0" Grid.Row="1" Height="380"
+                    <Label Grid.Column="0" Grid.Row="1" Width="140"
+                       Margin="0,0,0,5"
+                       FontWeight="DemiBold">SELECT PROGRAM</Label>
+                    <ComboBox Name="comboboxProgramEnrollment" Margin="0,0,0,5" Grid.Column="1"  Grid.Row="1" Grid.ColumnSpan="2" SelectionChanged="comboboxProgramEnrollment_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding ProgramName}" ToolTip="{Binding ProgramName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <DataGrid Name="datagridProgram" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Height="380"
                               ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
@@ -402,10 +430,22 @@
                        FontWeight="Normal" 
                        FontSize="45"
                        Foreground="Red">course enrolment</Label>
-                    <Label Grid.Column="0" Grid.Row="1" Width="60"
+                    <Label Grid.Column="0" Grid.Row="1" Width="140"
                        Margin="0,0,0,5"
-                       FontWeight="DemiBold">COURSE</Label>
-                    <ComboBox Name="comboboxCourse" Margin="0,0,0,5" Grid.Column="1"  Grid.Row="1" Grid.ColumnSpan="2" SelectionChanged="comboboxCourse_SelectionChanged">
+                       FontWeight="DemiBold">SELECT PROGRAM</Label>
+                    <ComboBox Name="comboboxProgramCourse" Margin="0,0,0,5" Grid.Column="1"  Grid.Row="1" Grid.ColumnSpan="2" SelectionChanged="comboboxProgramCourse_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding ProgramName}" ToolTip="{Binding ProgramName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Label Grid.Column="0" Grid.Row="2" Width="140"
+                       Margin="0,0,0,5"
+                       FontWeight="DemiBold">SELECT COURSE</Label>
+                    <ComboBox Name="comboboxCourse" Margin="0,0,0,5" Grid.Column="1"  Grid.Row="2" Grid.ColumnSpan="2" SelectionChanged="comboboxCourse_SelectionChanged">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -414,7 +454,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <DataGrid Name="datagridCourse" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Height="380" 
+                    <DataGrid Name="datagridCourse" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Height="380" 
                               DataContext="{Binding}" AutoGenerateColumns="False" IsReadOnly="True" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">

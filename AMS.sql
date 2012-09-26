@@ -709,6 +709,20 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [dbo].[UpdateCourseWithStaffID]
+   @courseId            INT,
+   @courseName          NVARCHAR(200),
+   @courseCode          NVARCHAR(60),
+   @courseDescription   NVARCHAR(max),
+   @staffId				INT
+AS
+BEGIN
+   UPDATE Course SET CourseName = @courseName, CourseCode = @courseCode,
+      CourseDescription = @courseDescription, ModifiedDate = GETDATE(),
+      StaffID = @staffId
+      WHERE CourseID = @courseId
+END
+
 
 -- Edward's Stored Procedures ---------------------------------------------------------------------
 CREATE PROCEDURE [dbo].[GetAllCourseOfStaff]
