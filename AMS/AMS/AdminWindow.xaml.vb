@@ -87,6 +87,7 @@ Public Class AdminWindow : Inherits MetroWindow
                 }
                 adminWindowController.CreateAccount(employee)
                 ClearEmployeeForm()
+                RefreshLookItem()
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
