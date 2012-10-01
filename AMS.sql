@@ -960,6 +960,13 @@ IF (OBJECT_ID('UpdateStudentMarks') IS NOT NULL)
 PRINT 'All stored procedures are removed...'
 GO
 
+IF EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_LOGIN')
+    DROP INDEX IX_LOGIN ON Account;
+
+IF EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_COURSE')
+    DROP INDEX IX_COURSE ON Course;
+PRINT 'Indexes are removed...'
+GO
 
 -- Remove entire database
 USE master
