@@ -6,7 +6,7 @@ Public Class AdminWindow : Inherits MetroWindow
     Private adminWindowController As AdminWindowController = New AdminWindowController()
     Private emailRegularExpression As New Regex("^\w+([+-.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
 
-    Public Sub New()
+    Public Sub New(ByRef username As String)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -15,13 +15,14 @@ Public Class AdminWindow : Inherits MetroWindow
         RefreshLookItem()
     End Sub
 
-    Public Sub New(ByRef username As String)
+    Private Sub MetroWindow_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
+        'set weather temperature
+        If CType(Application.Current, Application).WeatherTemperature <> String.Empty Then
+            lblTemperatureContent.Content = CType(Application.Current, Application).WeatherTemperature
+            lblTemperatureContent.ToolTip = "Relative Humidity: " & CType(Application.Current, Application).WeatherRelativeHumidity &
+                    vbNewLine & "Wind: " & CType(Application.Current, Application).WeatherWind
 
-        ' This call is required by the designer.
-        InitializeComponent()
-
-        ' Add any initialization after the InitializeComponent() call.
-        RefreshLookItem()
+        End If
     End Sub
 
     Private Sub btnMenuClick(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
@@ -38,62 +39,85 @@ Public Class AdminWindow : Inherits MetroWindow
         End Select
     End Sub
 
-    Private Sub btnSaveDepartmentClick(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
-        Dim department = New Department With {.DepartmentName = txtDepartmentName.Text}
-        adminWindowController.CreateDepartment(department)
-        ClearDeparmentForm()
+    Private Sub btnSaveDepartment_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+        Try
+            If ValidateDepartment() Then
+                Dim department = New Department With {.DepartmentName = txtDepartmentName.Text}
+                adminWindowController.CreateDepartment(department)
+                ClearDeparmentForm()
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+        End Try
     End Sub
 
-    Private Sub btnSaveProgramClick(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
-        Dim program = New Program With {
-            .ProgramName = txtProgramName.Text,
-            .ProgramDescription = txtProgramDescription.Text
-        }
-        adminWindowController.CreateProgram(program)
-        ClearProgramForm()
+    Private Sub btnSaveProgram_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+        Try
+            If ValidateProgram() Then
+                Dim program = New Program With {
+                    .ProgramName = txtProgramName.Text,
+                    .ProgramDescription = txtProgramDescription.Text
+                }
+                adminWindowController.CreateProgram(program)
+                ClearProgramForm()
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+        End Try
     End Sub
 
-    Private Sub btnSaveAccountClick(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
-        If ValidateEmployee() Then
-            Dim employee = New Employee With {
-                .EmployeeFirstName = txtFirstName.Text,
-                .EmployeeLastName = txtLastName.Text,
-                .City = txtCity.Text,
-                .Email = txtEmail.Text,
-                .Address1 = txtAddress1.Text,
-                .Address2 = txtAddress2.Text,
-                .PostCode = txtPostCode.Text,
-                .StateProvince = txtState.Text,
-                .ContactNumber = txtContactNumber.Text,
-                .DateOfBirth = datePickerDateofBirth.SelectedDate,
-                .Country = CType(comboboxCountry.SelectedItem, Country),
-                .Gender = True,
-                .Account = New Account With {.LoginPassword = txtPassword.Password},
-                .RoleID = CType(comboboxRole.SelectedItem, RoleCategory).RoleID
-            }
-            adminWindowController.CreateAccount(employee)
-            ClearEmployeeForm()
-        End If  
+    Private Sub btnSaveAccount_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+        Try
+            If ValidateEmployee() Then
+                Dim employee = New Employee With {
+                    .EmployeeFirstName = txtFirstName.Text,
+                    .EmployeeLastName = txtLastName.Text,
+                    .City = txtCity.Text,
+                    .Email = txtEmail.Text,
+                    .Address1 = txtAddress1.Text,
+                    .Address2 = txtAddress2.Text,
+                    .PostCode = txtPostCode.Text,
+                    .StateProvince = txtState.Text,
+                    .ContactNumber = txtContactNumber.Text,
+                    .DateOfBirth = datePickerDateofBirth.SelectedDate,
+                    .Country = CType(comboboxCountry.SelectedItem, Country),
+                    .Gender = True,
+                    .Account = New Account With {.LoginPassword = txtPassword.Password},
+                    .RoleID = CType(comboboxRole.SelectedItem, RoleCategory).RoleID
+                }
+                adminWindowController.CreateAccount(employee)
+                ClearEmployeeForm()
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+        End Try
     End Sub
 
     Private Sub btnAssignProgramManagerClick(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
-
-        If listboxProgram.SelectedItem IsNot Nothing And listboxStaff.SelectedItem IsNot Nothing Then
-            Dim program = CType(listboxProgram.SelectedItem, Program)
-            program.Employee = CType(listboxStaff.SelectedItem, Employee)
-            adminWindowController.AssginProgramManager(program)
-            RefreshLookItem()
-        Else
-            MsgBox("Please select both staff and program before assign.", MsgBoxStyle.Exclamation)
-        End If
-
+        Try
+            If listboxProgram.SelectedItem IsNot Nothing And listboxStaff.SelectedItem IsNot Nothing Then
+                Dim program = CType(listboxProgram.SelectedItem, Program)
+                program.Employee = CType(listboxStaff.SelectedItem, Employee)
+                adminWindowController.AssginProgramManager(program)
+                RefreshLookItem()
+                MsgBox("Program " & program.ProgramName & " managed by " & program.Employee.EmployeeFirstName, MsgBoxStyle.Information)
+            Else
+                MsgBox("Please select both staff and program before assign.", MsgBoxStyle.Exclamation)
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+        End Try
     End Sub
 
     Public Sub RefreshLookItem()
-        comboboxCountry.ItemsSource = adminWindowController.GetAllCountryForLookUp()
-        comboboxRole.ItemsSource = adminWindowController.GetAllRoleForLookUp()
-        listboxProgram.ItemsSource = adminWindowController.GetAllProgramForLookUp()
-        listboxStaff.ItemsSource = adminWindowController.GetAllEmployeeForLookUp()
+        Try
+            comboboxCountry.ItemsSource = adminWindowController.GetAllCountryForLookUp()
+            comboboxRole.ItemsSource = adminWindowController.GetAllRoleForLookUp()
+            listboxProgram.ItemsSource = adminWindowController.GetAllProgramForLookUp()
+            listboxStaff.ItemsSource = adminWindowController.GetAllEmployeeForLookUp()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+        End Try
     End Sub
 
     Public Sub ClearDeparmentForm()
@@ -115,6 +139,7 @@ Public Class AdminWindow : Inherits MetroWindow
         txtPostCode.Text = String.Empty
         txtFirstName.Text = String.Empty
         txtPassword.Password = String.Empty
+        txtConfirmPassword.Password = String.Empty
         txtContactNumber.Text = String.Empty
         comboboxRole.SelectedIndex = 0
         comboboxCountry.SelectedIndex = 0
@@ -189,4 +214,38 @@ Public Class AdminWindow : Inherits MetroWindow
         End If
         Return True
     End Function
+
+    Private Function ValidateDepartment() As Boolean
+        If txtDepartmentName.Text.Length = 0 Then
+            MsgBox("Please fill department name field.", MsgBoxStyle.Exclamation)
+            txtDepartmentName.Focus()
+            Return False
+        End If
+        Return True
+    End Function
+
+    Private Function ValidateProgram() As Boolean
+        If txtProgramName.Text.Length = 0 Then
+            MsgBox("Please fill program name field.", MsgBoxStyle.Exclamation)
+            txtProgramName.Focus()
+            Return False
+        ElseIf txtProgramDescription.Text.Length = 0 Then
+            MsgBox("Please fill program description field.", MsgBoxStyle.Exclamation)
+            txtProgramDescription.Focus()
+            Return False
+        End If
+        Return True
+    End Function
+
+    Private Sub btnClearDepartment_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+        ClearDeparmentForm()
+    End Sub
+
+    Private Sub btnClearProgram_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+        ClearProgramForm()
+    End Sub
+
+    Private Sub btnClearAccount_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+        ClearEmployeeForm()
+    End Sub
 End Class

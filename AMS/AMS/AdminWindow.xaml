@@ -2,7 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    Title="Administrator" Height="600" Width="990" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    Title="Administrator" Height="609" Width="1045" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -94,6 +94,12 @@
         <ams:LogoutUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Height="55" />
         <Label Grid.Column="1" Grid.Row="5" Content="logout" FontSize="24" HorizontalAlignment="Left" Margin="0,8,0,0" />
 
+        <StackPanel Grid.Column="0" Grid.Row="9"  Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                    Orientation="Horizontal">
+            <Label Name="lblTemperature" Content="Current Temperature:"  />
+            <Label Name="lblTemperatureContent" Content="N/A"/>
+        </StackPanel>
+
         <TabControl Name="tabContent" Grid.Column="2" Grid.RowSpan="12">
             <TabItem IsHitTestVisible="False"/>
             <TabItem IsHitTestVisible="False">
@@ -121,8 +127,8 @@
                          Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
                           Margin="20,0,0,0">
                     </TextBox>
-                    <Button Grid.Column="1" Grid.Row="3" Margin="20,20,0,0" Click="btnSaveDepartmentClick">save</Button>
-                    <Button Grid.Column="2" Grid.Row="3" Margin="0,20,0,0">clear</Button>
+                    <Button Name="btnSaveDepartment" Grid.Column="1" Grid.Row="3" Margin="20,20,0,0" Click="btnSaveDepartment_Click">save</Button>
+                    <Button Name="btnClearDepartment" Grid.Column="2" Grid.Row="3" Margin="0,20,0,0" Click="btnClearDepartment_Click">clear</Button>
                 </Grid>
             </TabItem>
             <TabItem IsHitTestVisible="False">
@@ -159,8 +165,8 @@
                          Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"
                          Height="150" Margin="20,5,0,5">
                     </TextBox>
-                    <Button Grid.Column="1" Grid.Row="5" Margin="20,10,0,0" Click="btnSaveProgramClick">save</Button>
-                    <Button Grid.Column="2" Grid.Row="5" Margin="0,10,0,0">clear</Button>
+                    <Button Name="btnSaveProgram" Grid.Column="1" Grid.Row="5" Margin="20,10,0,0" Click="btnSaveProgram_Click">save</Button>
+                    <Button Name="btnClearProgram" Grid.Column="2" Grid.Row="5" Margin="0,10,0,0" Click="btnClearProgram_Click">clear</Button>
                 </Grid>
             </TabItem>
             <TabItem IsHitTestVisible="False">
@@ -340,8 +346,9 @@
                             Controls:TextboxHelper.Watermark="Confirm Password"
                             Controls:TextboxHelper.ClearTextButton="False"/>
 
-                    <Button Content="save" Grid.Row="18" Grid.Column="2" HorizontalAlignment="Right" 
-                            Click="btnSaveAccountClick"  VerticalAlignment="Top" Width="80" Margin="0,0,10,0"/>
+                    <Button Name="btnSaveAccount" Grid.Row="18" Grid.Column="1" Click="btnSaveAccount_Click"
+                            Margin="16,0,0,0">save</Button>
+                    <Button Name="btnClearAccount" Grid.Row="18" Grid.Column="2" Click="btnClearAccount_Click">clear</Button>
                 </Grid>
             </TabItem>
             <TabItem IsHitTestVisible="False">
@@ -354,7 +361,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="450"></RowDefinition>
+                        <RowDefinition Height="400"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
