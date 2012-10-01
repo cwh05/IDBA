@@ -248,6 +248,12 @@ GO
 PRINT 'Triggers created...'
 GO
 
+CREATE UNIQUE INDEX IX_LOGIN ON Account(LoginUsername)
+CREATE UNIQUE INDEX IX_COURSE ON Course(CourseCode)
+PRINT 'Indexes created...'
+GO
+
+
 BEGIN
    -- Insert data into RoleCategory table
    INSERT INTO dbo.RoleCategory(RoleTitle) VALUES('Administrator')
@@ -714,7 +720,7 @@ CREATE PROCEDURE [dbo].[UpdateCourseWithStaffID]
    @courseName          NVARCHAR(200),
    @courseCode          NVARCHAR(60),
    @courseDescription   NVARCHAR(max),
-   @staffId				INT
+   @staffId             INT
 AS
 BEGIN
    UPDATE Course SET CourseName = @courseName, CourseCode = @courseCode,
@@ -722,7 +728,7 @@ BEGIN
       StaffID = @staffId
       WHERE CourseID = @courseId
 END
-
+GO
 
 -- Edward's Stored Procedures ---------------------------------------------------------------------
 CREATE PROCEDURE [dbo].[GetAllCourseOfStaff]
@@ -749,7 +755,7 @@ BEGIN
    DECLARE @courseId AS INT
    INSERT Course(CourseName, CourseCode, CourseDescription, CreatedDate, ModifiedDate)
    VALUES (@coursename, @coursecode, @coursedescription, GETDATE(), GETDATE())
-   
+
    SET @courseId = SCOPE_IDENTITY()
    INSERT ProgramCourse(ProgramID, CourseID) VALUES (@programId, @courseId)
 END
