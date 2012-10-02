@@ -520,11 +520,16 @@
           <Parameter Name="coursedescription" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="UpdateCourseWithStaffID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="courseid" Type="int" Mode="In" />
-          <Parameter Name="coursename" Type="nvarchar" Mode="In" />
-          <Parameter Name="coursecode" Type="nvarchar" Mode="In" />
-          <Parameter Name="coursedescription" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="courseId" Type="int" Mode="In" />
+          <Parameter Name="courseName" Type="nvarchar" Mode="In" />
+          <Parameter Name="courseCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="courseDescription" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="staffId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateStudentMarks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+          <Parameter Name="StudentID" Type="int" Mode="In" />
+          <Parameter Name="Marks" Type="float" Mode="In" />
         </Function>
         <Function Name="UpdateStudentProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
@@ -1108,12 +1113,12 @@
             <EntityTypeMapping TypeName="Model.Course">
               <ModificationFunctionMapping>
                 <UpdateFunction FunctionName="Model.Store.UpdateCourseWithStaffID" >
+                  <ScalarProperty Name="CourseDescription" ParameterName="courseDescription" Version="Current" />
+                  <ScalarProperty Name="CourseCode" ParameterName="courseCode" Version="Current" />
+                  <ScalarProperty Name="CourseName" ParameterName="courseName" Version="Current" />
+                  <ScalarProperty Name="CourseID" ParameterName="courseId" Version="Current" />
                   <ScalarProperty Name="StaffID" ParameterName="staffId" Version="Current" />
-                  <ScalarProperty Name="CourseDescription" ParameterName="coursedescription" Version="Current" />
-                  <ScalarProperty Name="CourseCode" ParameterName="coursecode" Version="Current" />
-                  <ScalarProperty Name="CourseName" ParameterName="coursename" Version="Current" />
-                  <ScalarProperty Name="CourseID" ParameterName="courseid" Version="Current" />
-                </UpdateFunction>
+                  </UpdateFunction>
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1358,6 +1363,7 @@
           <FunctionImportMapping FunctionImportName="InsertDepartment" FunctionName="Model.Store.InsertDepartment" />
           <FunctionImportMapping FunctionImportName="InsertCourse" FunctionName="Model.Store.InsertCourse" />
           <FunctionImportMapping FunctionImportName="UpdateCourse" FunctionName="Model.Store.UpdateCourse" />
+          <FunctionImportMapping FunctionImportName="UpdateStudentMarks" FunctionName="Model.Store.UpdateStudentMarks" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

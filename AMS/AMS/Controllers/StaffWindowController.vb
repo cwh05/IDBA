@@ -90,21 +90,17 @@ Public Class StaffWindowController
 
     Public Function InsertStudent(ByVal student As Student, ByVal account As Account) As Boolean
 
+        Try
+            db.InsertStudent(account.LoginPassword, student.StudentFirstName, student.StudentLastName, student.Gender, student.DateOfBirth, student.Address1, student.Address2, student.City, _
+                             student.PostCode, student.StateProvince, student.CountryCode, student.ContactNumber, student.Email, student.ProgramID)
 
-        Using transaction As New TransactionScope()
+            db.SaveChanges()
+            Return True
 
-            Try
-                db.InsertStudent(account.LoginPassword, student.StudentFirstName, student.StudentLastName, student.Gender, student.DateOfBirth, student.Address1, student.Address2, student.City, _
-                                 student.PostCode, student.StateProvince, student.CountryCode, student.ContactNumber, student.Email, student.ProgramID)
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
+        End Try
 
-                db.SaveChanges()
-                transaction.Complete()
-                Return True
-
-            Catch ex As Exception
-                MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
-            End Try
-        End Using
 
         Return False
     End Function
