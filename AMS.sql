@@ -730,6 +730,14 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [dbo].[UpdateProgramManager]
+   @programId           int,
+   @managerId			int
+AS
+BEGIN
+   UPDATE Program SET ManagerID = @managerId WHERE ProgramID = @programId
+END
+
 -- Edward's Stored Procedures ---------------------------------------------------------------------
 CREATE PROCEDURE [dbo].[GetAllCourseOfStaff]
    @STAFFID INT
@@ -936,8 +944,13 @@ IF (OBJECT_ID('InsertAccount') IS NOT NULL)
 
 IF (OBJECT_ID('InsertEmployee') IS NOT NULL)
    DROP PROCEDURE InsertEmployee
+   
+IF (OBJECT_ID('UpdateCourseWithStaffID') IS NOT NULL)
+   DROP PROCEDURE UpdateCourseWithStaffID
 
-
+IF (OBJECT_ID('UpdateProgramManager') IS NOT NULL)
+   DROP PROCEDURE UpdateProgramManager
+   
 -- Edward's Stored Procedures ---------------------------------------------------------------------
 IF (OBJECT_ID('InsertStudent') IS NOT NULL)
    DROP PROCEDURE InsertStudent

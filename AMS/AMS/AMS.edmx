@@ -526,6 +526,10 @@
           <Parameter Name="courseDescription" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="staffId" Type="int" Mode="In" />
         </Function>
+        <Function Name="UpdateProgramManager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="programId" Type="int" Mode="In" />
+          <Parameter Name="managerId" Type="int" Mode="In" />
+        </Function>
         <Function Name="UpdateStudentMarks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CourseID" Type="int" Mode="In" />
           <Parameter Name="StudentID" Type="int" Mode="In" />
@@ -718,6 +722,10 @@
             <Parameter Name="coursename" Mode="In" Type="String" />
             <Parameter Name="coursecode" Mode="In" Type="String" />
             <Parameter Name="coursedescription" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateProgramManager">
+            <Parameter Name="programId" Mode="In" Type="Int32" />
+            <Parameter Name="managerId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Account">
@@ -1364,6 +1372,7 @@
           <FunctionImportMapping FunctionImportName="InsertCourse" FunctionName="Model.Store.InsertCourse" />
           <FunctionImportMapping FunctionImportName="UpdateCourse" FunctionName="Model.Store.UpdateCourse" />
           <FunctionImportMapping FunctionImportName="UpdateStudentMarks" FunctionName="Model.Store.UpdateStudentMarks" />
+          <FunctionImportMapping FunctionImportName="UpdateProgramManager" FunctionName="Model.Store.UpdateProgramManager" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

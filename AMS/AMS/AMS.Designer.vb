@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("831fb9d5-79a2-4141-b317-559e1e828959")>
+<Assembly: EdmSchemaAttribute("84685e72-1285-4582-8170-34f1406ab805")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -998,6 +998,30 @@ Public Partial Class AMSEntities
         End If
 
         Return MyBase.ExecuteFunction("UpdateCourse", courseidParameter, coursenameParameter, coursecodeParameter, coursedescriptionParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    ''' <param name="programId">No Metadata Documentation available.</param>
+    ''' <param name="managerId">No Metadata Documentation available.</param>
+    Public Function UpdateProgramManager(programId As Nullable(Of Global.System.Int32), managerId As Nullable(Of Global.System.Int32)) As Integer
+        Dim programIdParameter As ObjectParameter
+        If (programId.HasValue)
+            programIdParameter = New ObjectParameter("programId", programId)
+        Else
+            programIdParameter = New ObjectParameter("programId", GetType(Global.System.Int32))
+        End If
+
+        Dim managerIdParameter As ObjectParameter
+        If (managerId.HasValue)
+            managerIdParameter = New ObjectParameter("managerId", managerId)
+        Else
+            managerIdParameter = New ObjectParameter("managerId", GetType(Global.System.Int32))
+        End If
+
+        Return MyBase.ExecuteFunction("UpdateProgramManager", programIdParameter, managerIdParameter)
 
     End Function
 

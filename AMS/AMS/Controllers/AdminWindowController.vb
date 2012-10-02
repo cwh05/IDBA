@@ -29,7 +29,7 @@
     End Sub
 
     Public Sub AssginProgramManager(ByRef program As Program)
-        amsEntities.SaveChanges()
+        amsEntities.UpdateProgramManager(program.ProgramID, program.Employee.EmployeeID)
     End Sub
 
     Public Function GetAllProgramForLookUp() As IEnumerable(Of Program)
