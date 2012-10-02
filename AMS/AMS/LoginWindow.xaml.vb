@@ -12,54 +12,53 @@ Class LoginWindow : Inherits MetroWindow
 
     Private Sub btnLogin_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnLogin.Click
         'validate input textboxes
-        'If txtUsername.Text.Length = 0 And txtPassword.Password.Length = 0 Then
-        '    FailToLogin()
+        If txtUsername.Text.Length = 0 And txtPassword.Password.Length = 0 Then
+            FailToLogin()
 
-        'Else
+        Else
+            Dim dll As New Utilities.EncryptionProvider()
 
-        'Dim dll As New DLLResource.EncryptionProvider()
+            'pass arguments to workflow
+            inputs.Add("inputUsername", txtUsername.Text)
+            inputs.Add("inputPassword", dll.Encrypt(txtPassword.Password))
 
-        ''pass arguments to workflow
-        'inputs.Add("inputUsername", txtUsername.Text)
-        'inputs.Add("inputPassword", dll.Encrypt(txtPassword.Password))
+            Try
+                'call workflow
+                wf = New WorkflowInvoker(New LoginActivity())
+                wf.Extensions.Add(writer)
+                wf.Invoke(inputs)
 
-        'Try
-        '    'call workflow
-        '    wf = New WorkflowInvoker(New LoginActivity())
-        '    wf.Extensions.Add(writer)
-        '    wf.Invoke(inputs)
+                'if workflow fails to authenticate
+                If writer.ToString.Length > 0 Then
+                    If CByte(writer.ToString) = 0 Then
+                        FailToLogin()
+                        inputs.Remove("inputUsername")
+                        inputs.Remove("inputPassword")
+                        writer.Flush()
+                    End If
+                End If
+            Catch ex As Exception
+                FailToLogin()
+                inputs.Remove("inputUsername")
+                inputs.Remove("inputPassword")
+                writer.Flush()
+            End Try
 
-        '    'if workflow fails to authenticate
-        '    If writer.ToString.Length > 0 Then
-        '        If CByte(writer.ToString) = 0 Then
-        '            FailToLogin()
-        '            inputs.Remove("inputUsername")
-        '            inputs.Remove("inputPassword")
-        '            writer.Flush()
-        '        End If
-        '    End If
-        'Catch ex As Exception
-        '    FailToLogin()
-        '    inputs.Remove("inputUsername")
-        '    inputs.Remove("inputPassword")
-        '    writer.Flush()
-        'End Try
+        End If
 
-        'End If
-        
 
-        '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
-        Dim window As New AdminWindow(txtUsername.Text)
-        window.Show()
-        Dim window2 As New ProgramWindow(txtUsername.Text)
-        window2.Show()
-        Dim window3 = New StudentWindow(txtUsername.Text)
-        window3.Show()
-        Dim window4 = New StaffWindow(txtUsername.Text)
-        window4.Show()
-        Me.Finalize()
-        Me.Close()
-        '''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
+        ''''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
+        'Dim window As New AdminWindow(txtUsername.Text)
+        'window.Show()
+        'Dim window2 As New ProgramWindow(txtUsername.Text)
+        'window2.Show()
+        'Dim window3 = New StudentWindow(txtUsername.Text)
+        'window3.Show()
+        'Dim window4 = New StaffWindow(txtUsername.Text)
+        'window4.Show()
+        'Me.Finalize()
+        'Me.Close()
+        ''''''''''''''''TEMPORARY'''''''''''''''''''''''''''''''''''''''''''''''''''
 
     End Sub
 

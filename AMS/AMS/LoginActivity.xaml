@@ -9,9 +9,9 @@
     <x:Property Name="inputPassword" Type="InArgument(x:String)" />
     <x:Property Name="loginwindow" Type="InArgument(local:LoginWindow)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>538,640</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>538,1064</sap:VirtualizedContainerService.HintSize>
   <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
-  <Sequence sad:XamlDebuggerXmlReader.FileName="C:\Users\cwh\Documents\GitHub\IDBA\AMS\AMS\LoginActivity.xaml" sap:VirtualizedContainerService.HintSize="498,600">
+  <Sequence sad:XamlDebuggerXmlReader.FileName="C:\Users\cwh\Documents\GitHub\IDBA\AMS\AMS\LoginActivity.xaml" sap:VirtualizedContainerService.HintSize="498,1024">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Byte" Name="forwardTo" />
     </Sequence.Variables>
@@ -30,7 +30,7 @@
       <InArgument x:TypeArguments="x:String">[inputUsername]</InArgument>
       <InArgument x:TypeArguments="x:String">[inputPassword]</InArgument>
     </InvokeMethod>
-    <Switch x:TypeArguments="x:Byte" Expression="[forwardTo]" sap:VirtualizedContainerService.HintSize="476,306">
+    <Switch x:TypeArguments="x:Byte" Expression="[forwardTo]" sap:VirtualizedContainerService.HintSize="476,730">
       <Switch.Default>
         <WriteLine sap:VirtualizedContainerService.HintSize="458,100" Text="[forwardTo.ToString]" />
       </Switch.Default>
@@ -45,7 +45,7 @@
             <OutArgument x:TypeArguments="local:AdminWindow">[adminwindow]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="local:AdminWindow">[New AdminWindow()]</InArgument>
+            <InArgument x:TypeArguments="local:AdminWindow">[New AdminWindow(inputUsername)]</InArgument>
           </Assign.Value>
         </Assign>
         <InvokeMethod DisplayName="Admin Window" sap:VirtualizedContainerService.HintSize="242,130" MethodName="Show">
@@ -70,7 +70,7 @@
             <OutArgument x:TypeArguments="local:ProgramWindow">[pmwindow]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="local:ProgramWindow">[New ProgramWindow()]</InArgument>
+            <InArgument x:TypeArguments="local:ProgramWindow">[New ProgramWindow(inputUsername)]</InArgument>
           </Assign.Value>
         </Assign>
         <InvokeMethod sap:VirtualizedContainerService.HintSize="242,130" MethodName="Show">
