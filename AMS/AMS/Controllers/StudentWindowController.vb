@@ -52,7 +52,7 @@ Public Class StudentWindowController
     Public Function validateAddressDetail(ByRef Address1 As String, ByRef Address2 As String, ByRef City As String,
                                           ByRef PostCode As String, ByRef State As String, ByRef countryCombo As String) As Boolean
         'validate address details of a student
-        If Address1.Length = 0 Or Address2.Length = 0 Or City.Length = 0 Or
+        If Address1.Length = 0 Or City.Length = 0 Or
             PostCode.Length = 0 Or State.Length = 0 Or countryCombo.Length = 0 Then
             Return False
         End If
