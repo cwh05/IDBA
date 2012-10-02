@@ -98,13 +98,13 @@
 
                                     <StackPanel Grid.Column="0" Margin="1,0,0,3">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Course Code: " FontSize="13"  />
-                                            <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
+                                            <TextBlock Text="Course Code: " FontSize="16"  />
+                                            <TextBlock Text="{Binding CourseCode}" FontSize="16" Foreground="Green" 
                                                         TextWrapping="Wrap" Width="320"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Course Name: " FontSize="13"  />
-                                            <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
+                                            <TextBlock Text="Course Name: " FontSize="16"  />
+                                            <TextBlock Text="{Binding CourseName}" FontSize="16" Foreground="DarkOrange" 
                                                         TextWrapping="Wrap" Width="320"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" >
@@ -145,13 +145,13 @@
 
                                     <StackPanel Grid.Column="0" Margin="1,0,0,3">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Course Code: " FontSize="13"/>
-                                            <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
+                                            <TextBlock Text="Course Code: " FontSize="16"/>
+                                            <TextBlock Text="{Binding CourseCode}" FontSize="16" Foreground="Green" 
                                                     TextWrapping="Wrap" Width="320"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Course Name: " FontSize="13"/>
-                                            <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
+                                            <TextBlock Text="Course Name: " FontSize="16"/>
+                                            <TextBlock Text="{Binding CourseName}" FontSize="16" Foreground="DarkOrange" 
                                                     TextWrapping="Wrap" Width="320"/>
                                         </StackPanel>
                                     </StackPanel>
@@ -186,18 +186,18 @@
 
                                     <StackPanel Grid.Column="0" Margin="1,0,0,3">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Course Code: " FontSize="13"/>
-                                            <TextBlock Text="{Binding CourseCode}" FontSize="13" Foreground="Green" 
+                                            <TextBlock Text="Course Code: " FontSize="16"/>
+                                            <TextBlock Text="{Binding CourseCode}" FontSize="16" Foreground="Green" 
                                                     TextWrapping="Wrap" Width="320"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Course Name: " FontSize="13"/>
-                                            <TextBlock Text="{Binding CourseName}" FontSize="13" Foreground="DarkOrange" 
+                                            <TextBlock Text="Course Name: " FontSize="16"/>
+                                            <TextBlock Text="{Binding CourseName}" FontSize="16" Foreground="DarkOrange" 
                                                     TextWrapping="Wrap" Width="320"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Marks: " FontSize="13"/>
-                                            <TextBlock Text="{Binding Marks}" FontSize="13" Foreground="DimGray" 
+                                            <TextBlock Text="Marks: " FontSize="14"/>
+                                            <TextBlock Text="{Binding Marks}" FontSize="14" Foreground="DimGray" 
                                                     TextWrapping="Wrap" Width="320"/>
                                         </StackPanel>
                                     </StackPanel>
