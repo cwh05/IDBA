@@ -25,6 +25,12 @@ Public Class AdminWindow : Inherits MetroWindow
         End If
     End Sub
 
+    ''' <summary>
+    ''' Swicthing for tab on Admin windows
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub btnMenuClick(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         Dim btnClicked = CType(sender, Button)
         Select Case btnClicked.Name
@@ -39,10 +45,19 @@ Public Class AdminWindow : Inherits MetroWindow
         End Select
     End Sub
 
+    ''' <summary>
+    ''' Event handler for department save button
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub btnSaveDepartment_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         Try
+            'Validating department fields
             If ValidateDepartment() Then
+                'New department obeject
                 Dim department = New Department With {.DepartmentName = txtDepartmentName.Text}
+                'Save department
                 adminWindowController.CreateDepartment(department)
                 MsgBox("Department " & txtDepartmentName.Text & " has been created.", MsgBoxStyle.Information)
                 ClearDeparmentForm()
@@ -53,16 +68,29 @@ Public Class AdminWindow : Inherits MetroWindow
         End Try
     End Sub
 
+    ''' <summary>
+    ''' Event handler for program save button
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub btnSaveProgram_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         Try
+            'Validating program fields
             If ValidateProgram() Then
                 Dim program = New Program With {
                     .ProgramName = txtProgramName.Text,
                     .ProgramDescription = txtProgramDescription.Text
                 }
+
+                'Save program detail to database
                 adminWindowController.CreateProgram(program)
                 MsgBox("Program " & txtProgramName.Text & " has been created.", MsgBoxStyle.Information)
+
+                'Clear program form
                 ClearProgramForm()
+
+                'Reload the updated detail in for every forms
                 RefreshLookItem()
             End If
         Catch ex As Exception
@@ -70,8 +98,15 @@ Public Class AdminWindow : Inherits MetroWindow
         End Try
     End Sub
 
+    ''' <summary>
+    ''' Event handler for account save button
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub btnSaveAccount_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         Try
+            'Validating employee fields
             If ValidateEmployee() Then
                 Dim employee = New Employee With {
                     .EmployeeFirstName = txtFirstName.Text,
@@ -90,10 +125,18 @@ Public Class AdminWindow : Inherits MetroWindow
                     .RoleID = CType(comboboxRole.SelectedItem, RoleCategory).RoleID
                 }
                 Dim department = CType(comboboxDepartment.SelectedItem, Department)
+
+                'Assign department to employee
                 employee.Departments.Add(department)
+
+                'Save employee detail to database
                 adminWindowController.CreateAccount(employee)
                 MsgBox("New username " & adminWindowController.GetLatestUsername() & " was created.", MsgBoxStyle.Information)
+
+                'Clear program form
                 ClearEmployeeForm()
+
+                'Reload the updated detail in for every forms
                 RefreshLookItem()
             End If
         Catch ex As Exception
@@ -101,12 +144,23 @@ Public Class AdminWindow : Inherits MetroWindow
         End Try
     End Sub
 
+    ''' <summary>
+    ''' Event handler for assign button
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub btnAssignProgramManagerClick(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         Try
+            'Check both lists have selected 
             If listboxProgram.SelectedItem IsNot Nothing And listboxStaff.SelectedItem IsNot Nothing Then
                 Dim program = CType(listboxProgram.SelectedItem, Program)
                 program.Employee = CType(listboxStaff.SelectedItem, Employee)
+
+                'Assign program to employee
                 adminWindowController.AssginProgramManager(program)
+
+                'Reload the updated detail in for every forms
                 RefreshLookItem()
                 MsgBox("Program " & program.ProgramName & " managed by " & program.Employee.EmployeeFirstName, MsgBoxStyle.Information)
             Else
@@ -117,8 +171,13 @@ Public Class AdminWindow : Inherits MetroWindow
         End Try
     End Sub
 
+    ''' <summary>
+    ''' Refresh data in the windows
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub RefreshLookItem()
         Try
+            'Retrieve fresh information from database
             comboboxCountry.ItemsSource = adminWindowController.GetAllCountryForLookUp()
             comboboxRole.ItemsSource = adminWindowController.GetAllRoleForLookUp()
             comboboxDepartment.ItemsSource = adminWindowController.GetAllDepartmentForLookUp()
@@ -129,15 +188,27 @@ Public Class AdminWindow : Inherits MetroWindow
         End Try
     End Sub
 
+    ''' <summary>
+    ''' Clear department form
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub ClearDeparmentForm()
         txtDepartmentName.Text = String.Empty
     End Sub
 
+    ''' <summary>
+    ''' Clear program form
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub ClearProgramForm()
         txtProgramName.Text = String.Empty
         txtProgramDescription.Text = String.Empty
     End Sub
 
+    ''' <summary>
+    ''' Clear employee form
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub ClearEmployeeForm()
         txtCity.Text = String.Empty
         txtEmail.Text = String.Empty
@@ -156,6 +227,11 @@ Public Class AdminWindow : Inherits MetroWindow
         datePickerDateofBirth.SelectedDate = DateTime.Today
     End Sub
 
+    ''' <summary>
+    ''' Validate the account form
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Private Function ValidateEmployee() As Boolean
         If txtFirstName.Text.Length = 0 Then
             MsgBox("Please fill in first name field.", MsgBoxStyle.Exclamation)
@@ -225,6 +301,11 @@ Public Class AdminWindow : Inherits MetroWindow
         Return True
     End Function
 
+    ''' <summary>
+    ''' Validate the department form
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Private Function ValidateDepartment() As Boolean
         If txtDepartmentName.Text.Length = 0 Then
             MsgBox("Please fill department name field.", MsgBoxStyle.Exclamation)
@@ -234,6 +315,11 @@ Public Class AdminWindow : Inherits MetroWindow
         Return True
     End Function
 
+    ''' <summary>
+    ''' Validate the program form
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Private Function ValidateProgram() As Boolean
         If txtProgramName.Text.Length = 0 Then
             MsgBox("Please fill program name field.", MsgBoxStyle.Exclamation)
@@ -247,14 +333,32 @@ Public Class AdminWindow : Inherits MetroWindow
         Return True
     End Function
 
+    ''' <summary>
+    ''' Clear button handler
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub btnClearDepartment_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         ClearDeparmentForm()
     End Sub
 
+    ''' <summary>
+    ''' Clear button handler
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub btnClearProgram_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         ClearProgramForm()
     End Sub
 
+    ''' <summary>
+    ''' Clear button handler
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub btnClearAccount_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         ClearEmployeeForm()
     End Sub
