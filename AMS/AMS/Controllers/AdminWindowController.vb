@@ -32,6 +32,13 @@
         amsEntities.UpdateProgramManager(program.ProgramID, program.Employee.EmployeeID)
     End Sub
 
+    Public Function GetAllDepartmentForLookUp() As IEnumerable(Of Department)
+        Dim departmentList = From department In amsEntities.Departments
+                             Order By department.CreatedDate
+                             Select department
+        Return departmentList
+    End Function
+
     Public Function GetAllProgramForLookUp() As IEnumerable(Of Program)
         Dim programList = From programs In amsEntities.Programs
                           Order By programs.CreatedDate

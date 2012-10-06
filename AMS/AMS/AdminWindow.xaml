@@ -346,6 +346,26 @@
                             Controls:TextboxHelper.Watermark="Confirm Password"
                             Controls:TextboxHelper.ClearTextButton="False"/>
 
+                    <Label Grid.Column="4" Grid.Row="8" Grid.ColumnSpan="2"
+                       Margin="0,0,0,10"
+                       FontWeight="Normal" 
+                       FontSize="25"
+                       Foreground="Red">department</Label>
+
+                    <Label Grid.Row="9" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center"
+                       FontWeight="Bold" Content="DEPARTMENT"/>
+                    <ComboBox Name="comboboxDepartment" 
+                         Grid.Column="5" Grid.Row="9" Grid.ColumnSpan="2"
+                          Margin="20,5,0,5">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding DepartmentName}" ToolTip="{Binding DepartmentName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
                     <Button Name="btnSaveAccount" Grid.Row="18" Grid.Column="1" Click="btnSaveAccount_Click"
                             Margin="16,0,0,0">save</Button>
                     <Button Name="btnClearAccount" Grid.Row="18" Grid.Column="2" Click="btnClearAccount_Click">clear</Button>

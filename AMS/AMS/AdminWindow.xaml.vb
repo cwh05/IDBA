@@ -44,8 +44,9 @@ Public Class AdminWindow : Inherits MetroWindow
             If ValidateDepartment() Then
                 Dim department = New Department With {.DepartmentName = txtDepartmentName.Text}
                 adminWindowController.CreateDepartment(department)
-                MsgBox("Department " & txtDepartmentName.Text & "has been created.", MsgBoxStyle.Information)
+                MsgBox("Department " & txtDepartmentName.Text & " has been created.", MsgBoxStyle.Information)
                 ClearDeparmentForm()
+                RefreshLookItem()
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -60,7 +61,7 @@ Public Class AdminWindow : Inherits MetroWindow
                     .ProgramDescription = txtProgramDescription.Text
                 }
                 adminWindowController.CreateProgram(program)
-                MsgBox("Program " & txtProgramName.Text & "has been created.", MsgBoxStyle.Information)
+                MsgBox("Program " & txtProgramName.Text & " has been created.", MsgBoxStyle.Information)
                 ClearProgramForm()
                 RefreshLookItem()
             End If
@@ -88,6 +89,8 @@ Public Class AdminWindow : Inherits MetroWindow
                     .Account = New Account With {.LoginPassword = txtPassword.Password},
                     .RoleID = CType(comboboxRole.SelectedItem, RoleCategory).RoleID
                 }
+                Dim department = CType(comboboxDepartment.SelectedItem, Department)
+                employee.Departments.Add(department)
                 adminWindowController.CreateAccount(employee)
                 MsgBox("New username " & adminWindowController.GetLatestUsername() & " was created.", MsgBoxStyle.Information)
                 ClearEmployeeForm()
@@ -118,6 +121,7 @@ Public Class AdminWindow : Inherits MetroWindow
         Try
             comboboxCountry.ItemsSource = adminWindowController.GetAllCountryForLookUp()
             comboboxRole.ItemsSource = adminWindowController.GetAllRoleForLookUp()
+            comboboxDepartment.ItemsSource = adminWindowController.GetAllDepartmentForLookUp()
             listboxProgram.ItemsSource = adminWindowController.GetAllProgramForLookUp()
             listboxStaff.ItemsSource = adminWindowController.GetAllEmployeeForLookUp()
         Catch ex As Exception
@@ -148,6 +152,7 @@ Public Class AdminWindow : Inherits MetroWindow
         txtContactNumber.Text = String.Empty
         comboboxRole.SelectedIndex = 0
         comboboxCountry.SelectedIndex = 0
+        comboboxDepartment.SelectedItem = 0
         datePickerDateofBirth.SelectedDate = DateTime.Today
     End Sub
 
