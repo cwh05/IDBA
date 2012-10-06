@@ -176,10 +176,12 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub comboboxProgram_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs)
-        Dim program = CType(comboboxProgram.SelectedItem, Program)
-        txtProgramName.Text = program.ProgramName
-        txtProgramDescription.Text = program.ProgramDescription
-        listboxCourseProgram.ItemsSource = program.Courses
+        If comboboxProgram.SelectedItem IsNot Nothing Then
+            Dim program = CType(comboboxProgram.SelectedItem, Program)
+            txtProgramName.Text = program.ProgramName
+            txtProgramDescription.Text = program.ProgramDescription
+            listboxCourseProgram.ItemsSource = program.Courses
+        End If
     End Sub
 
     ''' <summary>
@@ -339,9 +341,11 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub tabContent_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles tabContent.SelectionChanged
-        Dim program = CType(comboboxProgram.SelectedItem, Program)
-        txtProgramName.Text = program.ProgramName
-        txtProgramDescription.Text = program.ProgramDescription
-        listboxCourseProgram.ItemsSource = program.Courses
+        If comboboxProgram.SelectedItem IsNot Nothing Then
+            Dim program = CType(comboboxProgram.SelectedItem, Program)
+            txtProgramName.Text = program.ProgramName
+            txtProgramDescription.Text = program.ProgramDescription
+            listboxCourseProgram.ItemsSource = program.Courses
+        End If
     End Sub
 End Class

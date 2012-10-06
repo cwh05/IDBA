@@ -287,7 +287,11 @@ Public Class AdminWindow : Inherits MetroWindow
             Return False
         ElseIf comboboxRole.SelectedItem Is Nothing Then
             MsgBox("Please select role for employee.", MsgBoxStyle.Exclamation)
-            txtPassword.Focus()
+            comboboxRole.Focus()
+            Return False
+        ElseIf comboboxDepartment.SelectedItem Is Nothing Then
+            MsgBox("Please select department for employee.", MsgBoxStyle.Exclamation)
+            comboboxDepartment.Focus()
             Return False
         ElseIf txtPassword.Password.Length = 0 Then
             MsgBox("Password field cannot be empty.", MsgBoxStyle.Exclamation)
