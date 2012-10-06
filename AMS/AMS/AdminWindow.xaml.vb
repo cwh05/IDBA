@@ -44,6 +44,7 @@ Public Class AdminWindow : Inherits MetroWindow
             If ValidateDepartment() Then
                 Dim department = New Department With {.DepartmentName = txtDepartmentName.Text}
                 adminWindowController.CreateDepartment(department)
+                MsgBox("Department " & txtDepartmentName.Text & "has been created.", MsgBoxStyle.Information)
                 ClearDeparmentForm()
             End If
         Catch ex As Exception
@@ -59,7 +60,9 @@ Public Class AdminWindow : Inherits MetroWindow
                     .ProgramDescription = txtProgramDescription.Text
                 }
                 adminWindowController.CreateProgram(program)
+                MsgBox("Program " & txtProgramName.Text & "has been created.", MsgBoxStyle.Information)
                 ClearProgramForm()
+                RefreshLookItem()
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -86,6 +89,7 @@ Public Class AdminWindow : Inherits MetroWindow
                     .RoleID = CType(comboboxRole.SelectedItem, RoleCategory).RoleID
                 }
                 adminWindowController.CreateAccount(employee)
+                MsgBox("New username " & adminWindowController.GetLatestUsername() & " was created.", MsgBoxStyle.Information)
                 ClearEmployeeForm()
                 RefreshLookItem()
             End If

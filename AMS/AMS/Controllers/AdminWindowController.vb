@@ -61,4 +61,9 @@
     Public Function GetEmployeeCount() As Integer
         Return amsEntities.Employees.Count
     End Function
+
+    Public Function GetLatestUsername() As String
+        Dim username As GetLatestLoginUsername_Result = CType(amsEntities.GetLatestLoginUsername().Single(), GetLatestLoginUsername_Result)
+        Return username.loginusername
+    End Function
 End Class

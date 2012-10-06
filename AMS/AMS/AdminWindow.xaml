@@ -391,11 +391,11 @@
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding EmployeeFirstName}"
-                                               FontSize="22" FontWeight="DemiBold" Margin="10,10,5,10"></TextBlock>
+                                               FontSize="22" FontWeight="DemiBold" Margin="10,10,5,10" Foreground="DarkOrange"></TextBlock>
                                     <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding EmployeeLastName}"
-                                               FontSize="22" FontWeight="DemiBold" Margin="15,10,5,10"></TextBlock>
+                                               FontSize="22" FontWeight="DemiBold" Margin="15,10,5,10" Foreground="DarkOrange"></TextBlock>
                                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Email}"
-                                               FontSize="13" FontWeight="Light" Margin="10,0,5,10"></TextBlock>
+                                               FontSize="13" FontWeight="Light" Margin="10,0,5,10" Foreground="Green"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -435,13 +435,13 @@
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding ProgramName}"
-                                               FontSize="22" FontWeight="DemiBold" Margin="10,10,5,10"></TextBlock>
+                                               FontSize="22" FontWeight="DemiBold" Margin="10,10,5,10" Foreground="DarkOrange"></TextBlock>
                                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding ProgramDescription}"
-                                               FontSize="13" FontWeight="Light" Margin="10,0,5,10" ></TextBlock>
+                                               FontSize="13" FontWeight="Light" Margin="10,0,5,10" Foreground="Green"></TextBlock>
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Manage by"
-                                               FontSize="13" FontWeight="Light" Margin="10,0,3,10" ></TextBlock>
+                                               FontSize="13" FontWeight="Light" Margin="10,0,3,10" Foreground="DarkBlue"></TextBlock>
                                     <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Employee.EmployeeFirstName}"
-                                               FontSize="13" FontWeight="Light" Margin="0,0,5,10"></TextBlock>
+                                               FontSize="13" FontWeight="Light" Margin="0,0,5,10" Foreground="DarkBlue"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

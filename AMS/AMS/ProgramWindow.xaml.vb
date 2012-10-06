@@ -1,6 +1,7 @@
 ﻿Public Class ProgramWindow
 
     Private programWindowController As ProgramWindowController = New ProgramWindowController()
+    Private programManager As String
 
     Public Sub New(ByRef username As String)
 
@@ -12,6 +13,8 @@
         txtCourseDescription.IsReadOnly = True
         btnClearCourse.IsEnabled = False
         btnSaveCourse.IsEnabled = False
+
+        programManager = username
 
         ' Add any initialization after the InitializeComponent() call.
         Dim programList = programWindowController.GetProgramByUsername(username)
@@ -62,12 +65,20 @@
     Private Sub btnSaveProgram_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         Try
             If ValidateProgram() Then
-                Dim program = New Program With {
-                    .ProgramName = txtProgramName.Text,
-                    .ProgramDescription = txtProgramDescription.Text
-                }
+                Dim program = CType(comboboxProgram.SelectedItem, Program)
+                program.ProgramName = txtProgramName.Text
+                program.ProgramDescription = txtProgramDescription.Text
+
                 programWindowController.UpdateProgram(program)
-                ClearProgramForm()
+
+                MsgBox("Program detail has been updated.", MsgBoxStyle.Information)
+
+                Dim programList = programWindowController.GetProgramByUsername(programManager)
+                comboboxProgram.ItemsSource = programList
+                comboboxProgramStaff.ItemsSource = programList
+                comboboxProgramCourse.ItemsSource = programList
+                comboboxProgramEnrollment.ItemsSource = programList
+                'ClearProgramForm()
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
@@ -165,7 +176,7 @@
                 Dim program = CType(comboboxProgramStaff.SelectedItem, Program)
                 program.Courses.Load()
 
-                MsgBox("Course " & program.ProgramName & " managed by " & program.Employee.EmployeeFirstName, MsgBoxStyle.Information)
+                MsgBox("Course " & course.CourseName & " managed by " & course.Employee.EmployeeFirstName, MsgBoxStyle.Information)
             Else
                 MsgBox("Please select both staff and course before assign.")
             End If
