@@ -327,4 +327,17 @@
         End If
         Return True
     End Function
+
+    ''' <summary>
+    ''' Updatet refesh information when selected index tab change
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub tabContent_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles tabContent.SelectionChanged
+        Dim program = CType(comboboxProgram.SelectedItem, Program)
+        txtProgramName.Text = program.ProgramName
+        txtProgramDescription.Text = program.ProgramDescription
+        listboxCourseProgram.ItemsSource = program.Courses
+    End Sub
 End Class
