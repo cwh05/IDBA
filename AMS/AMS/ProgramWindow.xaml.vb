@@ -230,8 +230,10 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub comboboxProgramEnrollment_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs)
-        Dim program = CType(comboboxProgramEnrollment.SelectedItem, Program)
-        datagridProgram.ItemsSource = programWindowController.GetEnrollmentByProgram(program.ProgramID)
+        If comboboxProgramEnrollment.SelectedItem IsNot Nothing Then
+            Dim program = CType(comboboxProgramEnrollment.SelectedItem, Program)
+            datagridProgram.ItemsSource = programWindowController.GetEnrollmentByProgram(program.ProgramID)
+        End If
     End Sub
 
     ''' <summary>
@@ -241,9 +243,11 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub comboboxProgramCourse_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs)
-        Dim program = CType(comboboxProgramCourse.SelectedItem, Program)
-        comboboxCourse.ItemsSource = program.Courses
-        comboboxCourse.SelectedIndex = 0
+        If comboboxProgramCourse.SelectedItem IsNot Nothing Then
+            Dim program = CType(comboboxProgramCourse.SelectedItem, Program)
+            comboboxCourse.ItemsSource = Program.Courses
+            comboboxCourse.SelectedIndex = 0
+        End If
     End Sub
 
     ''' <summary>

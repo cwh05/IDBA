@@ -39,11 +39,11 @@
     ''' <param name="programId"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function GetEnrollmentByProgram(ByVal programId As Integer) As IEnumerable(Of Enrollment)
-        Dim studentList = From student In amsEnitities.Enrollments
-                          Where student.ProgramID = programId
-                          Select student
-        Return studentList
+    Public Function GetEnrollmentByProgram(ByVal programId As Integer) As IEnumerable(Of Student)
+        Dim pm = (From program In amsEnitities.Programs
+                 Where program.ProgramID = programId
+                 Select program).Single()
+        Return pm.Students
     End Function
 
     ''' <summary>
@@ -52,11 +52,15 @@
     ''' <param name="courseId"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function GetEnrollmentByCourse(ByVal courseId As Integer) As IEnumerable(Of Enrollment)
-        Dim studentList = From student In amsEnitities.Enrollments
-                          Where student.CourseID = courseId
-                          Select student
-        Return studentList
+    Public Function GetEnrollmentByCourse(ByVal courseId As Integer) As IEnumerable(Of Student)
+        Dim crs = (From course In amsEnitities.Courses
+                   Where course.CourseID = courseId
+                   Select course).Single()
+
+        Dim sc = From studentCouse In crs.StudentCourses
+                 Where studentCouse.CourseID = courseId
+                 Select studentCouse.Student
+        Return sc
     End Function
 
     ''' <summary>

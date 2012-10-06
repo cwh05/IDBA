@@ -409,11 +409,11 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="No." Width="40" Binding="{Binding StudentID}"></DataGridTextColumn>
+                            <!--<DataGridTextColumn Header="No." Width="40" Binding="{Binding StudentID}"></DataGridTextColumn>-->
                             <DataGridTextColumn Header="Firstname" Width="120" Binding="{Binding StudentFirstName}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Lastname" Width="120" Binding="{Binding StudentLastName}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Email" Width="150" Binding="{Binding Email}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Program" Width="170" Binding="{Binding ProgramName}"></DataGridTextColumn>
+                            <!--<DataGridTextColumn Header="Program" Width="170" Binding="{Binding ProgramName}"></DataGridTextColumn>-->
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -465,7 +465,7 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                     <DataGrid Name="datagridCourse" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Height="380" 
-                              DataContext="{Binding}" AutoGenerateColumns="False" IsReadOnly="True" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                              DataContext="{Binding}" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="Padding" Value="5"></Setter>
@@ -481,11 +481,11 @@
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="No." Width="40" Binding="{Binding StudentID}"></DataGridTextColumn>
+                            <!--<DataGridTextColumn Header="No." Width="40" Binding="{Binding StudentID}"></DataGridTextColumn>-->
                             <DataGridTextColumn Header="Firstname" Width="120" Binding="{Binding StudentFirstName}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Lastname" Width="120" Binding="{Binding StudentLastName}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Email" Width="150" Binding="{Binding Email}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Program" Width="170" Binding="{Binding ProgramName}"></DataGridTextColumn>
+                            <!--<DataGridTextColumn Header="Program" Width="170" Binding="{Binding ProgramName}"></DataGridTextColumn>-->
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
