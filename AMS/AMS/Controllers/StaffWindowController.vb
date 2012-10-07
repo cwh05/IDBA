@@ -91,7 +91,8 @@ Public Class StaffWindowController
     Public Function InsertStudent(ByVal student As Student, ByVal account As Account) As Boolean
 
         Try
-            db.InsertStudent(account.LoginPassword, student.StudentFirstName, student.StudentLastName, student.Gender, student.DateOfBirth, student.Address1, student.Address2, student.City, _
+            Dim dll As New Utilities.EncryptionProvider()
+            db.InsertStudent(dll.Encrypt(account.LoginPassword), student.StudentFirstName, student.StudentLastName, student.Gender, student.DateOfBirth, student.Address1, student.Address2, student.City, _
                              student.PostCode, student.StateProvince, student.CountryCode, student.ContactNumber, student.Email, student.ProgramID)
 
             db.SaveChanges()
