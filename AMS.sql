@@ -830,6 +830,12 @@ GO
 
 ---------------------------------------------------------------------------------------------------
 
+CREATE PROCEDURE GetLatestLoginUsername
+AS
+   SELECT TOP (1) loginusername FROM Account ORDER BY AccountID DESC
+GO
+
+
 
 PRINT 'Stored procedures created'
 GO
@@ -970,6 +976,9 @@ IF (OBJECT_ID('GetAllCourseOfStaff') IS NOT NULL)
 
 IF (OBJECT_ID('UpdateStudentMarks') IS NOT NULL)
    DROP PROCEDURE UpdateStudentMarks
+
+IF (OBJECT_ID('GetLatestLoginUsername') IS NOT NULL)
+   DROP PROCEDURE GetLatestLoginUsername
 
 PRINT 'All stored procedures are removed...'
 GO
