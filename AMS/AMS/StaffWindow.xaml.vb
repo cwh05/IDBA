@@ -39,12 +39,22 @@ Public Class StaffWindow
             Case "btnAssessmentInfo"
                 tabContent.SelectedIndex = 2
                 ViewCourseEnrolment(assessmentInfoListboxControl)
+                If assessmentInfoStudentListboxControl.Items.Count > 0 Then
+                    assessmentInfoStudentListboxControl.ItemsSource = Nothing
+                End If
             Case "btnViewCourseEnrolment"
                 tabContent.SelectedIndex = 3
                 ViewCourseEnrolment(viewCourseListboxControl)
+                If studentListboxControl.Items.Count > 0 Then
+                    studentListboxControl.ItemsSource = Nothing
+                End If
+
             Case "btnCourseDetail"
-                tabContent.SelectedIndex = 4
-                ViewCourseEnrolment(courseDetailListboxControl)
+                    tabContent.SelectedIndex = 4
+                    ViewCourseEnrolment(courseDetailListboxControl)
+                    tbCourseCode.Text = ""
+                    tbCourseName.Text = ""
+                    tbCourseDesc.Text = ""
         End Select
     End Sub
 
