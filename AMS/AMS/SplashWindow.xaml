@@ -5,7 +5,7 @@
         ResizeMode="NoResize" Focusable="False" AllowsTransparency="True" ShowInTaskbar="False">
     <Grid IsHitTestVisible="False">
         <Grid.Background>
-            <ImageBrush ImageSource="/AMS;component/Resources/Images/splash.jpg" />
+            <ImageBrush ImageSource="/AMS;component/Resources/Images/SplashScreen.jpg" />
         </Grid.Background>
         <ms:DualProgressBar IsIndeterminate="True" Orientation="Horizontal" Height="16" 
                             Margin="0,0,0,0" Width="516" VerticalAlignment="Bottom" 

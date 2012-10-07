@@ -330,9 +330,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\SplashScreen.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\AMS.Utilities\AMS.Utilities.vbproj">
       <Project>{CF1434D5-33D9-4561-8B5D-AE7428930172}</Project>
       <Name>AMS.Utilities</Name>
@@ -344,6 +341,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\SplashScreen.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
