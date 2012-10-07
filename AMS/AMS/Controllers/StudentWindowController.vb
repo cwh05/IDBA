@@ -8,60 +8,6 @@ Public Class StudentWindowController
     Private db As AMSEntities = New AMSEntities()
 
     ''' <summary>
-    ''' This function validates student personal details
-    ''' </summary>
-    ''' <param name="FirstName">A first name</param>
-    ''' <param name="LastName">A last name</param>
-    ''' <param name="dob">A date of birth</param>
-    ''' <param name="ContactNumber">A contact number</param>
-    ''' <param name="Email">An E-mail</param>
-    ''' <param name="maleOption">A boolean of male selected</param>
-    ''' <param name="femaleOption">A boolean of female selected</param>
-    ''' <returns>True is no error occur or False if it has error</returns>
-    ''' <remarks></remarks>
-    Public Function validatePersonalDetail(ByRef FirstName As String, ByRef LastName As String, ByRef dob As String,
-                                           ByRef ContactNumber As String, ByRef Email As String, ByRef maleOption As Boolean,
-                                           ByRef femaleOption As Boolean) As Boolean
-        Dim numberRE As New Regex("\d+")
-        Dim emailRE As New Regex("^\w+([+-.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
-
-        'validate all textboxes content
-        If FirstName.Length = 0 Or LastName.Length = 0 Or dob.Length = 0 Or
-            numberRE.IsMatch(ContactNumber) = False Or emailRE.IsMatch(Email) = False Then
-            Return False
-
-            'validate gender option
-        ElseIf maleOption = False And femaleOption = False Then
-            Return False
-        End If
-
-        Return True
-    End Function
-
-    ''' <summary>
-    ''' This function validates student address detail
-    ''' </summary>
-    ''' <param name="Address1">An address 1</param>
-    ''' <param name="Address2">An address 2</param>
-    ''' <param name="City">A city</param>
-    ''' <param name="PostCode">A postcode</param>
-    ''' <param name="State">A state province</param>
-    ''' <param name="countryCombo">A country string</param>
-    ''' <returns>True is no error occur or False if it has error</returns>
-    ''' <remarks></remarks>
-    Public Function validateAddressDetail(ByRef Address1 As String, ByRef Address2 As String, ByRef City As String,
-                                          ByRef PostCode As String, ByRef State As String, ByRef countryCombo As String) As Boolean
-        'validate address details of a student
-        If Address1.Length = 0 Or City.Length = 0 Or
-            PostCode.Length = 0 Or State.Length = 0 Or countryCombo.Length = 0 Then
-            Return False
-        End If
-
-        Return True
-    End Function
-
-
-    ''' <summary>
     ''' This function retrieves all country data
     ''' </summary>
     ''' <returns>A list of country</returns>

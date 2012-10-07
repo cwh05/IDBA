@@ -3,6 +3,7 @@ Imports System.Data.Objects
 Imports System.Data
 Imports System.Collections.Generic
 Imports System.Threading
+Imports System.Text.RegularExpressions
 
 
 Public Class StudentWindow
@@ -156,30 +157,23 @@ Public Class StudentWindow
 
     End Sub
 
-    Private Sub btnSave_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnSave.Click
-        btnEdit.Visibility = Windows.Visibility.Visible
-        btnSave.Visibility = Windows.Visibility.Hidden
+    Private Sub btnSave_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnSave.Click        
+        'if no validation errors
+        If validateStudent() = True Then
+            btnEdit.Visibility = Windows.Visibility.Visible
+            btnSave.Visibility = Windows.Visibility.Hidden
 
-        'disable editable textboxes
-        EditableTxtBox()
+            'disable editable textboxes
+            EditableTxtBox()
 
-        Dim oldPassword As String = txtOldPassword.Password
-        Dim newPassword As String = txtNewPassword.Password
-        Dim confirmPassword As String = txtConfirmPassword.Password
+            Dim oldPassword As String = txtOldPassword.Password
+            Dim newPassword As String = txtNewPassword.Password
+            Dim confirmPassword As String = txtConfirmPassword.Password
 
-        'validate student textboxes details
-        Dim valid1 = controller.validatePersonalDetail(txtFirstName.Text, txtLastName.Text, dob.SelectedDate.ToString,
-                                                       txtContactNumber.Text, txtEmail.Text, radioGenderMale.IsChecked,
-                                                       radioGenderFemale.IsChecked)
-        Dim valid2 = controller.validateAddressDetail(txtAddress1.Text, txtAddress2.Text, txtCity.Text, txtPostCode.Text,
-                                                      txtState.Text, countryCombo.SelectedValue)
-
-
-        Dim fail = False
-        Try
-            'update profile details if no errors occur
-            If valid1 And valid2 Then
+            Dim fail = False
+            Try
                 Dim gender As SByte
+
                 If radioGenderMale.IsChecked Then
                     gender = 0
                 Else
@@ -205,23 +199,22 @@ Public Class StudentWindow
                 Else
                     fail = True
                 End If
-            Else
+
+            Catch ex As Exception
                 fail = True
-            End If
-        Catch ex As Exception
-            fail = True
 
-        Finally
-            If fail Then
-                MsgBox("Fail to update.", MsgBoxStyle.Exclamation, "Update Information")
-            Else
-                MsgBox("Update successfully.", MsgBoxStyle.Information, "Update Information")
-            End If
+            Finally
+                If fail Then
+                    MsgBox("Invalid old password!", MsgBoxStyle.Exclamation, "Update Information")
+                Else
+                    MsgBox("Update successfully.", MsgBoxStyle.Information, "Update Information")
+                End If
 
-            txtOldPassword.Password = String.Empty
-            txtNewPassword.Password = String.Empty
-            txtConfirmPassword.Password = String.Empty
-        End Try
+                txtOldPassword.Password = String.Empty
+                txtNewPassword.Password = String.Empty
+                txtConfirmPassword.Password = String.Empty
+            End Try
+        End If
 
         Me.Finalize()
     End Sub
@@ -367,5 +360,109 @@ Public Class StudentWindow
         Catch ex As Exception
         End Try
     End Sub
+
+    Private Function validateStudent() As Boolean
+        Dim emailRE As New Regex("^\w+([+-.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
+
+        ' validate student personal information
+        If txtFirstName.Text.Length = 0 Then
+            MsgBox("Please fill in first name field.", MsgBoxStyle.Exclamation)
+            txtFirstName.Focus()
+            Return False
+
+        ElseIf txtLastName.Text.Length = 0 Then
+            MsgBox("Please fill in last name field.", MsgBoxStyle.Exclamation)
+            txtLastName.Focus()
+            Return False
+
+        ElseIf Not (radioGenderMale.IsChecked Or radioGenderFemale.IsChecked) Then
+            MsgBox("Please select your gender.", MsgBoxStyle.Exclamation)
+            radioGenderMale.Focus()
+            Return False
+
+        ElseIf IsNothing(dob.SelectedDate) Then
+            MsgBox("Please select date of birth.", MsgBoxStyle.Exclamation)
+            dob.Focus()
+            Return False
+
+        ElseIf txtContactNumber.Text.Length = 0 Then
+            MsgBox("Please fill in contact number field.", MsgBoxStyle.Exclamation)
+            txtContactNumber.Focus()
+            Return False
+        ElseIf Not IsNumeric(txtContactNumber.Text) Then
+            MsgBox("Contact number must be numerical value.", MsgBoxStyle.Exclamation)
+            txtContactNumber.Focus()
+            Return False
+
+        ElseIf txtEmail.Text.Length = 0 Then
+            MsgBox("Please fill in email field.", MsgBoxStyle.Exclamation)
+            txtEmail.Focus()
+            Return False
+
+        ElseIf Not emailRE.IsMatch(txtEmail.Text) Then
+            MsgBox("Email format error.", MsgBoxStyle.Exclamation)
+            txtEmail.Focus()
+            Return False
+
+            ' validate address fields
+        ElseIf txtAddress1.Text.Length = 0 Then
+            MsgBox("Please fill in address 1 field.", MsgBoxStyle.Exclamation)
+            txtAddress1.Focus()
+            Return False
+
+        ElseIf txtCity.Text.Length = 0 Then
+            MsgBox("Please fill in city field.", MsgBoxStyle.Exclamation)
+            txtCity.Focus()
+            Return False
+
+        ElseIf txtPostCode.Text.Length = 0 Then
+            MsgBox("Please fill in postcode field.", MsgBoxStyle.Exclamation)
+            txtPostCode.Focus()
+            Return False
+
+        ElseIf Not IsNumeric(txtPostCode.Text) Then
+            MsgBox("Postcode must be numerical value.", MsgBoxStyle.Exclamation)
+            txtPostCode.Focus()
+            Return False
+
+        ElseIf txtState.Text.Length = 0 Then
+            MsgBox("Please fill in state province field.", MsgBoxStyle.Exclamation)
+            txtState.Focus()
+            Return False
+
+        End If
+
+        ' validate passwords textboxes fields
+        If txtOldPassword.Password.Length = 0 And txtNewPassword.Password.Length = 0 And
+            txtConfirmPassword.Password.Length = 0 Then
+            Return True
+
+        Else
+            If txtOldPassword.Password.Length = 0 Then
+                MsgBox("Old password field is empty.", MsgBoxStyle.Exclamation)
+                txtOldPassword.Focus()
+                Return False
+
+            ElseIf txtNewPassword.Password.Length = 0 Then
+                MsgBox("New password field is empty.", MsgBoxStyle.Exclamation)
+                txtNewPassword.Focus()
+                Return False
+
+            ElseIf txtConfirmPassword.Password.Length = 0 Then
+                MsgBox("Confirm password field is empty.", MsgBoxStyle.Exclamation)
+                txtConfirmPassword.Focus()
+                Return False
+
+            ElseIf txtNewPassword.Password.ToString <> txtConfirmPassword.Password.ToString Then
+                MsgBox("New passwords are not matched.", MsgBoxStyle.Exclamation)
+                txtNewPassword.Focus()
+                Return False
+
+            End If
+
+        End If
+
+        Return True
+    End Function
 
 End Class
