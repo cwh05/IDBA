@@ -96,7 +96,7 @@ Public Class StaffWindow
     Private Sub btnEdit_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnEdit.Click
 
         If editable Then
-            If tbCourseCode.Text.Length > 0 And tbCourseDesc.Text.Length > 0 And tbCourseName.Text.Length > 0 Then
+            If tbCourseCode.Text.Trim.Length > 0 And tbCourseDesc.Text.Trim.Length > 0 And tbCourseName.Text.Trim.Length > 0 Then
 
                 If MsgBox("Update Course: " & tbCourseCode.Text & "?", MsgBoxStyle.YesNo, "Confirmation") = MsgBoxResult.Yes Then
                     If controller.UpdateCourse(tbCourseCode.Text, tbCourseName.Text, tbCourseDesc.Text, courseDetailListboxControl.SelectedValue) Then
@@ -108,7 +108,10 @@ Public Class StaffWindow
                         ViewCourseEnrolment(courseDetailListboxControl)
                     End If
                 End If
+            Else
+                MsgBox("Please fill in all the textboxes!", MsgBoxStyle.Exclamation)
             End If
+
         Else
             tbCourseCode.IsEnabled = True
             tbCourseName.IsEnabled = True
