@@ -4,7 +4,7 @@
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     Title="Academic Management System" Height="250" Width="460" 
         WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" 
-        ResizeMode="NoResize" Icon="/AMS;component/Resources/Images/programIcon.ico">
+        ResizeMode="NoResize" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
