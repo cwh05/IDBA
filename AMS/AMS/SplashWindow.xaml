@@ -5,10 +5,10 @@
         ResizeMode="NoResize" Focusable="False" AllowsTransparency="True" ShowInTaskbar="False">
     <Grid IsHitTestVisible="False">
         <Grid.Background>
-            <ImageBrush ImageSource="/AMS;component/Resources/Images/SplashScreen.png" />
+            <ImageBrush ImageSource="/AMS;component/Resources/Images/splash.jpg" />
         </Grid.Background>
-        <ms:DualProgressBar IsIndeterminate="True"  Orientation="Horizontal" Height="16" 
-                            Margin="0,0,0,38" Width="443" VerticalAlignment="Bottom" 
-                            Name="DualProgressBar1" />
+        <ms:DualProgressBar IsIndeterminate="True" Orientation="Horizontal" Height="16" 
+                            Margin="0,0,0,0" Width="516" VerticalAlignment="Bottom" 
+                            Name="DualProgressBar1" HorizontalAlignment="Center" />
     </Grid>
 </Window>

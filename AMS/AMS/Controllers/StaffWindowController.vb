@@ -120,12 +120,19 @@ Public Class StaffWindowController
         Return programList
     End Function
 
-    Public Function GeNewStudentID() As Integer
+    Public Function GetNewStudentID() As Integer
         Dim lastid = (From students In db.Students
                           Select students.StudentID).Max()
         If IsNothing(lastid) Then
             lastid = 0
         End If
         Return lastid + 1
+    End Function
+
+    Public Function GetLatestLoginUsername() As String
+
+        Dim username As GetLatestLoginUsername_Result = CType(db.GetLatestLoginUsername().Single(), GetLatestLoginUsername_Result)
+
+        Return username.loginusername
     End Function
 End Class

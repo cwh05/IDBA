@@ -96,8 +96,16 @@ Public Class StaffWindow
     Private Sub btnEdit_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnEdit.Click
 
         If editable Then
-            If tbCourseCode.Text.Trim.Length > 0 And tbCourseDesc.Text.Trim.Length > 0 And tbCourseName.Text.Trim.Length > 0 Then
-
+            If tbCourseCode.Text.Trim.Length <= 0 Then
+                MsgBox("Please fill in course code field.", MsgBoxStyle.Exclamation)
+                tbCourseCode.Focus()
+            ElseIf tbCourseName.Text.Trim.Length <= 0 Then
+                MsgBox("Please fill in course name field.", MsgBoxStyle.Exclamation)
+                tbCourseName.Focus()
+            ElseIf tbCourseDesc.Text.Trim.Length <= 0 Then
+                MsgBox("Please fill in course description field.", MsgBoxStyle.Exclamation)
+                tbCourseDesc.Focus()
+            Else
                 If MsgBox("Update Course: " & tbCourseCode.Text & "?", MsgBoxStyle.YesNo, "Confirmation") = MsgBoxResult.Yes Then
                     If controller.UpdateCourse(tbCourseCode.Text, tbCourseName.Text, tbCourseDesc.Text, courseDetailListboxControl.SelectedValue) Then
                         tbCourseCode.IsEnabled = False
@@ -108,8 +116,6 @@ Public Class StaffWindow
                         ViewCourseEnrolment(courseDetailListboxControl)
                     End If
                 End If
-            Else
-                MsgBox("Please fill in all the textboxes!", MsgBoxStyle.Exclamation)
             End If
 
         Else
@@ -119,7 +125,6 @@ Public Class StaffWindow
             editable = True
             btnEdit.Content = "update"
         End If
-
 
     End Sub
 
@@ -147,11 +152,11 @@ Public Class StaffWindow
                 Else
                     newStud.Gender = True
                 End If
-                account.LoginUsername = controller.GeNewStudentID()
+                account.LoginUsername = controller.GetNewStudentID()
                 account.LoginPassword = txtPassword.Text
 
                 If controller.InsertStudent(newStud, account) Then
-                    MsgBox("Student '" & newStud.StudentLastName & "' has been added successfully!", MsgBoxStyle.Information, "Congratulation")
+                    MsgBox("New Student ID '" & newStud.StudentLastName & "' has been added successfully!" & vbNewLine & "Username: " & controller.GetLatestLoginUsername(), MsgBoxStyle.Information, "Congratulation")
 
                     ClearAllField()
                 End If
