@@ -152,7 +152,6 @@ Public Class StaffWindow
                 Else
                     newStud.Gender = True
                 End If
-                account.LoginUsername = controller.GetNewStudentID()
                 account.LoginPassword = txtPassword.Text
 
                 If controller.InsertStudent(newStud, account) Then
