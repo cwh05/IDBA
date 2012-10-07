@@ -294,7 +294,7 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="180"/>
-                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="120"/>
                                     </Grid.ColumnDefinitions>
 
                                     <StackPanel Grid.Column="0" Margin="1,0,0,3">
@@ -318,7 +318,7 @@
                                     <StackPanel Grid.Column="1" Margin="1,10,0,3">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Marks: " FontSize="15"  />
-                                            <TextBlock Name="txtMarks" Text="{Binding Marks, StringFormat=F1}" Width="50" FontSize="20" FontWeight="Bold"
+                                            <TextBlock Name="txtMarks" Text="{Binding Marks, StringFormat=F1}" Width="60" FontSize="20" FontWeight="Bold"
                                                            TextWrapping="Wrap" />
                                         </StackPanel>
                                     </StackPanel>
