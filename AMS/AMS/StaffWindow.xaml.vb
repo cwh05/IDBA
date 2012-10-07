@@ -8,6 +8,7 @@ Public Class StaffWindow
     Private ReadOnly StaffUsername As String
     Private enrollCourseList As List(Of Enrollment) = New List(Of Enrollment)
     Private editable As Boolean
+    Private selectedCourse As Integer
 
     Dim emailRE As New Regex("^\w+([+-.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
 
@@ -57,6 +58,7 @@ Public Class StaffWindow
             listboxControl.Items.Refresh()
 
         Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
         End Try
 
     End Sub
@@ -77,6 +79,8 @@ Public Class StaffWindow
             If courseDetailListboxControl.SelectedIndex >= 0 Then
                 Dim ent As New Course
                 ent = courseDetailListboxControl.SelectedItem
+
+                selectedCourse = courseDetailListboxControl.SelectedValue
 
                 tbCourseCode.Text = ent.CourseCode
                 tbCourseName.Text = ent.CourseName
@@ -107,10 +111,13 @@ Public Class StaffWindow
                 tbCourseDesc.Focus()
             Else
                 If MsgBox("Update Course: " & tbCourseCode.Text & "?", MsgBoxStyle.YesNo, "Confirmation") = MsgBoxResult.Yes Then
-                    If controller.UpdateCourse(tbCourseCode.Text, tbCourseName.Text, tbCourseDesc.Text, courseDetailListboxControl.SelectedValue) Then
+                    If controller.UpdateCourse(tbCourseCode.Text, tbCourseName.Text, tbCourseDesc.Text, selectedCourse) Then
                         tbCourseCode.IsEnabled = False
                         tbCourseName.IsEnabled = False
                         tbCourseDesc.IsEnabled = False
+                        tbCourseCode.Text = ""
+                        tbCourseName.Text = ""
+                        tbCourseDesc.Text = ""
                         editable = False
                         btnEdit.Content = "edit"
                         ViewCourseEnrolment(courseDetailListboxControl)

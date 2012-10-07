@@ -1,5 +1,7 @@
 ﻿Imports System.Transactions
 Imports System.Data.Objects
+Imports System.Data.SqlClient
+Imports System.Data
 
 Public Class StaffWindowController
 
@@ -65,6 +67,8 @@ Public Class StaffWindowController
 
             Return True
 
+        Catch ex As EntityCommandExecutionException
+            MsgBox("Error: Same Course Code has been detected.", MsgBoxStyle.Exclamation, "Exception")
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Exception")
         End Try
