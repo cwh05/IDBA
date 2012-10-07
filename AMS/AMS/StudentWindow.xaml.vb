@@ -320,6 +320,8 @@ Public Class StudentWindow
                             enrollCourseList.Add(i)
                         Next
 
+                        'removeListBoxControl
+
                         'bind control with new source
                         removeListBoxControl.ItemsSource = enrollCourseList
                         removeListBoxControl.Items.Refresh()
@@ -332,9 +334,8 @@ Public Class StudentWindow
 
                     End If
                 Catch ex As Exception
-                    MessageBox.Show("Removed course unsuccessfully." _
-                           + vbCrLf + enrollCourseList(removeListBoxControl.SelectedIndex).CourseCode.ToString + ": " _
-                           + enrollCourseList(removeListBoxControl.SelectedIndex).CourseName.ToString, "AMS",
+
+                    MessageBox.Show("Removed course unsuccessfully.", "AMS",
                         MessageBoxButton.OK, MessageBoxImage.Error)
                 End Try
             End If
