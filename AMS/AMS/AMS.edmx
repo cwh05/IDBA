@@ -447,6 +447,7 @@
         <Function Name="GetAllCourseOfStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="STAFFID" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetLatestLoginUsername" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetStudentEnrollment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="studentID" Type="int" Mode="In" />
         </Function>
@@ -727,6 +728,7 @@
             <Parameter Name="programId" Mode="In" Type="Int32" />
             <Parameter Name="managerId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetLatestLoginUsername" ReturnType="Collection(Model.GetLatestLoginUsername_Result)" />
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -1073,6 +1075,9 @@
           <Property Type="String" Name="ProgramName" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Double" Name="Marks" />
         </EntityType>
+        <ComplexType Name="GetLatestLoginUsername_Result">
+          <Property Type="String" Name="loginusername" Nullable="false" MaxLength="100" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1373,6 +1378,13 @@
           <FunctionImportMapping FunctionImportName="UpdateCourse" FunctionName="Model.Store.UpdateCourse" />
           <FunctionImportMapping FunctionImportName="UpdateStudentMarks" FunctionName="Model.Store.UpdateStudentMarks" />
           <FunctionImportMapping FunctionImportName="UpdateProgramManager" FunctionName="Model.Store.UpdateProgramManager" />
+          <FunctionImportMapping FunctionImportName="GetLatestLoginUsername" FunctionName="Model.Store.GetLatestLoginUsername">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetLatestLoginUsername_Result">
+                <ScalarProperty Name="loginusername" ColumnName="loginusername" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("84685e72-1285-4582-8170-34f1406ab805")>
+<Assembly: EdmSchemaAttribute("4e419fe8-cd82-4d54-ae06-a2c6eff1fe08")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "fk_EmployeeAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Employee), True)>
 <Assembly: EdmRelationshipAttribute("Model", "fk_StudentAccount", "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Account), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Student), True)>
@@ -1022,6 +1022,14 @@ Public Partial Class AMSEntities
         End If
 
         Return MyBase.ExecuteFunction("UpdateProgramManager", programIdParameter, managerIdParameter)
+
+    End Function
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    Public Function GetLatestLoginUsername() As ObjectResult(Of GetLatestLoginUsername_Result)
+        Return MyBase.ExecuteFunction(Of GetLatestLoginUsername_Result)("GetLatestLoginUsername")
 
     End Function
 
@@ -4528,6 +4536,57 @@ Public Partial Class GetAllCourseOfStaff_Result
     End Sub
 
     Private Partial Sub OnModifiedDateChanged()
+    End Sub
+
+    #End Region
+End Class
+
+''' <summary>
+''' No Metadata Documentation available.
+''' </summary>
+<EdmComplexTypeAttribute(NamespaceName:="Model", Name:="GetLatestLoginUsername_Result")>
+<DataContractAttribute(IsReference:=True)>
+<Serializable()>
+Public Partial Class GetLatestLoginUsername_Result
+    Inherits ComplexObject
+    #Region "Factory Method"
+
+    ''' <summary>
+    ''' Create a new GetLatestLoginUsername_Result object.
+    ''' </summary>
+    ''' <param name="loginusername">Initial value of the loginusername property.</param>
+    Public Shared Function CreateGetLatestLoginUsername_Result(loginusername As Global.System.String) As GetLatestLoginUsername_Result
+        Dim getLatestLoginUsername_Result as GetLatestLoginUsername_Result = New GetLatestLoginUsername_Result
+        getLatestLoginUsername_Result.loginusername = loginusername
+        Return getLatestLoginUsername_Result
+    End Function
+
+    #End Region
+    #Region "Primitive Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property loginusername() As Global.System.String
+        Get
+            Return _loginusername
+        End Get
+        Set
+            OnloginusernameChanging(value)
+            ReportPropertyChanging("loginusername")
+            _loginusername = StructuralObject.SetValidValue(value, false)
+            ReportPropertyChanged("loginusername")
+            OnloginusernameChanged()
+        End Set
+    End Property
+
+    Private _loginusername As Global.System.String
+    Private Partial Sub OnloginusernameChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnloginusernameChanged()
     End Sub
 
     #End Region
