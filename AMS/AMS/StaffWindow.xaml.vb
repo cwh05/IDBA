@@ -99,38 +99,42 @@ Public Class StaffWindow
 
     Private Sub btnEdit_Click(sender As System.Object, e As System.Windows.RoutedEventArgs) Handles btnEdit.Click
 
-        If editable Then
-            If tbCourseCode.Text.Trim.Length <= 0 Then
-                MsgBox("Please fill in course code field.", MsgBoxStyle.Exclamation)
-                tbCourseCode.Focus()
-            ElseIf tbCourseName.Text.Trim.Length <= 0 Then
-                MsgBox("Please fill in course name field.", MsgBoxStyle.Exclamation)
-                tbCourseName.Focus()
-            ElseIf tbCourseDesc.Text.Trim.Length <= 0 Then
-                MsgBox("Please fill in course description field.", MsgBoxStyle.Exclamation)
-                tbCourseDesc.Focus()
-            Else
-                If MsgBox("Update Course: " & tbCourseCode.Text & "?", MsgBoxStyle.YesNo, "Confirmation") = MsgBoxResult.Yes Then
-                    If controller.UpdateCourse(tbCourseCode.Text, tbCourseName.Text, tbCourseDesc.Text, selectedCourse) Then
-                        tbCourseCode.IsEnabled = False
-                        tbCourseName.IsEnabled = False
-                        tbCourseDesc.IsEnabled = False
-                        tbCourseCode.Text = ""
-                        tbCourseName.Text = ""
-                        tbCourseDesc.Text = ""
-                        editable = False
-                        btnEdit.Content = "edit"
-                        ViewCourseEnrolment(courseDetailListboxControl)
+        If courseDetailListboxControl.SelectedIndex >= 0 Then
+
+            If editable Then
+                If tbCourseCode.Text.Trim.Length <= 0 Then
+                    MsgBox("Please fill in course code field.", MsgBoxStyle.Exclamation)
+                    tbCourseCode.Focus()
+                ElseIf tbCourseName.Text.Trim.Length <= 0 Then
+                    MsgBox("Please fill in course name field.", MsgBoxStyle.Exclamation)
+                    tbCourseName.Focus()
+                ElseIf tbCourseDesc.Text.Trim.Length <= 0 Then
+                    MsgBox("Please fill in course description field.", MsgBoxStyle.Exclamation)
+                    tbCourseDesc.Focus()
+                Else
+                    If MsgBox("Update Course: " & tbCourseCode.Text & "?", MsgBoxStyle.YesNo, "Confirmation") = MsgBoxResult.Yes Then
+                        If controller.UpdateCourse(tbCourseCode.Text, tbCourseName.Text, tbCourseDesc.Text, selectedCourse) Then
+                            tbCourseCode.IsEnabled = False
+                            tbCourseName.IsEnabled = False
+                            tbCourseDesc.IsEnabled = False
+                            tbCourseCode.Text = ""
+                            tbCourseName.Text = ""
+                            tbCourseDesc.Text = ""
+                            editable = False
+                            btnEdit.Content = "edit"
+                            ViewCourseEnrolment(courseDetailListboxControl)
+                        End If
                     End If
                 End If
-            End If
-
         Else
             tbCourseCode.IsEnabled = True
             tbCourseName.IsEnabled = True
             tbCourseDesc.IsEnabled = True
             editable = True
             btnEdit.Content = "update"
+            End If
+        Else
+            MsgBox("No course is selected.", MsgBoxStyle.Information)
         End If
 
     End Sub
